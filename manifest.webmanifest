@@ -1,0 +1,31 @@
+{
+  "id": "./",
+  "name": "QR Loto Suite Plus",
+  "short_name": "QR Loto Plus",
+  "description": "QR Loto Suite Plus con LotoLens integrado para generación, análisis histórico y transferencia de firmas.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#061127",
+  "theme_color": "#061127",
+  "icons": [
+    {
+      "src": "icono-qr-loto-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icono-qr-loto-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icono-qr-loto-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
