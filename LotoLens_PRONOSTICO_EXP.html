@@ -487,6 +487,22 @@ html[data-theme=light] .sd-sort-toggle.active .sd-sort-check{
 
 </style>
 
+
+<style id="lotolens-integrated-entry-autohide">
+/* Solo para LotoLens cuando se abre desde QR Loto Suite. */
+html.qr-lotolens-integrated .image-hero {
+  transition: height .28s ease;
+}
+html.qr-lotolens-integrated .app-shell {
+  transition: padding-top .28s ease;
+}
+html.qr-lotolens-integrated .install-toast {
+  transition: top .28s ease;
+}
+html.qr-lotolens-integrated.lotolens-entry-compact {
+  --banner-height: 0px;
+}
+</style>
 </head>
 <body>
   <div id="root"></div>
@@ -1448,5 +1464,28 @@ Error generating stack: `+e.message+`
 
 </script>
 
+
+<script id="lotolens-integrated-entry-autohide-script">
+(() => {
+  const root = document.documentElement;
+  let headerTimer = 0;
+
+  function beginIntegratedEntry() {
+    window.clearTimeout(headerTimer);
+    root.classList.add('qr-lotolens-integrated');
+    root.classList.remove('lotolens-entry-compact');
+    void root.offsetHeight;
+    headerTimer = window.setTimeout(() => {
+      root.classList.add('lotolens-entry-compact');
+    }, 3000);
+  }
+
+  window.addEventListener('message', (event) => {
+    const data = event.data;
+    if (!data || data.type !== 'qr-loto-lotolens-enter') return;
+    beginIntegratedEntry();
+  });
+})();
+</script>
 </body>
 </html>

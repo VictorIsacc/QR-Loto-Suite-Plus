@@ -15471,6 +15471,10 @@ html&gt;body{padding:0}&lt;/style&gt;
     toastTimer = setTimeout(() => { toast.hidden = true; }, 6500);
   }
 
+  function signalLotolensEntry() {
+    try { lensFrame.contentWindow?.postMessage({ type: 'qr-loto-lotolens-enter' }, '*'); } catch (_) {}
+  }
+
   function showView(view) {
     const qr = view !== 'lotolens';
     qrFrame.hidden = !qr;
@@ -15478,9 +15482,14 @@ html&gt;body{padding:0}&lt;/style&gt;
     showQrButton?.classList.toggle('active', qr);
     showLensButton?.classList.toggle('active', !qr);
     try { window.sessionStorage.setItem('qr-lotolens-exp-view', qr ? 'qr' : 'lotolens'); } catch (_) {}
+    if (!qr) {
+      signalLotolensEntry();
+      window.setTimeout(signalLotolensEntry, 120);
+    }
   }
   showQrButton?.addEventListener('click', () => showView('qr'));
   showLensButton?.addEventListener('click', () => showView('lotolens'));
+  lensFrame.addEventListener('load', () => { if (!lensFrame.hidden) signalLotolensEntry(); });
   try { if (window.sessionStorage.getItem('qr-lotolens-exp-view') === 'lotolens') showView('lotolens'); } catch (_) {}
 
   function qrDocument() {
