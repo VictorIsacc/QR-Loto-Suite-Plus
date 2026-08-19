@@ -1,5 +1,5 @@
 const CACHE_PREFIX = "qr-loto-suite-plus-";
-const CACHE_NAME = `${CACHE_PREFIX}v1`;
+const CACHE_NAME = `${CACHE_PREFIX}v2`;
 
 const APP_ASSETS = [
   "./",
