@@ -1656,6 +1656,15 @@ html&gt;body{padding:0}&lt;/style&gt;
       &lt;/div&gt;
     &lt;/div&gt;
 
+    &lt;div class=&quot;filter-interpret-panel&quot; aria-labelledby=&quot;lottery-filter-interpret-label&quot;&gt;
+      &lt;div class=&quot;filter-interpret-copy&quot;&gt;
+        &lt;strong id=&quot;lottery-filter-interpret-label&quot;&gt;Interpretar las combinaciones seleccionadas&lt;/strong&gt;
+        &lt;small&gt;Carga en cada apartado los valores, intervalos y figuras que aparecen en la procedencia. Verde = referencia interpretada; morado = criterio actualmente activo. Despu&#233;s puedes editar, desactivar o cargar una configuraci&#243;n guardada sin perder la referencia verde.&lt;/small&gt;
+      &lt;/div&gt;
+      &lt;button class=&quot;btn btn-primary&quot; id=&quot;lottery-filter-interpret&quot; type=&quot;button&quot; disabled&gt;Interpretar y cargar en filtros&lt;/button&gt;
+      &lt;p class=&quot;filter-interpret-message text-muted&quot; id=&quot;lottery-filter-interpret-message&quot; aria-live=&quot;polite&quot;&gt;Selecciona primero una procedencia con combinaciones.&lt;/p&gt;
+    &lt;/div&gt;
+
     &lt;div class=&quot;filter-profile-panel&quot; aria-labelledby=&quot;lottery-filter-profile-label&quot;&gt;
       &lt;div class=&quot;filter-profile-heading&quot;&gt;
         &lt;div&gt;
@@ -1692,8 +1701,9 @@ html&gt;body{padding:0}&lt;/style&gt;
         &lt;summary&gt;&lt;span class=&quot;filter-number&quot;&gt;1&lt;/span&gt;&lt;strong&gt;Bajos y altos&lt;/strong&gt;&lt;span class=&quot;filter-eliminated&quot; data-filter-eliminated=&quot;low-high&quot;&gt;0 eliminadas&lt;/span&gt;&lt;/summary&gt;
         &lt;div class=&quot;filter-card-body&quot;&gt;
           &lt;label class=&quot;filter-enable&quot;&gt;&lt;input type=&quot;checkbox&quot; data-filter-enabled=&quot;low-high&quot;&gt; Activar este filtro&lt;/label&gt;
-          &lt;p class=&quot;text-muted&quot;&gt;Bajos: 01–24 &#183; Altos: 25–49.&lt;/p&gt;
-          &lt;div class=&quot;filter-range-grid&quot;&gt;
+          &lt;p class=&quot;text-muted&quot;&gt;Bajos: 01–24 &#183; Altos: 25–49. Marca las figuras admitidas; ninguna marcada equivale a todas.&lt;/p&gt;
+          &lt;div class=&quot;filter-chip-grid&quot; id=&quot;lottery-filter-low-high-figures&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;filter-range-grid&quot; hidden aria-hidden=&quot;true&quot;&gt;
             &lt;label class=&quot;form-label&quot;&gt;Bajos m&#237;nimos&lt;input class=&quot;form-control&quot; id=&quot;lottery-filter-low-min&quot; type=&quot;number&quot; min=&quot;0&quot; max=&quot;6&quot; value=&quot;0&quot;&gt;&lt;/label&gt;
             &lt;label class=&quot;form-label&quot;&gt;Bajos m&#225;ximos&lt;input class=&quot;form-control&quot; id=&quot;lottery-filter-low-max&quot; type=&quot;number&quot; min=&quot;0&quot; max=&quot;6&quot; value=&quot;6&quot;&gt;&lt;/label&gt;
             &lt;label class=&quot;form-label&quot;&gt;Altos m&#237;nimos&lt;input class=&quot;form-control&quot; id=&quot;lottery-filter-high-min&quot; type=&quot;number&quot; min=&quot;0&quot; max=&quot;6&quot; value=&quot;0&quot;&gt;&lt;/label&gt;
@@ -5097,6 +5107,45 @@ html&gt;body{padding:0}&lt;/style&gt;
       color-mix(in srgb, var(--card) 95%, #0ea5e9 5%);
   }
 
+  #lottery-simulator-649 .filter-interpret-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.65rem 1rem;
+    align-items: center;
+    padding: 0.9rem 1rem;
+    border: 1px solid color-mix(in srgb, #10b981 40%, var(--border));
+    border-radius: 0.85rem;
+    background:
+      linear-gradient(135deg, color-mix(in srgb, #10b981 10%, transparent), transparent 60%),
+      color-mix(in srgb, var(--card) 95%, #10b981 5%);
+  }
+
+  #lottery-simulator-649 .filter-interpret-copy {
+    display: grid;
+    gap: 0.2rem;
+    min-width: 0;
+  }
+
+  #lottery-simulator-649 .filter-interpret-copy strong {
+    color: color-mix(in srgb, #34d399 82%, var(--foreground));
+    font-size: 1.02rem;
+  }
+
+  #lottery-simulator-649 .filter-interpret-copy small,
+  #lottery-simulator-649 .filter-interpret-message {
+    color: var(--muted-foreground);
+  }
+
+  #lottery-simulator-649 .filter-interpret-message {
+    grid-column: 1 / -1;
+    min-height: 1.3em;
+    margin: 0;
+  }
+
+  #lottery-simulator-649 .filter-interpret-message.is-error {
+    color: var(--destructive);
+  }
+
   #lottery-simulator-649 .filter-profile-heading {
     display: flex;
     align-items: center;
@@ -5193,6 +5242,13 @@ html&gt;body{padding:0}&lt;/style&gt;
     min-width: 0;
   }
 
+  #lottery-simulator-649 .filter-card.has-interpretation summary strong::after {
+    content: &quot; &#183; interpretado&quot;;
+    color: color-mix(in srgb, #34d399 82%, var(--foreground));
+    font-size: 0.72rem;
+    font-weight: 750;
+  }
+
   #lottery-simulator-649 .filter-number {
     display: inline-grid;
     place-items: center;
@@ -5226,6 +5282,22 @@ html&gt;body{padding:0}&lt;/style&gt;
     gap: 0.75rem;
     padding: 0.25rem 0.85rem 0.9rem;
     border-top: 1px solid var(--border);
+  }
+
+  #lottery-simulator-649 .filter-interpreted-note {
+    display: grid;
+    gap: 0.18rem;
+    padding: 0.65rem 0.75rem;
+    border-left: 3px solid #10b981;
+    border-radius: 0 0.6rem 0.6rem 0;
+    background: color-mix(in srgb, #10b981 8%, transparent);
+    color: var(--muted-foreground);
+    font-size: 0.78rem;
+    overflow-wrap: anywhere;
+  }
+
+  #lottery-simulator-649 .filter-interpreted-note strong {
+    color: color-mix(in srgb, #34d399 82%, var(--foreground));
   }
 
   #lottery-simulator-649 .filter-enable {
@@ -5314,6 +5386,23 @@ html&gt;body{padding:0}&lt;/style&gt;
     background: var(--muted);
     font-size: 0.8rem;
     cursor: pointer;
+  }
+
+  #lottery-simulator-649 .filter-chip-frequency {
+    display: inline-grid;
+    place-items: center;
+    min-width: 1.55rem;
+    min-height: 1.35rem;
+    padding: 0 0.35rem;
+    border-radius: var(--radius-full);
+    background: color-mix(in srgb, #10b981 18%, var(--card));
+    color: color-mix(in srgb, #34d399 82%, var(--foreground));
+    font-size: 0.72rem;
+    font-weight: 800;
+  }
+
+  #lottery-simulator-649 .filter-chip-frequency[hidden] {
+    display: none;
   }
 
   #lottery-simulator-649 .filter-message {
@@ -5559,9 +5648,14 @@ html&gt;body{padding:0}&lt;/style&gt;
     }
 
     #lottery-simulator-649 .filter-source-layout,
+    #lottery-simulator-649 .filter-interpret-panel,
     #lottery-simulator-649 .filter-profile-fields,
     #lottery-simulator-649 .filter-grid {
       grid-template-columns: 1fr;
+    }
+
+    #lottery-simulator-649 .filter-interpret-panel .btn {
+      width: 100%;
     }
 
     #lottery-simulator-649 .filter-profile-heading {
@@ -6345,6 +6439,8 @@ html&gt;body{padding:0}&lt;/style&gt;
     const filterSourceDescription = root.querySelector(&#39;#lottery-filter-source-description&#39;);
     const filterSourceCount = root.querySelector(&#39;#lottery-filter-source-count&#39;);
     const filterResultCount = root.querySelector(&#39;#lottery-filter-result-count&#39;);
+    const filterInterpretButton = root.querySelector(&#39;#lottery-filter-interpret&#39;);
+    const filterInterpretMessage = root.querySelector(&#39;#lottery-filter-interpret-message&#39;);
     const filterProfileNameInput = root.querySelector(&#39;#lottery-filter-profile-name&#39;);
     const filterProfileSelect = root.querySelector(&#39;#lottery-filter-profile-select&#39;);
     const filterProfileCount = root.querySelector(&#39;#lottery-filter-profile-count&#39;);
@@ -6474,6 +6570,7 @@ html&gt;body{padding:0}&lt;/style&gt;
     let filterPageIndex = 0;
     let filterBusy = false;
     let filterCancelRequested = false;
+    let filterInterpretBusy = false;
     let savedFilterProfiles = [];
     let filterProfilePendingDeleteId = null;
     let savedPageIndex = 0;
@@ -8448,12 +8545,28 @@ html&gt;body{padding:0}&lt;/style&gt;
         input.type = &#39;checkbox&#39;;
         input.value = figure;
         input.dataset.filterFigure = group;
-        label.append(input, document.createTextNode(formatter(figure)));
+        const text = document.createElement(&#39;span&#39;);
+        text.textContent = formatter(figure);
+        const frequency = document.createElement(&#39;span&#39;);
+        frequency.className = &#39;filter-chip-frequency&#39;;
+        frequency.dataset.filterFrequency = `${group}:${figure}`;
+        frequency.hidden = true;
+        label.append(input, text, frequency);
         container.appendChild(label);
       });
     }
 
     function buildFilterControls() {
+      createFilterFigureChips(
+        root.querySelector(&#39;#lottery-filter-low-high-figures&#39;),
+        Array.from({ length: 7 }, (_, low) =&gt; `${low}-${6 - low}`),
+        &#39;low-high&#39;,
+        (value) =&gt; {
+          const [low, high] = value.split(&#39;-&#39;);
+          return `${low} bajos &#183; ${high} altos`;
+        }
+      );
+
       const decadeRows = root.querySelector(&#39;#lottery-filter-decade-rows&#39;);
       [&#39;01–09&#39;, &#39;10–19&#39;, &#39;20–29&#39;, &#39;30–39&#39;, &#39;40–49&#39;].forEach((label, index) =&gt; {
         createFilterRangeRow(decadeRows, `Decena ${label}`, `decade-${index}`);
@@ -8611,7 +8724,7 @@ html&gt;body{padding:0}&lt;/style&gt;
         row.className = &#39;filter-position-row&#39;;
         const title = document.createElement(&#39;span&#39;);
         title.className = &#39;filter-row-label&#39;;
-        title.textContent = `Bola ${index + 1}`;
+        title.textContent = `P${index + 1} &#183; Bola ${index + 1}`;
         const label = document.createElement(&#39;label&#39;);
         label.className = &#39;form-label&#39;;
         label.textContent = &#39;N&#250;meros admitidos&#39;;
@@ -8966,6 +9079,11 @@ html&gt;body{padding:0}&lt;/style&gt;
       );
       updateFilterSourceSummary(false);
       setFilterProfileMessage(`Configuraci&#243;n &#171;${profile.name}&#187; cargada correctamente.`);
+      if (filterGrid.querySelector(&#39;.has-interpretation&#39;)) {
+        setFilterInterpretMessage(
+          `La referencia interpretada permanece en verde. Los controles y los apartados marcados como activos corresponden ahora a la configuraci&#243;n &#171;${profile.name}&#187;; puedes reactivar o editar cualquier criterio antes de aplicarla.`
+        );
+      }
     }
 
     function deleteSelectedFilterProfile() {
@@ -9017,6 +9135,56 @@ html&gt;body{padding:0}&lt;/style&gt;
     function setFilterMessage(message, isError = false) {
       filterMessage.textContent = message;
       filterMessage.classList.toggle(&#39;is-error&#39;, isError);
+    }
+
+    function setFilterInterpretMessage(message, isError = false) {
+      filterInterpretMessage.textContent = message;
+      filterInterpretMessage.classList.toggle(&#39;is-error&#39;, isError);
+    }
+
+    function clearFilterFigureFrequencies() {
+      filterGrid.querySelectorAll(&#39;[data-filter-frequency]&#39;).forEach((badge) =&gt; {
+        badge.hidden = true;
+        badge.textContent = &#39;&#39;;
+        badge.removeAttribute(&#39;title&#39;);
+      });
+    }
+
+    function clearFilterInterpretationPresentation() {
+      clearFilterFigureFrequencies();
+      filterGrid.querySelectorAll(&#39;[data-filter-card]&#39;).forEach((card) =&gt; {
+        card.classList.remove(&#39;has-interpretation&#39;);
+        card.querySelector(&#39;.filter-interpreted-note&#39;)?.remove();
+      });
+    }
+
+    function setFilterInterpretedNote(key, text) {
+      const card = filterGrid.querySelector(`[data-filter-card=&quot;${key}&quot;]`);
+      const body = card?.querySelector(&#39;.filter-card-body&#39;);
+      if (!card || !body) return;
+      card.classList.add(&#39;has-interpretation&#39;);
+      let note = body.querySelector(&#39;.filter-interpreted-note&#39;);
+      if (!note) {
+        note = document.createElement(&#39;div&#39;);
+        note.className = &#39;filter-interpreted-note&#39;;
+        body.prepend(note);
+      }
+      const heading = document.createElement(&#39;strong&#39;);
+      heading.textContent = &#39;Referencia interpretada de la procedencia&#39;;
+      const detail = document.createElement(&#39;span&#39;);
+      detail.textContent = text;
+      note.replaceChildren(heading, detail);
+    }
+
+    function formatObservedFigures(counts, formatter = (value) =&gt; value) {
+      return [...counts.entries()]
+        .sort(([first], [second]) =&gt; first.localeCompare(second, &#39;es&#39;, { numeric: true }))
+        .map(([value, count]) =&gt; `${formatter(value)} (${count.toLocaleString(&#39;es-ES&#39;)})`)
+        .join(&#39; &#183; &#39;);
+    }
+
+    function formatObservedRange(range) {
+      return range.min === range.max ? String(range.min) : `${range.min}–${range.max}`;
     }
 
     function filterSourceDetails(source = filterSourceSelect.value) {
@@ -9236,12 +9404,295 @@ html&gt;body{padding:0}&lt;/style&gt;
       filterSourceDescription.textContent = details.description;
       filterSourceCount.textContent = `${details.combinations.length.toLocaleString(&#39;es-ES&#39;)} ${details.combinations.length === 1 ? &#39;combinaci&#243;n&#39; : &#39;combinaciones&#39;}`;
       filterApplyButton.disabled = filterBusy || details.combinations.length === 0;
+      filterInterpretButton.disabled = filterBusy || filterInterpretBusy || details.combinations.length === 0;
       if (clearResult) {
+        clearFilterInterpretationPresentation();
+        setFilterInterpretMessage(
+          details.combinations.length
+            ? &#39;Procedencia preparada. Pulsa &#171;Interpretar y cargar en filtros&#187; para reflejar sus caracter&#237;sticas.&#39;
+            : &#39;Selecciona primero una procedencia con combinaciones.&#39;
+        );
         clearFilteredResult(
           details.combinations.length
             ? `${details.combinations.length.toLocaleString(&#39;es-ES&#39;)} combinaciones preparadas. Activa los filtros que necesites y pulsa &#171;Aplicar filtros&#187;.`
             : details.description
         );
+      }
+    }
+
+    function makeObservedRanges(length) {
+      return Array.from({ length }, () =&gt; ({ min: Infinity, max: -Infinity }));
+    }
+
+    function observeFilterRange(range, value) {
+      range.min = Math.min(range.min, value);
+      range.max = Math.max(range.max, value);
+    }
+
+    function countFilterFigure(map, value) {
+      map.set(value, (map.get(value) ?? 0) + 1);
+    }
+
+    function setObservedFilterRange(key, range) {
+      const minInput = filterGrid.querySelector(`[data-filter-min=&quot;${key}&quot;]`);
+      const maxInput = filterGrid.querySelector(`[data-filter-max=&quot;${key}&quot;]`);
+      if (minInput &amp;&amp; Number.isFinite(range.min)) minInput.value = String(range.min);
+      if (maxInput &amp;&amp; Number.isFinite(range.max)) maxInput.value = String(range.max);
+    }
+
+    function setObservedStaticRange(minId, maxId, range) {
+      const minInput = root.querySelector(minId);
+      const maxInput = root.querySelector(maxId);
+      if (minInput &amp;&amp; Number.isFinite(range.min)) minInput.value = String(range.min);
+      if (maxInput &amp;&amp; Number.isFinite(range.max)) maxInput.value = String(range.max);
+    }
+
+    function applyObservedFigureGroup(group, counts) {
+      filterGrid.querySelectorAll(`[data-filter-figure=&quot;${group}&quot;]`).forEach((input) =&gt; {
+        const count = counts.get(input.value) ?? 0;
+        input.checked = count &gt; 0;
+        const badge = filterGrid.querySelector(
+          `[data-filter-frequency=&quot;${group}:${input.value}&quot;]`
+        );
+        if (!badge) return;
+        badge.hidden = count === 0;
+        badge.textContent = count.toLocaleString(&#39;es-ES&#39;);
+        badge.title = `${count.toLocaleString(&#39;es-ES&#39;)} ${count === 1 ? &#39;combinaci&#243;n&#39; : &#39;combinaciones&#39;} con esta figura`;
+      });
+    }
+
+    function resetFilterControlsForInterpretation() {
+      filterGrid.querySelectorAll(&#39;input&#39;).forEach((input) =&gt; {
+        if (input.type === &#39;checkbox&#39;) input.checked = false;
+        else input.value = input.defaultValue;
+      });
+      clearFilterFigureFrequencies();
+    }
+
+    function observedSumIntervals(values) {
+      const sorted = [...values].sort((first, second) =&gt; first - second);
+      const intervals = [];
+      sorted.forEach((value) =&gt; {
+        const previous = intervals.at(-1);
+        if (!previous || value &gt; previous.max + 1) intervals.push({ min: value, max: value });
+        else previous.max = value;
+      });
+      if (intervals.length &lt;= 10) return { intervals, exact: true };
+      return { intervals: [{ min: sorted[0], max: sorted.at(-1) }], exact: false };
+    }
+
+    function loadFilterInterpretation(stats) {
+      resetFilterControlsForInterpretation();
+
+      applyObservedFigureGroup(&#39;low-high&#39;, stats.figures.lowHigh);
+      setFilterInterpretedNote(
+        &#39;low-high&#39;,
+        formatObservedFigures(stats.figures.lowHigh, (value) =&gt; {
+          const [low, high] = value.split(&#39;-&#39;);
+          return `${low} bajos / ${high} altos`;
+        })
+      );
+
+      stats.decades.forEach((range, index) =&gt; setObservedFilterRange(`decade-${index}`, range));
+      applyObservedFigureGroup(&#39;decades&#39;, stats.figures.decades);
+      setFilterInterpretedNote(
+        &#39;decades&#39;,
+        `Figuras: ${formatObservedFigures(stats.figures.decades)}. Recuentos por decena: ${stats.decades.map((range, index) =&gt; `D${index + 1} ${formatObservedRange(range)}`).join(&#39; &#183; &#39;)}.`
+      );
+
+      stats.distances.forEach((range, index) =&gt; setObservedFilterRange(`distance-${index}`, range));
+      stats.distanceSd.forEach((range, index) =&gt; setObservedFilterRange(`distance-sd-${index + 1}`, range));
+      applyObservedFigureGroup(&#39;distance-sd&#39;, stats.figures.distanceSd);
+      setObservedStaticRange(&#39;#lottery-filter-span-min&#39;, &#39;#lottery-filter-span-max&#39;, stats.span);
+      setObservedStaticRange(
+        &#39;#lottery-filter-pair-distance-min&#39;,
+        &#39;#lottery-filter-pair-distance-max&#39;,
+        stats.pairDistance
+      );
+      setFilterInterpretedNote(
+        &#39;distances&#39;,
+        `Figuras SD: ${formatObservedFigures(stats.figures.distanceSd)}. Distancias: ${stats.distances.map((range, index) =&gt; `D${index + 1}-${index + 2} ${formatObservedRange(range)}`).join(&#39; &#183; &#39;)}. Amplitud ${formatObservedRange(stats.span)}.`
+      );
+
+      setFilterInterpretedNote(
+        &#39;groups&#39;,
+        &#39;Este apartado no se deduce autom&#225;ticamente porque los grupos son personales. Conserva la edici&#243;n y activaci&#243;n manual.&#39;
+      );
+
+      stats.roots.forEach((range, index) =&gt; setObservedFilterRange(`root-${index + 1}`, range));
+      applyObservedFigureGroup(&#39;digital-roots&#39;, stats.figures.roots);
+      setFilterInterpretedNote(
+        &#39;digital-roots&#39;,
+        `Figuras: ${formatObservedFigures(stats.figures.roots)}. Recuentos por ra&#237;z: ${stats.roots.map((range, index) =&gt; `R${index + 1} ${formatObservedRange(range)}`).join(&#39; &#183; &#39;)}.`
+      );
+      applyObservedFigureGroup(&#39;parity&#39;, stats.figures.parity);
+      setFilterInterpretedNote(
+        &#39;parity&#39;,
+        formatObservedFigures(stats.figures.parity, (value) =&gt; {
+          const [even, odd] = value.split(&#39;-&#39;);
+          return `${even} pares / ${odd} impares`;
+        })
+      );
+      setObservedStaticRange(
+        &#39;#lottery-filter-consecutive-min&#39;,
+        &#39;#lottery-filter-consecutive-max&#39;,
+        stats.consecutive
+      );
+      applyObservedFigureGroup(&#39;consecutives&#39;, stats.figures.consecutives);
+      setFilterInterpretedNote(
+        &#39;consecutives&#39;,
+        `Figuras de cadenas: ${formatObservedFigures(stats.figures.consecutives)}. Enlaces consecutivos ${formatObservedRange(stats.consecutive)}.`
+      );
+
+      const sums = observedSumIntervals(stats.sums);
+      for (let index = 0; index &lt; 10; index += 1) {
+        const interval = sums.intervals[index];
+        filterGrid.querySelector(`[data-filter-sum-min=&quot;${index}&quot;]`).value = interval ? String(interval.min) : &#39;&#39;;
+        filterGrid.querySelector(`[data-filter-sum-max=&quot;${index}&quot;]`).value = interval ? String(interval.max) : &#39;&#39;;
+      }
+      setFilterInterpretedNote(
+        &#39;sums&#39;,
+        `Sumas observadas: ${sums.intervals.map((range) =&gt; formatObservedRange(range)).join(&#39;, &#39;)}${sums.exact ? &#39;.&#39; : &#39; (agrupadas en un intervalo envolvente).&#39;}`
+      );
+
+      stats.endings.forEach((range, index) =&gt; setObservedFilterRange(`ending-${index}`, range));
+      setObservedStaticRange(
+        &#39;#lottery-filter-ending-sum-min&#39;,
+        &#39;#lottery-filter-ending-sum-max&#39;,
+        stats.endingSum
+      );
+      applyObservedFigureGroup(&#39;endings&#39;, stats.figures.endings);
+      setFilterInterpretedNote(
+        &#39;endings&#39;,
+        `Figuras: ${formatObservedFigures(stats.figures.endings)}. Suma de terminaciones ${formatObservedRange(stats.endingSum)}.`
+      );
+
+      stats.positions.forEach((values, index) =&gt; {
+        filterGrid.querySelector(`[data-filter-position=&quot;${index}&quot;]`).value = [...values]
+          .sort((first, second) =&gt; first - second)
+          .join(&#39;, &#39;);
+      });
+      setFilterInterpretedNote(
+        &#39;positions&#39;,
+        stats.positions.map((values, index) =&gt; `P${index + 1}: ${[...values].sort((first, second) =&gt; first - second).join(&#39;, &#39;)}`).join(&#39; &#183; &#39;)
+      );
+
+      const interpretedKeys = new Set([
+        &#39;low-high&#39;, &#39;decades&#39;, &#39;distances&#39;, &#39;digital-roots&#39;, &#39;parity&#39;,
+        &#39;consecutives&#39;, &#39;sums&#39;, &#39;endings&#39;, &#39;positions&#39;
+      ]);
+      filterGrid.querySelectorAll(&#39;[data-filter-enabled]&#39;).forEach((input) =&gt; {
+        input.checked = interpretedKeys.has(input.dataset.filterEnabled);
+      });
+      refreshFilterCardStates();
+      return sums.exact;
+    }
+
+    async function interpretFilterSource() {
+      if (filterBusy || filterInterpretBusy) return;
+      const source = filterSourceDetails();
+      const combinations = source.combinations;
+      if (combinations.length === 0) {
+        setFilterInterpretMessage(&#39;La procedencia seleccionada no contiene combinaciones que interpretar.&#39;, true);
+        return;
+      }
+
+      const preventiveLimit = FILTER_DESKTOP_COMBINATION_LIMIT;
+      const safeLimit = effectiveCombinationLimit(preventiveLimit);
+      if (combinations.length &gt; safeLimit) {
+        setFilterInterpretMessage(
+          `La procedencia contiene ${combinations.length.toLocaleString(&#39;es-ES&#39;)} combinaciones y supera el l&#237;mite seguro de ${safeLimit.toLocaleString(&#39;es-ES&#39;)} para interpretarlas en este dispositivo.`,
+          true
+        );
+        return;
+      }
+
+      filterInterpretBusy = true;
+      filterInterpretButton.disabled = true;
+      filterApplyButton.disabled = true;
+      filterSourceSelect.disabled = true;
+      filterResetButton.disabled = true;
+      filterProfileSaveButton.disabled = true;
+      filterProfileLoadButton.disabled = true;
+      filterProfileDeleteButton.disabled = true;
+      filterProfileExportButton.disabled = true;
+      filterProfileImportButton.disabled = true;
+      setFilterInterpretMessage(`Interpretando ${combinations.length.toLocaleString(&#39;es-ES&#39;)} combinaciones…`);
+
+      try {
+      const stats = {
+        low: { min: Infinity, max: -Infinity },
+        decades: makeObservedRanges(5),
+        distances: makeObservedRanges(5),
+        distanceSd: makeObservedRanges(9),
+        span: { min: Infinity, max: -Infinity },
+        pairDistance: { min: Infinity, max: -Infinity },
+        roots: makeObservedRanges(9),
+        consecutive: { min: Infinity, max: -Infinity },
+        sums: new Set(),
+        endings: makeObservedRanges(10),
+        endingSum: { min: Infinity, max: -Infinity },
+        positions: Array.from({ length: 6 }, () =&gt; new Set()),
+        figures: {
+          lowHigh: new Map(),
+          decades: new Map(),
+          distanceSd: new Map(),
+          roots: new Map(),
+          parity: new Map(),
+          consecutives: new Map(),
+          endings: new Map()
+        }
+      };
+
+      const chunkSize = 5000;
+      for (let index = 0; index &lt; combinations.length; index += 1) {
+        const metrics = analyseFilterCombination(combinations[index]);
+        observeFilterRange(stats.low, metrics.low);
+        metrics.decadeCounts.forEach((value, position) =&gt; observeFilterRange(stats.decades[position], value));
+        metrics.distances.forEach((value, position) =&gt; observeFilterRange(stats.distances[position], value));
+        metrics.distanceDigitalCounts.forEach((value, position) =&gt; observeFilterRange(stats.distanceSd[position], value));
+        observeFilterRange(stats.span, metrics.span);
+        observeFilterRange(stats.pairDistance, metrics.pairDistanceSum);
+        metrics.rootCounts.forEach((value, position) =&gt; observeFilterRange(stats.roots[position], value));
+        observeFilterRange(stats.consecutive, metrics.consecutiveLinks);
+        stats.sums.add(metrics.sum);
+        metrics.endingCounts.forEach((value, position) =&gt; observeFilterRange(stats.endings[position], value));
+        observeFilterRange(stats.endingSum, metrics.endingSum);
+        metrics.numbers.forEach((value, position) =&gt; stats.positions[position].add(value));
+        countFilterFigure(stats.figures.lowHigh, `${metrics.low}-${metrics.high}`);
+        countFilterFigure(stats.figures.decades, metrics.decadeFigure);
+        countFilterFigure(stats.figures.distanceSd, metrics.distanceDigitalFigure);
+        countFilterFigure(stats.figures.roots, metrics.rootFigure);
+        countFilterFigure(stats.figures.parity, `${metrics.even}-${metrics.odd}`);
+        countFilterFigure(stats.figures.consecutives, metrics.consecutiveFigure);
+        countFilterFigure(stats.figures.endings, metrics.endingFigure);
+
+        if ((index + 1) % chunkSize === 0) {
+          setFilterInterpretMessage(`Interpretando combinaciones… ${Math.round((index + 1) / combinations.length * 100)} %`);
+          await wait(0);
+        }
+      }
+
+      const exactSums = loadFilterInterpretation(stats);
+      clearFilteredResult(
+        &#39;Interpretaci&#243;n cargada. Revisa, edita o desactiva apartados y pulsa &#171;Aplicar filtros&#187;.&#39;
+      );
+      setFilterInterpretMessage(
+        `Interpretaci&#243;n de ${combinations.length.toLocaleString(&#39;es-ES&#39;)} combinaciones cargada en 9 apartados. Las cifras verdes indican cu&#225;ntas cumplen cada figura. El apartado &#171;Grupos de n&#250;meros&#187; queda manual${exactSums ? &#39;.&#39; : &#39;; las sumas se han agrupado en su intervalo total al superar diez tramos distintos.&#39;}`
+      );
+      } catch (error) {
+        setFilterInterpretMessage(
+          error.message || &#39;No se han podido interpretar las combinaciones seleccionadas.&#39;,
+          true
+        );
+      } finally {
+        filterInterpretBusy = false;
+        filterInterpretButton.disabled = filterSourceDetails().combinations.length === 0;
+        filterApplyButton.disabled = filterSourceDetails().combinations.length === 0;
+        filterSourceSelect.disabled = false;
+        filterResetButton.disabled = false;
+        filterProfileSaveButton.disabled = false;
+        renderFilterProfiles();
       }
     }
 
@@ -9313,6 +9764,7 @@ html&gt;body{padding:0}&lt;/style&gt;
 
       configuration.low = readStaticRange(&#39;#lottery-filter-low-min&#39;, &#39;#lottery-filter-low-max&#39;, 0, 6, &#39;Bajos&#39;);
       configuration.high = readStaticRange(&#39;#lottery-filter-high-min&#39;, &#39;#lottery-filter-high-max&#39;, 0, 6, &#39;Altos&#39;);
+      configuration.lowHighFigures = selectedFilterFigures(&#39;low-high&#39;);
       configuration.decades = Array.from({ length: 5 }, (_, index) =&gt; (
         readFilterRange(`decade-${index}`, 0, 6, `Decena ${index + 1}`)
       ));
@@ -9473,8 +9925,9 @@ html&gt;body{padding:0}&lt;/style&gt;
 
     function filterCombinationPasses(key, metrics, configuration) {
       if (key === &#39;low-high&#39;) {
-        return valueInRange(metrics.low, configuration.low)
-          &amp;&amp; valueInRange(metrics.high, configuration.high);
+        return configuration.lowHighFigures.size &gt; 0
+          ? configuration.lowHighFigures.has(`${metrics.low}-${metrics.high}`)
+          : valueInRange(metrics.low, configuration.low) &amp;&amp; valueInRange(metrics.high, configuration.high);
       }
       if (key === &#39;decades&#39;) {
         return metrics.decadeCounts.every((count, index) =&gt; valueInRange(count, configuration.decades[index]))
@@ -9614,6 +10067,7 @@ html&gt;body{padding:0}&lt;/style&gt;
       filterBusy = true;
       filterCancelRequested = false;
       filterApplyButton.disabled = true;
+      filterInterpretButton.disabled = true;
       filterCancelButton.hidden = false;
       filterCancelButton.disabled = false;
       filterResetButton.disabled = true;
@@ -9660,6 +10114,7 @@ html&gt;body{padding:0}&lt;/style&gt;
       filterCancelButton.disabled = true;
       filterResetButton.disabled = false;
       filterApplyButton.disabled = false;
+      filterInterpretButton.disabled = false;
       filterProfileSaveButton.disabled = false;
       renderFilterProfiles();
       if (filterCancelRequested) {
@@ -9703,6 +10158,8 @@ html&gt;body{padding:0}&lt;/style&gt;
         if (input.type === &#39;checkbox&#39;) input.checked = false;
         else input.value = input.defaultValue;
       });
+      clearFilterInterpretationPresentation();
+      setFilterInterpretMessage(&#39;La interpretaci&#243;n visual se ha limpiado. Puedes volver a generarla desde la procedencia seleccionada.&#39;);
       refreshFilterCardStates();
       clearFilteredResult(&#39;Filtros restablecidos. La procedencia seleccionada se mantiene sin cambios.&#39;);
       updateFilterSourceSummary(false);
@@ -14831,6 +15288,7 @@ html&gt;body{padding:0}&lt;/style&gt;
       event.preventDefault();
       saveCurrentFilterProfile();
     });
+    filterInterpretButton.addEventListener(&#39;click&#39;, interpretFilterSource);
     filterSourceSelect.addEventListener(&#39;change&#39;, () =&gt; updateFilterSourceSummary());
     filterGrid.addEventListener(&#39;change&#39;, () =&gt; {
       refreshFilterCardStates();
