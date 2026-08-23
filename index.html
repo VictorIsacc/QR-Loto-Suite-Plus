@@ -1431,6 +1431,26 @@ html&gt;body{padding:0}&lt;/style&gt;
       &lt;p id=&quot;lottery-digital-explanation-text&quot;&gt;La raíz digital de cada número ocupa su posición natural P1–P6. La SDCD es la raíz digital de la suma de los seis valores digitales. Con los nueve valores activos en todas las columnas se representan las 13.983.816 combinaciones del 6/49.&lt;/p&gt;
     &lt;/div&gt;
 
+    &lt;div class=&quot;signature-source-panel&quot; aria-labelledby=&quot;lottery-positional-source-label&quot;&gt;
+      &lt;label class=&quot;form-label&quot; for=&quot;lottery-positional-source&quot;&gt;
+        &lt;strong id=&quot;lottery-positional-source-label&quot;&gt;Combinaciones sobre las que se aplicará la firma&lt;/strong&gt;
+        &lt;select class=&quot;form-select&quot; id=&quot;lottery-positional-source&quot;&gt;
+        &lt;option value=&quot;universe&quot; selected&gt;Universo completo 6/49&lt;/option&gt;
+        &lt;option value=&quot;current&quot;&gt;Bombo · combinación actual&lt;/option&gt;
+        &lt;option value=&quot;random&quot;&gt;Bombo · combinaciones guardadas&lt;/option&gt;
+        &lt;option value=&quot;rules&quot;&gt;Generador con fijos y semifijos&lt;/option&gt;
+        &lt;option value=&quot;imported&quot;&gt;TXT, portapapeles o PTCQ&lt;/option&gt;
+        &lt;option value=&quot;reduced&quot;&gt;Última reducción matemática&lt;/option&gt;
+        &lt;option value=&quot;development&quot;&gt;Último desarrollo completo&lt;/option&gt;
+        &lt;option value=&quot;filtered&quot;&gt;Último resultado de Filtros&lt;/option&gt;
+        &lt;option value=&quot;digital&quot;&gt;Último resultado de firma posicional&lt;/option&gt;
+        &lt;option value=&quot;distance&quot;&gt;Último resultado de firma de distancias&lt;/option&gt;
+        &lt;option value=&quot;ticket&quot;&gt;Boleto cargado desde Mis boletos&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/label&gt;
+      &lt;span class=&quot;signature-source-status&quot; id=&quot;lottery-positional-source-status&quot;&gt;Se generarán equivalencias sobre el universo completo 6/49.&lt;/span&gt;
+    &lt;/div&gt;
+
     &lt;div class=&quot;digital-panel-scroll&quot; id=&quot;lottery-digital-panel-scroll&quot; tabindex=&quot;0&quot; aria-label=&quot;Panel desplazable de valores de raíz digital&quot;&gt;
       &lt;div class=&quot;digital-panel&quot; id=&quot;lottery-digital-panel&quot; aria-label=&quot;Selección de raíces digitales por posición y SDCD&quot;&gt;&lt;/div&gt;
     &lt;/div&gt;
@@ -1522,6 +1542,26 @@ html&gt;body{padding:0}&lt;/style&gt;
     &lt;div class=&quot;digital-explanation&quot;&gt;
       &lt;strong&gt;Relación exacta&lt;/strong&gt;
       &lt;p&gt;Firma: D1–2 · D2–3 · D3–4 · D4–5 · D5–6. Cada valor admite 1–44; la suma válida está entre 5 y 48 y sus equivalencias naturales son 49 menos esa suma.&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;signature-source-panel signature-source-panel-distance&quot; aria-labelledby=&quot;lottery-distance-source-input-label&quot;&gt;
+      &lt;label class=&quot;form-label&quot; for=&quot;lottery-distance-source-input&quot;&gt;
+        &lt;strong id=&quot;lottery-distance-source-input-label&quot;&gt;Combinaciones sobre las que se aplicará la firma&lt;/strong&gt;
+        &lt;select class=&quot;form-select&quot; id=&quot;lottery-distance-source-input&quot;&gt;
+        &lt;option value=&quot;universe&quot; selected&gt;Universo completo 6/49&lt;/option&gt;
+        &lt;option value=&quot;current&quot;&gt;Bombo · combinación actual&lt;/option&gt;
+        &lt;option value=&quot;random&quot;&gt;Bombo · combinaciones guardadas&lt;/option&gt;
+        &lt;option value=&quot;rules&quot;&gt;Generador con fijos y semifijos&lt;/option&gt;
+        &lt;option value=&quot;imported&quot;&gt;TXT, portapapeles o PTCQ&lt;/option&gt;
+        &lt;option value=&quot;reduced&quot;&gt;Última reducción matemática&lt;/option&gt;
+        &lt;option value=&quot;development&quot;&gt;Último desarrollo completo&lt;/option&gt;
+        &lt;option value=&quot;filtered&quot;&gt;Último resultado de Filtros&lt;/option&gt;
+        &lt;option value=&quot;digital&quot;&gt;Último resultado de firma posicional&lt;/option&gt;
+        &lt;option value=&quot;distance&quot;&gt;Último resultado de firma de distancias&lt;/option&gt;
+        &lt;option value=&quot;ticket&quot;&gt;Boleto cargado desde Mis boletos&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/label&gt;
+      &lt;span class=&quot;signature-source-status&quot; id=&quot;lottery-distance-source-status&quot;&gt;Se generarán equivalencias sobre el universo completo 6/49.&lt;/span&gt;
     &lt;/div&gt;
 
     &lt;div class=&quot;distance-panel-scroll&quot; tabindex=&quot;0&quot; aria-label=&quot;Panel desplazable de distancias por parejas contiguas&quot;&gt;
@@ -3408,6 +3448,33 @@ html&gt;body{padding:0}&lt;/style&gt;
     border-radius: 0.65rem;
     background: color-mix(in srgb, #06b6d4 8%, var(--muted));
   }
+
+  #lottery-simulator-649 .signature-source-panel {
+    display: grid;
+    grid-template-columns: minmax(17rem, 30rem) minmax(0, 1fr);
+    gap: 0.9rem;
+    align-items: end;
+    padding: 0.8rem 0.9rem;
+    border: 1px solid color-mix(in srgb, #06b6d4 38%, var(--border));
+    border-radius: 0.8rem;
+    background: color-mix(in srgb, #06b6d4 7%, var(--card));
+  }
+
+  #lottery-simulator-649 .signature-source-panel-distance {
+    border-color: color-mix(in srgb, #a855f7 38%, var(--border));
+    background: color-mix(in srgb, #a855f7 7%, var(--card));
+  }
+
+  #lottery-simulator-649 .signature-source-status {
+    color: var(--muted-foreground);
+    line-height: 1.45;
+  }
+
+  @media (max-width: 720px) {
+    #lottery-simulator-649 .signature-source-panel { grid-template-columns: 1fr; }
+  }
+
+
 
   #lottery-simulator-649 .lottery-high-load {
     position: relative;
@@ -6367,6 +6434,10 @@ html&gt;body{padding:0}&lt;/style&gt;
     const developmentQrButton = root.querySelector(&#39;#lottery-development-qr&#39;);
     const developmentClearOutputButton = root.querySelector(&#39;#lottery-development-clear-output&#39;);
     const digitalSection = root.querySelector(&#39;#lottery-digital-section&#39;);
+    const positionalSourceSelect = root.querySelector(&#39;#lottery-positional-source&#39;);
+    const positionalSourceStatus = root.querySelector(&#39;#lottery-positional-source-status&#39;);
+    const distanceSourceInputSelect = root.querySelector(&#39;#lottery-distance-source-input&#39;);
+    const distanceSourceStatus = root.querySelector(&#39;#lottery-distance-source-status&#39;);
     const digitalHeadingDescription = root.querySelector(&#39;#lottery-digital-heading-description&#39;);
     const digitalSignatureTypeSelect = root.querySelector(&#39;#lottery-digital-signature-type&#39;);
     const digitalExplanationText = root.querySelector(&#39;#lottery-digital-explanation-text&#39;);
@@ -7077,6 +7148,271 @@ html&gt;body{padding:0}&lt;/style&gt;
       );
     }
 
+    // ===== FIRMAS COMO FILTRO DE CUALQUIER PROCEDENCIA =====
+    function signatureInputSourceDetails(source) {
+      if (source === &#39;universe&#39;) {
+        return {
+          key: &#39;universe&#39;,
+          label: &#39;Universo completo 6/49&#39;,
+          description: &#39;Las firmas desarrollarán sus equivalencias sobre las 13.983.816 combinaciones.&#39;,
+          combinations: null
+        };
+      }
+      if (source === &#39;filtered&#39;) {
+        return {
+          key: &#39;filtered&#39;,
+          label: &#39;Último resultado de Filtros&#39;,
+          description: filteredCombinations.length
+            ? &#39;Combinaciones conservadas por la última ejecución de Filtros.&#39;
+            : &#39;Todavía no hay un resultado en Filtros.&#39;,
+          combinations: filteredCombinations
+        };
+      }
+      const details = filterSourceDetails(source);
+      return {
+        key: source,
+        label: details.label,
+        description: details.description,
+        combinations: Array.isArray(details.combinations) ? details.combinations : []
+      };
+    }
+
+    function selectedSignatureInput(select) {
+      const details = signatureInputSourceDetails(select.value);
+      if (details.combinations === null) return details;
+      return {
+        ...details,
+        combinations: details.combinations.map((combination) =&gt; [...combination])
+      };
+    }
+
+    function refreshSignatureSourceSelectors() {
+      [
+        [positionalSourceSelect, positionalSourceStatus],
+        [distanceSourceInputSelect, distanceSourceStatus]
+      ].forEach(([select, status]) =&gt; {
+        if (!select || !status) return;
+        [...select.options].forEach((option) =&gt; {
+          if (option.value === &#39;universe&#39;) return;
+          const details = signatureInputSourceDetails(option.value);
+          const total = details.combinations.length;
+          option.textContent = details.label + &#39; · &#39; + total.toLocaleString(&#39;es-ES&#39;);
+          option.disabled = total === 0;
+        });
+        const details = signatureInputSourceDetails(select.value);
+        if (details.combinations === null) {
+          status.textContent = details.description;
+        } else if (details.combinations.length) {
+          status.textContent = details.combinations.length.toLocaleString(&#39;es-ES&#39;)
+            + &#39; combinaciones disponibles de «&#39; + details.label + &#39;». La firma conservará solo las que cumplan sus valores.&#39;;
+        } else {
+          select.value = &#39;universe&#39;;
+          status.textContent = signatureInputSourceDetails(&#39;universe&#39;).description;
+        }
+      });
+      digitalGenerateButton.textContent = positionalSourceSelect.value === &#39;universe&#39;
+        ? &#39;Calcular y generar desarrollo&#39;
+        : &#39;Aplicar firma como filtro&#39;;
+      distanceGenerateButton.textContent = distanceSourceInputSelect.value === &#39;universe&#39;
+        ? &#39;Calcular y generar desarrollo&#39;
+        : &#39;Aplicar firma como filtro&#39;;
+    }
+
+    function selectImportedForSignatures() {
+      if (!importedCombinations.length) return;
+      positionalSourceSelect.value = &#39;imported&#39;;
+      distanceSourceInputSelect.value = &#39;imported&#39;;
+      refreshSignatureSourceSelectors();
+    }
+
+    function renderLoadedPositionalAnalysis(mode, combinations, patternKeys, sourceTotal) {
+      digitalPatternLabel.textContent = mode === &#39;combined&#39;
+        ? &#39;Cruces de firmas retenidos&#39;
+        : mode === &#39;termination&#39; ? &#39;Firmas de terminación retenidas&#39; : &#39;Firmas digitales retenidas&#39;;
+      digitalPatternTotal.textContent = patternKeys.size.toLocaleString(&#39;es-ES&#39;);
+      digitalNaturalTotal.textContent = combinations.length.toLocaleString(&#39;es-ES&#39;);
+      digitalSafeLimit.textContent = &#39;Entrada · &#39; + sourceTotal.toLocaleString(&#39;es-ES&#39;);
+      digitalTotalBadge.textContent = combinations.length.toLocaleString(&#39;es-ES&#39;) + &#39; filtradas&#39;;
+      digitalEquivalenceBreakdown.replaceChildren();
+      const stats = new Map(DIGITAL_EQUIVALENCE_VALUES.map((value) =&gt; [value, { patterns: new Set(), natural: 0 }]));
+      combinations.forEach((combination) =&gt; {
+        const pattern = mode === &#39;termination&#39;
+          ? combination.map((number) =&gt; number % 10)
+          : combination.map(digitalRoot);
+        const equivalence = mode === &#39;termination&#39;
+          ? countTerminationPatternEquivalents(pattern)
+          : countDigitalPatternEquivalents(pattern);
+        const item = stats.get(equivalence);
+        if (!item) return;
+        item.patterns.add(pattern.join(&#39;-&#39;));
+        item.natural += 1;
+      });
+      DIGITAL_EQUIVALENCE_VALUES.forEach((value) =&gt; {
+        const item = stats.get(value);
+        const chip = document.createElement(&#39;span&#39;);
+        chip.className = &#39;digital-equivalence-stat&#39;;
+        const title = document.createElement(&#39;strong&#39;);
+        title.textContent = value + &#39; eq.&#39;;
+        chip.append(title, document.createTextNode(
+          item.patterns.size.toLocaleString(&#39;es-ES&#39;) + &#39; firmas · &#39;
+          + item.natural.toLocaleString(&#39;es-ES&#39;) + &#39; conservadas&#39;
+        ));
+        digitalEquivalenceBreakdown.appendChild(chip);
+      });
+    }
+
+    async function filterLoadedCombinationsByPositionalSignatures(modes, outputMode) {
+      const source = selectedSignatureInput(positionalSourceSelect);
+      if (!source.combinations || source.combinations.length === 0) {
+        setDigitalMessage(&#39;La procedencia seleccionada no contiene combinaciones para filtrar.&#39;, &#39;error&#39;);
+        return;
+      }
+      const input = source.combinations;
+      digitalBusy = true;
+      digitalCancelRequested = false;
+      digitalGeneratedCombinations = [];
+      digitalGeneratedPatternCount = 0;
+      digitalGeneratedSignatureMode = outputMode;
+      digitalLastAnalysis = null;
+      digitalOutput.hidden = true;
+      resetDigitalQrWarning();
+      refreshDigitalControls();
+      setDigitalMessage(&#39;Aplicando &#39; + (outputMode === &#39;combined&#39; ? &#39;las firmas digital y de terminación&#39; : signatureModeDetails(outputMode).sourceLabel.toLocaleLowerCase(&#39;es-ES&#39;))
+        + &#39; a &#39; + input.length.toLocaleString(&#39;es-ES&#39;) + &#39; combinaciones de «&#39; + source.label + &#39;»…&#39;);
+      try {
+        const digitalCache = new Map();
+        const terminationCache = new Map();
+        const generated = [];
+        const patternKeys = new Set();
+        for (let index = 0; index &lt; input.length; index += 1) {
+          const combination = input[index];
+          if (modes.includes(&#39;digital&#39;) &amp;&amp; !combinationMatchesDigitalConfiguration(combination, digitalCache)) continue;
+          if (modes.includes(&#39;termination&#39;) &amp;&amp; !combinationMatchesTerminationConfiguration(combination, terminationCache)) continue;
+          generated.push(combination);
+          const roots = combination.map(digitalRoot).join(&#39;-&#39;);
+          const endings = combination.map((number) =&gt; number % 10).join(&#39;-&#39;);
+          patternKeys.add(outputMode === &#39;combined&#39; ? roots + &#39;|&#39; + endings : outputMode === &#39;termination&#39; ? endings : roots);
+          if ((index + 1) % 20000 === 0) {
+            setDigitalMessage(&#39;Filtrando «&#39; + source.label + &#39;»… &#39; + (index + 1).toLocaleString(&#39;es-ES&#39;)
+              + &#39; de &#39; + input.length.toLocaleString(&#39;es-ES&#39;) + &#39; revisadas.&#39;);
+            await wait(0);
+            if (digitalCancelRequested) return;
+          }
+        }
+        digitalGeneratedCombinations = generated;
+        digitalGeneratedPatternCount = patternKeys.size;
+        digitalPageIndex = 0;
+        if (outputMode === &#39;combined&#39;) {
+          renderCombinedAnalysis({
+            patternCount: patternKeys.size,
+            naturalTotal: generated.length,
+            candidateTotal: input.length
+          }, input.length);
+          digitalSafeLimit.textContent = &#39;Entrada · &#39; + input.length.toLocaleString(&#39;es-ES&#39;);
+          digitalTotalBadge.textContent = generated.length.toLocaleString(&#39;es-ES&#39;) + &#39; filtradas&#39;;
+        } else {
+          renderLoadedPositionalAnalysis(outputMode, generated, patternKeys, input.length);
+        }
+        digitalResultDescription.textContent = generated.length.toLocaleString(&#39;es-ES&#39;) + &#39; de &#39;
+          + input.length.toLocaleString(&#39;es-ES&#39;) + &#39; combinaciones de «&#39; + source.label + &#39;» cumplen &#39;
+          + (outputMode === &#39;combined&#39; ? &#39;las firmas digital y de terminación.&#39; : signatureModeDetails(outputMode).sourceLabel.toLocaleLowerCase(&#39;es-ES&#39;) + &#39;.&#39;);
+        renderDigitalResults();
+        refreshFilterSourceButtons();
+        setDigitalMessage(&#39;Filtro completado: &#39; + generated.length.toLocaleString(&#39;es-ES&#39;) + &#39; de &#39;
+          + input.length.toLocaleString(&#39;es-ES&#39;) + &#39; combinaciones conservadas.&#39;);
+        if (generated.length === 0) setDigitalMessage(&#39;Ninguna combinación de «&#39; + source.label + &#39;» cumple la firma configurada.&#39;, &#39;error&#39;);
+      } catch (error) {
+        digitalGeneratedCombinations = [];
+        digitalGeneratedPatternCount = 0;
+        digitalOutput.hidden = true;
+        refreshFilterSourceButtons();
+        setDigitalMessage(&#39;No se ha podido aplicar la firma como filtro: &#39; + (error.message || &#39;error desconocido&#39;) + &#39;.&#39;, &#39;error&#39;);
+      } finally {
+        digitalBusy = false;
+        digitalCancelRequested = false;
+        refreshDigitalControls();
+        refreshSignatureSourceSelectors();
+      }
+    }
+
+    async function filterLoadedCombinationsByDistance(crossMode) {
+      const source = selectedSignatureInput(distanceSourceInputSelect);
+      if (!source.combinations || source.combinations.length === 0) {
+        setDistanceMessage(&#39;La procedencia seleccionada no contiene combinaciones para filtrar.&#39;, &#39;error&#39;);
+        return;
+      }
+      const input = source.combinations;
+      const allowed = effectiveDistanceSelections().map((values) =&gt; new Set(values));
+      const allowedSums = effectiveDistanceSums();
+      const digitalCache = new Map();
+      const terminationCache = new Map();
+      const generated = [];
+      const patternKeys = new Set();
+      const sumPatternKeys = new Map(DISTANCE_SUM_VALUES.map((sum) =&gt; [sum, new Set()]));
+      const sumStats = Object.fromEntries(DISTANCE_SUM_VALUES.map((sum) =&gt; [sum, { patterns: 0, natural: 0 }]));
+      distanceBusy = true;
+      distanceCancelRequested = false;
+      distanceGeneratedCombinations = [];
+      distanceGeneratedPatternCount = 0;
+      distanceGeneratedCrossMode = crossMode;
+      distanceOutput.hidden = true;
+      resetDistanceQrWarning();
+      refreshDistanceControls();
+      setDistanceMessage(&#39;Aplicando &#39; + distanceCrossModeLabel(crossMode) + &#39; a &#39;
+        + input.length.toLocaleString(&#39;es-ES&#39;) + &#39; combinaciones de «&#39; + source.label + &#39;»…&#39;);
+      try {
+        for (let index = 0; index &lt; input.length; index += 1) {
+          const combination = input[index];
+          const distances = combination.slice(1).map((number, position) =&gt; number - combination[position]);
+          if (distances.some((value, position) =&gt; !allowed[position].has(value))) continue;
+          const sum = distances.reduce((total, value) =&gt; total + value, 0);
+          if (!allowedSums.has(sum)) continue;
+          if ((crossMode === &#39;digital&#39; || crossMode === &#39;both&#39;)
+            &amp;&amp; !combinationMatchesDigitalConfiguration(combination, digitalCache)) continue;
+          if ((crossMode === &#39;termination&#39; || crossMode === &#39;both&#39;)
+            &amp;&amp; !combinationMatchesTerminationConfiguration(combination, terminationCache)) continue;
+          generated.push(combination);
+          const patternKey = distances.join(&#39;-&#39;);
+          patternKeys.add(patternKey);
+          sumPatternKeys.get(sum).add(patternKey);
+          sumStats[sum].natural += 1;
+          if ((index + 1) % 20000 === 0) {
+            setDistanceMessage(&#39;Filtrando «&#39; + source.label + &#39;»… &#39; + (index + 1).toLocaleString(&#39;es-ES&#39;)
+              + &#39; de &#39; + input.length.toLocaleString(&#39;es-ES&#39;) + &#39; revisadas.&#39;);
+            await wait(0);
+            if (distanceCancelRequested) return;
+          }
+        }
+        DISTANCE_SUM_VALUES.forEach((sum) =&gt; { sumStats[sum].patterns = sumPatternKeys.get(sum).size; });
+        distanceGeneratedCombinations = generated;
+        distanceGeneratedPatternCount = patternKeys.size;
+        distancePageIndex = 0;
+        renderDistanceAnalysis({ patternCount: patternKeys.size, naturalTotal: generated.length, sumStats }, input.length);
+        distanceSafeLimit.textContent = &#39;Entrada · &#39; + input.length.toLocaleString(&#39;es-ES&#39;);
+        distanceTotalBadge.textContent = generated.length.toLocaleString(&#39;es-ES&#39;) + &#39; filtradas&#39;;
+        distanceResultDescription.textContent = generated.length.toLocaleString(&#39;es-ES&#39;) + &#39; de &#39;
+          + input.length.toLocaleString(&#39;es-ES&#39;) + &#39; combinaciones de «&#39; + source.label + &#39;» cumplen &#39;
+          + distanceCrossModeLabel(crossMode) + &#39;.&#39;;
+        renderDistanceResults();
+        refreshFilterSourceButtons();
+        setDistanceMessage(&#39;Filtro completado: &#39; + generated.length.toLocaleString(&#39;es-ES&#39;) + &#39; de &#39;
+          + input.length.toLocaleString(&#39;es-ES&#39;) + &#39; combinaciones conservadas.&#39;);
+        if (generated.length === 0) setDistanceMessage(&#39;Ninguna combinación de «&#39; + source.label + &#39;» cumple la firma configurada.&#39;, &#39;error&#39;);
+      } catch (error) {
+        distanceGeneratedCombinations = [];
+        distanceGeneratedPatternCount = 0;
+        distanceOutput.hidden = true;
+        refreshFilterSourceButtons();
+        setDistanceMessage(&#39;No se ha podido aplicar la firma de distancias como filtro: &#39; + (error.message || &#39;error desconocido&#39;) + &#39;.&#39;, &#39;error&#39;);
+      } finally {
+        distanceBusy = false;
+        distanceCancelRequested = false;
+        refreshDistanceControls();
+        refreshSignatureSourceSelectors();
+      }
+    }
+    // ===== FIN FIRMAS COMO FILTRO DE CUALQUIER PROCEDENCIA =====
+
     function countDigitalPatternEquivalents(pattern) {
       let ways = Array(pattern[0] &lt;= 4 ? 6 : 5).fill(1);
       for (let position = 1; position &lt; 6; position += 1) {
@@ -7243,6 +7579,10 @@ html&gt;body{padding:0}&lt;/style&gt;
           &#39;Activa directamente al menos una terminación en cada posición P1–P6.&#39;,
           &#39;error&#39;
         );
+        return;
+      }
+      if (positionalSourceSelect.value !== &#39;universe&#39;) {
+        await filterLoadedCombinationsByPositionalSignatures([&#39;termination&#39;], &#39;termination&#39;);
         return;
       }
       digitalBusy = true;
@@ -7510,6 +7850,10 @@ html&gt;body{padding:0}&lt;/style&gt;
         );
         return;
       }
+      if (positionalSourceSelect.value !== &#39;universe&#39;) {
+        await filterLoadedCombinationsByPositionalSignatures([&#39;digital&#39;], &#39;digital&#39;);
+        return;
+      }
       digitalBusy = true;
       digitalCancelRequested = false;
       digitalGeneratedCombinations = [];
@@ -7639,6 +7983,10 @@ html&gt;body{padding:0}&lt;/style&gt;
         return;
       }
 
+      if (positionalSourceSelect.value !== &#39;universe&#39;) {
+        await filterLoadedCombinationsByPositionalSignatures([&#39;digital&#39;, &#39;termination&#39;], &#39;combined&#39;);
+        return;
+      }
       digitalBusy = true;
       digitalCancelRequested = false;
       digitalGeneratedCombinations = [];
@@ -8368,6 +8716,10 @@ html&gt;body{padding:0}&lt;/style&gt;
       }
       const crossMode = distanceCrossModeSelect.value;
       if (!validateDistanceCrossMode(crossMode)) return;
+      if (distanceSourceInputSelect.value !== &#39;universe&#39;) {
+        await filterLoadedCombinationsByDistance(crossMode);
+        return;
+      }
 
       distanceBusy = true;
       distanceCancelRequested = false;
@@ -9340,6 +9692,7 @@ html&gt;body{padding:0}&lt;/style&gt;
         ? &#39;development&#39;
         : &#39;reduced&#39;;
       if (filterSourceSelect.value) updateFilterSourceSummary(false);
+      refreshSignatureSourceSelectors();
       refreshScrutinySourceButtons();
     }
 
@@ -12455,6 +12808,7 @@ html&gt;body{padding:0}&lt;/style&gt;
 
       importedCombinations = acceptedCombinations;
       importedSource = source;
+      selectImportedForSignatures();
       generateTxtQrButton.disabled = false;
       updateTxtGuidance();
       updateImportedControls();
@@ -14997,6 +15351,7 @@ html&gt;body{padding:0}&lt;/style&gt;
         resetImportedCombinations();
         importedCombinations=combinations;
         importedSource=&#39;ptcq&#39;;
+        selectImportedForSignatures();
         pastedCombinationsInput.value=&#39;&#39;;
         generateTxtQrButton.disabled=false;
         updateImportedControls();
@@ -15004,12 +15359,16 @@ html&gt;body{padding:0}&lt;/style&gt;
         const step=&#39;Paso &#39;+(Number(payload.stepIndex)+1)+&#39; · &#39;+String(payload.stepLabel||payload.stepId||&#39;PTCQ&#39;);
         setTxtMessage(count.toLocaleString(&#39;es-ES&#39;)+&#39; combinaciones recibidas desde &#39;+step+&#39;.&#39;);
         summary.textContent=&#39;Filtro PTCQ: &#39;+count.toLocaleString(&#39;es-ES&#39;)+&#39; combinaciones naturales recibidas.&#39;;
-        if(payload.target===&#39;filters&#39;){
+        if(payload.target===&#39;signatures&#39;){
+          activateLotteryTab(&#39;digital&#39;,{focusTarget:digitalSection});
+          setDigitalMessage(&#39;Paso PTCQ recibido. Elige firma digital o de terminación y pulsa «Calcular y generar desarrollo» para usarla como filtro.&#39;);
+        }else if(payload.target===&#39;filters&#39;){
           openFiltersForSource(&#39;imported&#39;);
         }else if(payload.target===&#39;reducer&#39;){
           sendCombinationsToReducer(combinations,{key:&#39;ptcq&#39;,label:&#39;Desarrollo de Filtro PTCQ&#39;,route:[&#39;Filtro PTCQ&#39;,step]},(message,isError=false)=&gt;setTxtMessage(message,isError));
         }else throw new Error(&#39;El destino solicitado por PTCQ no es válido.&#39;);
-        reply(true,&#39;PTCQ → QR completado: &#39;+step+&#39; · &#39;+count.toLocaleString(&#39;es-ES&#39;)+&#39; combinaciones enviadas a &#39;+(payload.target===&#39;filters&#39;?&#39;Filtros&#39;:&#39;Reductor&#39;)+&#39;.&#39;);
+        const destination=payload.target===&#39;signatures&#39;?&#39;Firmas&#39;:payload.target===&#39;filters&#39;?&#39;Filtros&#39;:&#39;Reductor&#39;;
+        reply(true,&#39;PTCQ → QR completado: &#39;+step+&#39; · &#39;+count.toLocaleString(&#39;es-ES&#39;)+&#39; combinaciones enviadas a &#39;+destination+&#39;.&#39;);
       }catch(error){reply(false,error?.message||String(error));}
     });
     // ===== FIN RECEPCIÓN DE DESARROLLOS PTCQ =====
@@ -15110,6 +15469,13 @@ html&gt;body{padding:0}&lt;/style&gt;
     digitalSelectAllButton.addEventListener(&#39;click&#39;, () =&gt; setAllDigitalValues(true));
     digitalClearSelectionButton.addEventListener(&#39;click&#39;, () =&gt; setAllDigitalValues(false));
     digitalSignatureTypeSelect.addEventListener(&#39;change&#39;, changeSignatureMode);
+    positionalSourceSelect.addEventListener(&#39;change&#39;, () =&gt; {
+      refreshSignatureSourceSelectors();
+      const source = signatureInputSourceDetails(positionalSourceSelect.value);
+      setDigitalMessage(source.combinations === null
+        ? &#39;La firma volverá a desarrollar equivalencias sobre el universo completo 6/49.&#39;
+        : &#39;Preparada para filtrar &#39; + source.combinations.length.toLocaleString(&#39;es-ES&#39;) + &#39; combinaciones de «&#39; + source.label + &#39;».&#39;);
+    });
     digitalGenerateButton.addEventListener(&#39;click&#39;, generateDigitalDevelopment);
     digitalCombineButton.addEventListener(&#39;click&#39;, generateCombinedSignatureDevelopment);
     digitalCombineDistanceButton.addEventListener(&#39;click&#39;, () =&gt; {
@@ -15266,6 +15632,13 @@ html&gt;body{padding:0}&lt;/style&gt;
     distanceClearSelectionButton.addEventListener(&#39;click&#39;, () =&gt; setAllDistanceValues(false));
     distanceSumsAllButton.addEventListener(&#39;click&#39;, () =&gt; setAllDistanceSums(true));
     distanceSumsClearButton.addEventListener(&#39;click&#39;, () =&gt; setAllDistanceSums(false));
+    distanceSourceInputSelect.addEventListener(&#39;change&#39;, () =&gt; {
+      refreshSignatureSourceSelectors();
+      const source = signatureInputSourceDetails(distanceSourceInputSelect.value);
+      setDistanceMessage(source.combinations === null
+        ? &#39;La firma volverá a desarrollar equivalencias sobre el universo completo 6/49.&#39;
+        : &#39;Preparada para filtrar &#39; + source.combinations.length.toLocaleString(&#39;es-ES&#39;) + &#39; combinaciones de «&#39; + source.label + &#39;».&#39;);
+    });
     distanceCrossModeSelect.addEventListener(&#39;change&#39;, () =&gt; {
       invalidateDistanceDevelopment(
         `Modo preparado: ${distanceCrossModeLabel(distanceCrossModeSelect.value)}.`
@@ -16041,7 +16414,7 @@ html&gt;body{padding:0}&lt;/style&gt;
           &lt;/div&gt;
           &lt;div class=&quot;tablewrap&quot;&gt;&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Paso&lt;/th&gt;&lt;th&gt;Firma&lt;/th&gt;&lt;th&gt;Antes&lt;/th&gt;&lt;th&gt;Después&lt;/th&gt;&lt;th&gt;Elimina&lt;/th&gt;&lt;th&gt;% elimina&lt;/th&gt;&lt;th&gt;Acceso&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody id=&quot;evolutionBody&quot;&gt;&lt;tr&gt;&lt;td colspan=&quot;7&quot;&gt;&lt;div class=&quot;empty&quot;&gt;Configura el desarrollo y pulsa “Calcular recorrido PTCQ”.&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;
           &lt;div class=&quot;results&quot;&gt;
-            &lt;div class=&quot;paneltitle&quot; style=&quot;border:1px solid #2a3d58;border-radius:12px 12px 0 0&quot;&gt;&lt;h2 id=&quot;resultTitle&quot;&gt;Desarrollo del paso seleccionado&lt;/h2&gt;&lt;div class=&quot;exporttools&quot;&gt;&lt;label&gt;Equivalencia&lt;select id=&quot;exportEquivalence&quot;&gt;&lt;option value=&quot;all&quot;&gt;Todas: 1, 7, 28, 84 y 210&lt;/option&gt;&lt;option value=&quot;1&quot;&gt;1&lt;/option&gt;&lt;option value=&quot;7&quot;&gt;7&lt;/option&gt;&lt;option value=&quot;28&quot;&gt;28&lt;/option&gt;&lt;option value=&quot;84&quot;&gt;84&lt;/option&gt;&lt;option value=&quot;210&quot;&gt;210&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;&lt;button class=&quot;btn good&quot; id=&quot;exportResults&quot; disabled&gt;Exportar naturales clasificadas&lt;/button&gt;&lt;button class=&quot;btn&quot; id=&quot;exportDigital&quot; disabled&gt;Exportar digitales clasificadas&lt;/button&gt;&lt;button class=&quot;btn good&quot; id=&quot;sendStepFilters&quot; disabled&gt;Enviar paso a Filtros&lt;/button&gt;&lt;button class=&quot;btn&quot; id=&quot;sendStepReducer&quot; disabled&gt;Enviar paso al Reductor&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;
+            &lt;div class=&quot;paneltitle&quot; style=&quot;border:1px solid #2a3d58;border-radius:12px 12px 0 0&quot;&gt;&lt;h2 id=&quot;resultTitle&quot;&gt;Desarrollo del paso seleccionado&lt;/h2&gt;&lt;div class=&quot;exporttools&quot;&gt;&lt;label&gt;Equivalencia&lt;select id=&quot;exportEquivalence&quot;&gt;&lt;option value=&quot;all&quot;&gt;Todas: 1, 7, 28, 84 y 210&lt;/option&gt;&lt;option value=&quot;1&quot;&gt;1&lt;/option&gt;&lt;option value=&quot;7&quot;&gt;7&lt;/option&gt;&lt;option value=&quot;28&quot;&gt;28&lt;/option&gt;&lt;option value=&quot;84&quot;&gt;84&lt;/option&gt;&lt;option value=&quot;210&quot;&gt;210&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;&lt;button class=&quot;btn good&quot; id=&quot;exportResults&quot; disabled&gt;Exportar naturales clasificadas&lt;/button&gt;&lt;button class=&quot;btn&quot; id=&quot;exportDigital&quot; disabled&gt;Exportar digitales clasificadas&lt;/button&gt;&lt;button class=&quot;btn good&quot; id=&quot;sendStepSignatures&quot; disabled&gt;Enviar paso a Firmas&lt;/button&gt;&lt;button class=&quot;btn&quot; id=&quot;sendStepFilters&quot; disabled&gt;Enviar paso a Filtros&lt;/button&gt;&lt;button class=&quot;btn&quot; id=&quot;sendStepReducer&quot; disabled&gt;Enviar paso al Reductor&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;
             &lt;div class=&quot;resultsplit&quot;&gt;
               &lt;div class=&quot;resultcol&quot;&gt;
                 &lt;div class=&quot;resulthead&quot;&gt;&lt;b&gt;Combinaciones de números naturales&lt;/b&gt;&lt;span class=&quot;resultcount&quot; id=&quot;naturalCount&quot;&gt;0 materializadas&lt;/span&gt;&lt;/div&gt;
@@ -16512,6 +16885,7 @@ html&gt;body{padding:0}&lt;/style&gt;
     document.getElementById(&#39;exportResults&#39;).disabled=!lastEvolution[end] || lastEvolution[end].after===0;
     document.getElementById(&#39;exportDigital&#39;).disabled=!currentDigitalKeys.length;
     const completeTransfer=!truncated&amp;&amp;keep.length&gt;0&amp;&amp;keep.length===(lastEvolution[end]?.after??keep.length);
+    document.getElementById(&#39;sendStepSignatures&#39;).disabled=!completeTransfer;
     document.getElementById(&#39;sendStepFilters&#39;).disabled=!completeTransfer;
     document.getElementById(&#39;sendStepReducer&#39;).disabled=!completeTransfer;
     const totalPaso=lastEvolution[end]?.after??keep.length;
@@ -16695,19 +17069,23 @@ html&gt;body{padding:0}&lt;/style&gt;
     const packed=new Uint8Array(currentResults.length*6);
     for(let i=0;i&lt;currentResults.length;i++)for(let j=0;j&lt;6;j++)packed[i*6+j]=currentResults[i][j];
     const stepId=state.sequence[currentResultStep];
+    document.getElementById(&#39;sendStepSignatures&#39;).disabled=true;
     document.getElementById(&#39;sendStepFilters&#39;).disabled=true;
     document.getElementById(&#39;sendStepReducer&#39;).disabled=true;
-    document.getElementById(&#39;resultNote&#39;).textContent=&#39;Enviando &#39;+fmt(currentResults.length)+&#39; combinaciones del paso &#39;+(currentResultStep+1)+&#39; a &#39;+(target===&#39;filters&#39;?&#39;Filtros&#39;:&#39;Reductor&#39;)+&#39;…&#39;;
+    const destination=target===&#39;signatures&#39;?&#39;Firmas&#39;:target===&#39;filters&#39;?&#39;Filtros&#39;:&#39;Reductor&#39;;
+    document.getElementById(&#39;resultNote&#39;).textContent=&#39;Enviando &#39;+fmt(currentResults.length)+&#39; combinaciones del paso &#39;+(currentResultStep+1)+&#39; a &#39;+destination+&#39;…&#39;;
     window.parent.postMessage({
       type:&#39;PTCQ_TO_QR&#39;,target,game:&#39;6/49&#39;,count:currentResults.length,
       stepIndex:currentResultStep,stepId,stepLabel:pretty(stepId),packed:packed.buffer
     },&#39;*&#39;,[packed.buffer]);
   }
+  document.getElementById(&#39;sendStepSignatures&#39;).onclick=()=&gt;sendCurrentStepToSuite(&#39;signatures&#39;);
   document.getElementById(&#39;sendStepFilters&#39;).onclick=()=&gt;sendCurrentStepToSuite(&#39;filters&#39;);
   document.getElementById(&#39;sendStepReducer&#39;).onclick=()=&gt;sendCurrentStepToSuite(&#39;reducer&#39;);
   window.addEventListener(&#39;message&#39;,event=&gt;{
     const data=event.data;if(!data||data.type!==&#39;PTCQ_QR_ACK&#39;)return;
     const complete=currentResultStep!=null&amp;&amp;currentResults.length===(lastEvolution[currentResultStep]?.after??-1);
+    document.getElementById(&#39;sendStepSignatures&#39;).disabled=!complete;
     document.getElementById(&#39;sendStepFilters&#39;).disabled=!complete;
     document.getElementById(&#39;sendStepReducer&#39;).disabled=!complete;
     document.getElementById(&#39;resultNote&#39;).textContent=data.message||(data.ok?&#39;Transferencia completada.&#39;:&#39;No se pudo completar la transferencia.&#39;);
