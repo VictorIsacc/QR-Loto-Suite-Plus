@@ -16171,7 +16171,7 @@ html&gt;body{padding:0}&lt;/style&gt;
 &lt;/html&gt;
 "></iframe>
 <iframe class="suite-view-frame" id="lotolens-frame" referrerpolicy="no-referrer" title="LotoLens enlazado con QR Loto Suite" src="LotoLens_PRONOSTICO_EXP.html" hidden></iframe>
-<iframe class="suite-view-frame" id="ptcq-frame" sandbox="allow-scripts allow-same-origin allow-downloads allow-popups allow-popups-to-escape-sandbox" referrerpolicy="no-referrer" title="Filtro PTCQ enlazado con QR Loto Suite" srcdoc="&lt;!DOCTYPE html&gt;
+<iframe class="suite-view-frame" id="ptcq-frame" sandbox="allow-scripts allow-same-origin allow-downloads allow-popups allow-popups-to-escape-sandbox allow-modals" referrerpolicy="no-referrer" title="Filtro PTCQ enlazado con QR Loto Suite" srcdoc="&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;es&quot;&gt;
 &lt;head&gt;
 &lt;meta charset=&quot;UTF-8&quot; /&gt;
@@ -16247,8 +16247,11 @@ html&gt;body{padding:0}&lt;/style&gt;
   .dhead{padding:6px 4px;text-align:center;font-size:11px;font-weight:900;background:#19304b}.dinfo{font-size:9px;color:#94a9c3;text-align:center;padding:4px 2px 1px}
   .dvals{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding:5px}.dval{height:21px;border:1px solid #334b68;border-radius:5px;background:#0b1626;color:#93a8c2;font-size:10px;font-weight:800;cursor:pointer;padding:0}
   .dval.discard{background:#6c202b;border-color:#b44252;color:#fff}.dval.last{box-shadow:inset 0 0 0 1px #e5ad3c}
+  .dval.manualheat{background:var(--manual-heat-color,#17324d);border-color:var(--manual-heat-border,#315b7d);color:#fff;text-shadow:0 1px 2px #000;position:relative}.dval.manualheat.manualselected{outline:2px solid #55e2ff;outline-offset:-3px}.dval.manualheat.manualselected::after{content:&#39;✓&#39;;position:absolute;right:2px;top:-2px;font-size:8px;color:#aef3ff}.dval.manualheat.last{border:2px solid #f2bc48;box-shadow:0 0 0 1px #6d4e13}
   .dcard .rec{font-size:9px;color:#e8c872;padding:0 5px 5px;text-align:center;min-height:26px}
   .historylog{max-height:230px;overflow:auto;background:#091321;border:1px solid #253a55;border-radius:10px;padding:9px;font-family:Consolas,monospace;font-size:11px;white-space:pre}
+  .loadedforecast{display:grid;gap:9px;margin:11px 0;padding:11px;border:1px solid #376789;border-radius:11px;background:linear-gradient(135deg,#10283a,#151c31)}
+  .loadedforecast[hidden]{display:none}.loadedforecasthead{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}.loadedforecasthead b{font-size:13px}.loadedforecastgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.loadedforecastitem{display:grid;gap:2px;padding:7px 8px;border:1px solid #29465f;border-radius:8px;background:#0b1928}.loadedforecastitem span{font-size:9px;color:#87a4c2;text-transform:uppercase;letter-spacing:.05em}.loadedforecastitem b{font-size:11px;color:#e8f4ff}.loadedforecastdetail{font-size:11px;line-height:1.5;color:#b9d0e5}.loadedforecastactions{display:flex;gap:7px;flex-wrap:wrap}@media(max-width:700px){.loadedforecastgrid{grid-template-columns:1fr}}
   .calibratedtest{margin:9px 0 11px;padding:11px;border:1px solid #347668;border-radius:12px;background:#102a27}
   .calibratedtesthead{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;flex-wrap:wrap;margin-bottom:9px}
   .calibratedtesthead b{font-size:12px}.calibratedtesthead span{font-size:10px;color:#9bc9be}
@@ -16290,6 +16293,7 @@ html&gt;body{padding:0}&lt;/style&gt;
   .legenddot.red{background:#6c202b;border:1px solid #b44252}
   .legenddot.gold{background:#0b1626;border:2px solid #e5ad3c}
   .legenddot.repeat{background:#7040a0;border:1px solid #b37add}
+  .manualheatlegend{display:grid;gap:5px;margin:6px 0 10px;padding:8px 10px;border:1px solid #34536f;border-radius:9px;background:#0c1928;font-size:10px;color:#a9bed3}.manualheatlegend[hidden]{display:none}.manualheatbar{height:10px;border-radius:999px;background:linear-gradient(90deg,hsl(210 78% 22%),hsl(150 78% 28%),hsl(58 82% 38%),hsl(10 86% 42%));border:1px solid #41617e}.manualheatlabels{display:flex;justify-content:space-between;gap:8px}.manualheatnote{color:#d4e7f7}
 
 
   .rmark{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 5px;margin-left:5px;border-radius:999px;background:#7040a0;border:1px solid #b37add;color:#fff;font-size:9px;font-weight:900;vertical-align:middle}
@@ -16390,6 +16394,17 @@ html&gt;body{padding:0}&lt;/style&gt;
         &lt;div class=&quot;paneltitle&quot;&gt;&lt;h2&gt;Secuencia de desarrollo&lt;/h2&gt;&lt;/div&gt;
         &lt;div class=&quot;panelbody&quot;&gt;
           &lt;div class=&quot;explain&quot; style=&quot;margin-top:0&quot;&gt;Las 63 firmas permanecen siempre a la vista. Arrástralas para cambiar el orden y desactiva temporalmente las que quieras omitir. Sus valores y su posición se conservan.&lt;/div&gt;
+          &lt;div class=&quot;loadedforecast&quot; id=&quot;loadedForecastInfo&quot; hidden&gt;
+            &lt;div class=&quot;loadedforecasthead&quot;&gt;&lt;b&gt;Pronóstico cargado en Desarrollo&lt;/b&gt;&lt;span class=&quot;pill&quot; id=&quot;loadedForecastMode&quot;&gt;—&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;loadedforecastgrid&quot;&gt;
+              &lt;div class=&quot;loadedforecastitem&quot;&gt;&lt;span&gt;Procedencia&lt;/span&gt;&lt;b id=&quot;loadedForecastOrigin&quot;&gt;—&lt;/b&gt;&lt;/div&gt;
+              &lt;div class=&quot;loadedforecastitem&quot;&gt;&lt;span&gt;Alcance enviado&lt;/span&gt;&lt;b id=&quot;loadedForecastScope&quot;&gt;—&lt;/b&gt;&lt;/div&gt;
+              &lt;div class=&quot;loadedforecastitem&quot;&gt;&lt;span&gt;Columnas&lt;/span&gt;&lt;b id=&quot;loadedForecastColumns&quot;&gt;—&lt;/b&gt;&lt;/div&gt;
+              &lt;div class=&quot;loadedforecastitem&quot;&gt;&lt;span&gt;Valores descartados&lt;/span&gt;&lt;b id=&quot;loadedForecastRemoved&quot;&gt;—&lt;/b&gt;&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;loadedforecastdetail&quot; id=&quot;loadedForecastDetail&quot;&gt;&lt;/div&gt;
+            &lt;div class=&quot;loadedforecastactions&quot;&gt;&lt;button class=&quot;btn&quot; id=&quot;returnToForecast&quot; type=&quot;button&quot;&gt;Volver al pronóstico&lt;/button&gt;&lt;button class=&quot;btn&quot; id=&quot;hideLoadedForecast&quot; type=&quot;button&quot;&gt;Ocultar ficha&lt;/button&gt;&lt;/div&gt;
+          &lt;/div&gt;
           &lt;div class=&quot;devtools2&quot;&gt;
             &lt;button class=&quot;btn&quot; id=&quot;prioritizeRepetition&quot;&gt;Llevar R desde paso 8&lt;/button&gt;
             &lt;button class=&quot;btn&quot; id=&quot;buildPassingOrder&quot;&gt;Orden con columnas que cumplen&lt;/button&gt;
@@ -16563,6 +16578,7 @@ html&gt;body{padding:0}&lt;/style&gt;
             &lt;button class=&quot;mode&quot; data-mode=&quot;recent23&quot;&gt;Recientes 2–3&lt;/button&gt;
             &lt;button class=&quot;mode&quot; data-mode=&quot;calibrated&quot;&gt;Calibrado 56&lt;/button&gt;
             &lt;button class=&quot;mode&quot; data-mode=&quot;struct56&quot;&gt;Estructural 56&lt;/button&gt;
+            &lt;button class=&quot;mode&quot; data-mode=&quot;manual&quot;&gt;Manual&lt;/button&gt;
             &lt;select id=&quot;discardFamily&quot; style=&quot;background:#0c1728;color:#eaf2ff;border:1px solid #334b6c;border-radius:9px;padding:8px&quot;&gt;
               &lt;option value=&quot;positions&quot;&gt;Posiciones + VDC&lt;/option&gt;&lt;option value=&quot;pairs&quot;&gt;Parejas&lt;/option&gt;&lt;option value=&quot;trios&quot;&gt;Tríos&lt;/option&gt;&lt;option value=&quot;quartets&quot;&gt;Cuartetos&lt;/option&gt;&lt;option value=&quot;quintets&quot;&gt;Quintetos&lt;/option&gt;
             &lt;/select&gt;
@@ -16571,6 +16587,11 @@ html&gt;body{padding:0}&lt;/style&gt;
             &lt;span&gt;&lt;i class=&quot;legenddot red&quot;&gt;&lt;/i&gt;Rojo: descarte propuesto&lt;/span&gt;
             &lt;span&gt;&lt;i class=&quot;legenddot gold&quot;&gt;&lt;/i&gt;Borde dorado: valor del último sorteo&lt;/span&gt;
             &lt;span&gt;&lt;i class=&quot;legenddot repeat&quot;&gt;&lt;/i&gt;R: el último valor repitió respecto al penúltimo&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;manualheatlegend&quot; id=&quot;manualHeatLegend&quot; hidden&gt;
+            &lt;div class=&quot;manualheatbar&quot;&gt;&lt;/div&gt;
+            &lt;div class=&quot;manualheatlabels&quot;&gt;&lt;span&gt;Frío · poca presencia&lt;/span&gt;&lt;span&gt;Cálido · saturación/concentración alta&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;manualheatnote&quot; id=&quot;manualHeatNote&quot;&gt;Analiza un histórico para calcular la temperatura de cada valor. Borde dorado = último valor; contorno cian = selección manual.&lt;/div&gt;
           &lt;/div&gt;
           &lt;div class=&quot;tinyhint&quot; id=&quot;forecastExplain&quot;&gt;El modo Prudente propone solo descartes con señal más fuerte. Los descartes pueden venir de repetición anterior, sobrepresencia reciente, concentración en ventana corta o saturación frente a la frecuencia histórica. Rojo = valor propuesto para descartar. Borde dorado = valor del último sorteo, aunque no esté descartado. Puedes modificar manualmente cualquier valor antes de enviarlo al PTCQ.&lt;/div&gt;
           &lt;div class=&quot;struct56summary&quot; id=&quot;struct56Summary&quot; style=&quot;display:none&quot;&gt;&lt;/div&gt;
@@ -17095,7 +17116,7 @@ html&gt;body{padding:0}&lt;/style&gt;
 
 
   // ===== ANÁLISIS HISTÓRICO PTCQ =====
-  let historyRaw=[], historyWorkbook=null, historySourceName=&#39;&#39;, historyCurrentSheet=&#39;&#39;, historyWindowData=[], historySigs=[], historyAnalysis=null, historySheetCounts={}, discardMode=&#39;prudent&#39;, discardState={}, discardProposalMeta={}, recent23Forecast=null, recent23Backtest=null, calibratedForecast=null, calibratedBacktest=null, struct56Validation=null, struct56RepairWorker=null, struct56ValidateTimer=null, struct56Method=&#39;sequential&#39;, struct56StartedAt=0;
+  let historyRaw=[], historyWorkbook=null, historySourceName=&#39;&#39;, historyCurrentSheet=&#39;&#39;, historyWindowData=[], historySigs=[], historyAnalysis=null, historySheetCounts={}, discardMode=&#39;prudent&#39;, discardState={}, discardProposalMeta={}, recent23Forecast=null, recent23Backtest=null, calibratedForecast=null, calibratedBacktest=null, struct56Validation=null, struct56RepairWorker=null, struct56ValidateTimer=null, struct56Method=&#39;sequential&#39;, struct56StartedAt=0, loadedForecastInfo=null;
   all.forEach(id=&gt;discardState[id]=new Set());
 
   const familyNames={positions:&#39;Posiciones + VDC&#39;,pairs:&#39;Parejas&#39;,trios:&#39;Tríos&#39;,quartets:&#39;Cuartetos&#39;,quintets:&#39;Quintetos&#39;};
@@ -17470,6 +17491,23 @@ El valor del último sorteo de cada columna se usa como candidato especial cuand
   }
 
   function discardScore(id,v){return discardEvidence(id,v).score}
+
+  function manualThermalEvidence(id,v){
+    const A=historyAnalysis;
+    if(!A)return {heat:0,recentCount:0,shortCount:0,recentP:0,shortP:0,longP:0};
+    const longP=A.freq[id][v]/Math.max(1,historySigs.length);
+    const recentCount=A.recentFreq[id][v],shortCount=A.shortFreq[id][v];
+    const recentP=recentCount/Math.max(1,A.recentN),shortP=shortCount/Math.max(1,A.shortN);
+    const recentExcess=Math.max(0,recentP-longP);
+    const shortExcess=Math.max(0,shortP-longP);
+    const saturation=Math.max(0,recentP-1/9);
+    const heat=clamp01(
+      .44*Math.min(1,recentExcess/.18)+
+      .36*Math.min(1,shortExcess/.26)+
+      .20*Math.min(1,saturation/.20)
+    );
+    return {heat,recentCount,shortCount,recentP,shortP,longP};
+  }
 
   const CALIBRATED_WARMUP=30;
   const CALIBRATED_MIN_TESTS=40;
@@ -18370,6 +18408,14 @@ El valor del último sorteo de cada columna se usa como candidato especial cuand
   }
 
   function createDiscardProposal(){
+    if(discardMode===&#39;manual&#39;){
+      all.forEach(id=&gt;discardState[id]=new Set());
+      discardProposalMeta={};
+      all.forEach(id=&gt;discardProposalMeta[id]={});
+      recent23Forecast=null;recent23Backtest=null;calibratedForecast=null;calibratedBacktest=null;struct56Validation=null;
+      renderDiscardCards();
+      return;
+    }
     if(!historyAnalysis)return;
     all.forEach(id=&gt;discardState[id]=new Set());
     discardProposalMeta={};
@@ -18565,18 +18611,38 @@ El valor del último sorteo de cada columna se usa como candidato especial cuand
   function renderDiscardCards(){
     updateStruct56Summary();
     const box=document.getElementById(&#39;discardCards&#39;);box.innerHTML=&#39;&#39;;
-    if(!historyAnalysis){box.innerHTML=&#39;&lt;div class=&quot;empty&quot; style=&quot;width:100%&quot;&gt;Analiza primero un histórico.&lt;/div&gt;&#39;;return}
+    const heatLegend=document.getElementById(&#39;manualHeatLegend&#39;),heatNote=document.getElementById(&#39;manualHeatNote&#39;);
+    if(heatLegend){
+      heatLegend.hidden=discardMode!==&#39;manual&#39;;
+      if(discardMode===&#39;manual&#39;&amp;&amp;heatNote)heatNote.textContent=historyAnalysis
+        ? `Temperatura calculada con ${historyAnalysis.recentN} sorteos recientes: referencia teórica ${historyAnalysis.recentN} ÷ 9 = ${(historyAnalysis.recentN/9).toLocaleString(&#39;es-ES&#39;,{maximumFractionDigits:2})} apariciones por valor. La concentración usa los últimos ${historyAnalysis.shortN}. Borde dorado = último valor; contorno cian = selección manual.`
+        : &#39;El modo manual funciona sin histórico, pero debes analizar uno para mostrar la escala térmica. Contorno cian = selección manual.&#39;;
+    }
+    if(!historyAnalysis&amp;&amp;discardMode!==&#39;manual&#39;){box.innerHTML=&#39;&lt;div class=&quot;empty&quot; style=&quot;width:100%&quot;&gt;Analiza primero un histórico.&lt;/div&gt;&#39;;return}
     const fam=document.getElementById(&#39;discardFamily&#39;).value;
     for(const id of familyIds[fam]){
       const c=document.createElement(&#39;div&#39;);c.className=&#39;dcard&#39;;
-      const last=historyAnalysis.latest[id], rr=historyAnalysis.repeatRate[id]*100;
-      const repeatsPrevious=historyAnalysis.prev &amp;&amp; historyAnalysis.latest[id]===historyAnalysis.prev[id];
+      const last=historyAnalysis?.latest?.[id]??null, rr=(historyAnalysis?.repeatRate?.[id]??0)*100;
+      const repeatsPrevious=historyAnalysis?.prev &amp;&amp; historyAnalysis.latest[id]===historyAnalysis.prev[id];
       const recentInfo=discardMode===&#39;recent23&#39;&amp;&amp;recent23Forecast?.byId?.[id]
         ? `&lt;br&gt;U1 ${recent23Forecast.byId[id].recent[0]} · U2 ${recent23Forecast.byId[id].recent[1]} · U3 ${recent23Forecast.byId[id].recent[2]}`:&#39;&#39;;
-      c.innerHTML=`&lt;div class=&quot;dhead&quot;&gt;${pretty(id)}&lt;/div&gt;&lt;div class=&quot;dinfo&quot;&gt;último ${last}${repeatsPrevious?&#39;&lt;span class=&quot;repeatbadge&quot; title=&quot;Repite respecto al penúltimo sorteo&quot;&gt;R&lt;/span&gt;&#39;:&#39;&#39;} · rep. hist. ${rr.toFixed(1)}%${recentInfo}&lt;/div&gt;&lt;div class=&quot;dvals&quot;&gt;&lt;/div&gt;&lt;div class=&quot;rec&quot;&gt;&lt;/div&gt;`;
+      const info=discardMode===&#39;manual&#39;
+        ? &#39;Pronóstico manual · marca directamente los valores que quieres descartar&#39;
+        : `último ${last}${repeatsPrevious?&#39;&lt;span class=&quot;repeatbadge&quot; title=&quot;Repite respecto al penúltimo sorteo&quot;&gt;R&lt;/span&gt;&#39;:&#39;&#39;} · rep. hist. ${rr.toFixed(1)}%${recentInfo}`;
+      c.innerHTML=`&lt;div class=&quot;dhead&quot;&gt;${pretty(id)}&lt;/div&gt;&lt;div class=&quot;dinfo&quot;&gt;${info}&lt;/div&gt;&lt;div class=&quot;dvals&quot;&gt;&lt;/div&gt;&lt;div class=&quot;rec&quot;&gt;&lt;/div&gt;`;
       const vb=c.querySelector(&#39;.dvals&#39;);
       for(let v=1;v&lt;=9;v++){
-        const b=document.createElement(&#39;button&#39;);b.className=&#39;dval&#39;+(discardState[id].has(v)?&#39; discard&#39;:&#39;&#39;)+(v===last?&#39; last&#39;:&#39;&#39;);b.textContent=v;
+        const selected=discardState[id].has(v),b=document.createElement(&#39;button&#39;);
+        if(discardMode===&#39;manual&#39;){
+          const thermal=manualThermalEvidence(id,v),hue=Math.round(210-200*thermal.heat),light=Math.round(22+18*thermal.heat);
+          b.className=&#39;dval manualheat&#39;+(selected?&#39; manualselected&#39;:&#39;&#39;)+(v===last?&#39; last&#39;:&#39;&#39;);
+          b.style.setProperty(&#39;--manual-heat-color&#39;,`hsl(${hue} 78% ${light}%)`);
+          b.style.setProperty(&#39;--manual-heat-border&#39;,`hsl(${hue} 82% ${Math.min(62,light+15)}%)`);
+          b.title=historyAnalysis
+            ? `Valor ${v} · temperatura ${Math.round(thermal.heat*100)}% · reciente ${thermal.recentCount}/${historyAnalysis.recentN} (${(thermal.recentP*100).toFixed(1)}%) · concentración ${thermal.shortCount}/${historyAnalysis.shortN} (${(thermal.shortP*100).toFixed(1)}%) · base ${(thermal.longP*100).toFixed(1)}%`
+            : `Valor ${v} · sin temperatura: analiza primero un histórico`;
+        }else b.className=&#39;dval&#39;+(selected?&#39; discard&#39;:&#39;&#39;)+(v===last?&#39; last&#39;:&#39;&#39;);
+        b.textContent=v;
         b.onclick=()=&gt;{
           discardState[id].has(v)?discardState[id].delete(v):discardState[id].add(v);
           if(discardMode===&#39;struct56&#39;){
@@ -18600,12 +18666,19 @@ El valor del último sorteo de cada columna se usa como candidato especial cuand
             }
             resetCalibratedTestResult();
           }
+          if(discardMode===&#39;manual&#39;){
+            if(!discardProposalMeta[id])discardProposalMeta[id]={};
+            if(discardState[id].has(v))discardProposalMeta[id][v]={mode:&#39;manual&#39;,rank:&#39;manual&#39;,score:0,reasons:[{k:&#39;manual&#39;,t:&#39;selección manual&#39;}]};
+            else delete discardProposalMeta[id][v];
+          }
           renderDiscardCards();
           scheduleStruct56Validation();
         };vb.appendChild(b);
       }
       const ds=[...discardState[id]].sort((a,b)=&gt;a-b);
-      c.querySelector(&#39;.rec&#39;).textContent=ds.length?`Descartar: ${ds.join(&#39; &#39;)}`:&#39;Sin descarte&#39;;
+      c.querySelector(&#39;.rec&#39;).textContent=discardMode===&#39;manual&#39;
+        ? (ds.length?`Selección manual: ${ds.join(&#39; &#39;)}`:&#39;Sin selección manual&#39;)
+        : (ds.length?`Descartar: ${ds.join(&#39; &#39;)}`:&#39;Sin descarte&#39;);
       const reasonBox=document.createElement(&#39;div&#39;);reasonBox.className=&#39;dreason&#39;;
       if(ds.length){
         const chips=[];
@@ -18732,7 +18805,8 @@ El valor del último sorteo de cada columna se usa como candidato especial cuand
     document.getElementById(&#39;applyAll63&#39;).textContent=
       discardMode===&#39;struct56&#39;?&#39;Enviar Estructural 56 compatible&#39;:
       discardMode===&#39;recent23&#39;?&#39;Enviar Recientes 2–3&#39;:
-      discardMode===&#39;calibrated&#39;?&#39;Enviar Calibrado 56&#39;:&#39;Enviar pronóstico completo · 63 columnas&#39;;
+      discardMode===&#39;calibrated&#39;?&#39;Enviar Calibrado 56&#39;:
+      discardMode===&#39;manual&#39;?&#39;Enviar manual completo y abrir Desarrollo&#39;:&#39;Enviar pronóstico completo · 63 columnas&#39;;
     const smb=document.getElementById(&#39;struct56MethodBox&#39;);
     if(smb)smb.style.display=discardMode===&#39;struct56&#39;?&#39;flex&#39;:&#39;none&#39;;
     const spb=document.getElementById(&#39;struct56ProgressBox&#39;);
@@ -18751,32 +18825,69 @@ El valor del último sorteo de cada columna se usa como candidato especial cuand
       adaptive:&#39;Adaptativo: trabaja sobre las 63 columnas y combina los criterios actuales con la mejor referencia temporal U1–U4 de cada columna. Puede proponer hasta 2 descartes por columna.&#39;,
       recent23:&#39;Recientes 2–3: actúa sobre las 56 columnas de Parejas, Tríos, Cuartetos y Quintetos. Parte de los valores U1, U2 y U3 de cada columna, mide retrospectivamente su riesgo de aparecer en el siguiente sorteo y sustituye los que no son descartes suficientemente seguros. El resultado contiene 2 o 3 valores distintos por columna.&#39;,
       calibrated:&#39;Calibrado 56: reproduce cada sorteo usando exclusivamente la información anterior. Combina frecuencia histórica, ventana reciente y transiciones U1/U2 con suavizado. Solo aplica descartes si también supera la validación global del conjunto; Posiciones + VDC no se modifican. Puedes comprobar después una combinación real o generar una aleatoria sin alterar el histórico.&#39;,
-      struct56:&#39;Estructural 56: actúa sobre las 56 columnas de Parejas, Tríos, Cuartetos y Quintetos. Por defecto usa Reparación secuencial. Además, cuando acumulas al menos 3 reparaciones retrospectivas con ganadoras conocidas, esa memoria se usa como referencia suave: penaliza ligeramente los valores que históricamente tuvieron que recuperarse para conservar la ganadora.&#39;
+      struct56:&#39;Estructural 56: actúa sobre las 56 columnas de Parejas, Tríos, Cuartetos y Quintetos. Por defecto usa Reparación secuencial. Además, cuando acumulas al menos 3 reparaciones retrospectivas con ganadoras conocidas, esa memoria se usa como referencia suave: penaliza ligeramente los valores que históricamente tuvieron que recuperarse para conservar la ganadora.&#39;,
+      manual:&#39;Manual: elige una familia y selecciona directamente los valores de cada columna. La escala térmica refleja saturación y concentración recientes; el borde dorado identifica el último valor y el contorno cian solo indica tu selección. Después puedes enviar la familia visible o el pronóstico manual completo a Desarrollo.&#39;
     }[discardMode];
     createDiscardProposal();
   });
   document.getElementById(&#39;proposalAgain&#39;).onclick=createDiscardProposal;
   document.getElementById(&#39;clearDiscards&#39;).onclick=()=&gt;{all.forEach(id=&gt;discardState[id]=new Set());resetCalibratedTestResult();renderDiscardCards()};
 
+  function forecastModeLabel(mode=discardMode){
+    return {prudent:&#39;Prudente&#39;,moderate:&#39;Moderado&#39;,broad:&#39;Amplio&#39;,temporal:&#39;Temporal&#39;,adaptive:&#39;Adaptativo&#39;,recent23:&#39;Recientes 2–3&#39;,calibrated:&#39;Calibrado 56&#39;,struct56:&#39;Estructural 56&#39;,manual:&#39;Manual&#39;}[mode]||mode;
+  }
+  function forecastOriginLabel(){
+    if(discardMode===&#39;manual&#39;)return &#39;Introducido manualmente en Análisis&#39;;
+    const parts=[&#39;Análisis histórico&#39;];
+    if(historySourceName)parts.push(historySourceName);
+    if(historyCurrentSheet)parts.push(&#39;hoja &#39;+historyCurrentSheet);
+    return parts.join(&#39; · &#39;);
+  }
+  function renderLoadedForecastInfo(){
+    const box=document.getElementById(&#39;loadedForecastInfo&#39;);
+    if(!box)return;
+    if(!loadedForecastInfo){box.hidden=true;return}
+    box.hidden=false;
+    document.getElementById(&#39;loadedForecastMode&#39;).textContent=loadedForecastInfo.modeLabel;
+    document.getElementById(&#39;loadedForecastOrigin&#39;).textContent=loadedForecastInfo.origin;
+    document.getElementById(&#39;loadedForecastScope&#39;).textContent=loadedForecastInfo.families.map(x=&gt;x.name).join(&#39; · &#39;);
+    document.getElementById(&#39;loadedForecastColumns&#39;).textContent=loadedForecastInfo.columns.toLocaleString(&#39;es-ES&#39;)+&#39; columnas actualizadas&#39;;
+    document.getElementById(&#39;loadedForecastRemoved&#39;).textContent=loadedForecastInfo.removed.toLocaleString(&#39;es-ES&#39;)+&#39; valores&#39;;
+    document.getElementById(&#39;loadedForecastDetail&#39;).textContent=
+      loadedForecastInfo.families.map(x=&gt;x.name+&#39;: &#39;+x.removed+&#39; descartes en &#39;+x.columns+&#39; columnas&#39;).join(&#39; · &#39;)+
+      &#39; · Cargado &#39;+loadedForecastInfo.loadedAt+&#39;. Los valores permanecen editables en las pestañas PTCQ.&#39;;
+  }
+
   function selectedApplyFamilies(){return new Set([...document.querySelectorAll(&#39;.famapply:checked&#39;)].map(x=&gt;x.value))}
   function applyDiscardsToPTCQ(openDevelopment=false, fams=null){
-    if(!historyAnalysis)return alert(&#39;Primero analiza un histórico.&#39;);
+    if(!historyAnalysis&amp;&amp;discardMode!==&#39;manual&#39;)return alert(&#39;Primero analiza un histórico.&#39;);
     if(!fams)fams=selectedApplyFamilies();
     let cols=0,removed=0;
-    const appliedNames=[];
+    const appliedNames=[],familyDetails=[];
     for(const fam of fams){
       if(!familyIds[fam])continue;
       appliedNames.push(familyNames[fam]);
+      let familyRemoved=0;
       for(const id of familyIds[fam]){
         const ds=discardState[id];
         state.values[id]=[1,2,3,4,5,6,7,8,9].filter(v=&gt;!ds.has(v));
-        cols++;removed+=ds.size;
+        cols++;removed+=ds.size;familyRemoved+=ds.size;
       }
+      familyDetails.push({key:fam,name:familyNames[fam],columns:familyIds[fam].length,removed:familyRemoved});
     }
+    if(!familyDetails.length)return alert(&#39;Selecciona al menos una familia para enviar.&#39;);
+    loadedForecastInfo={
+      mode:discardMode,modeLabel:forecastModeLabel(),origin:forecastOriginLabel(),families:familyDetails,
+      columns:cols,removed,loadedAt:new Date().toLocaleString(&#39;es-ES&#39;)
+    };
     renderAll();
-    alert(`Pronóstico ${discardMode} enviado al PTCQ · ${appliedNames.join(&#39;, &#39;)} · ${removed} valores descartados en ${cols} columnas. El resto de familias conserva exactamente los valores que ya tenía.`);
+    renderLoadedForecastInfo();
+    alert(`Pronóstico ${forecastModeLabel()} enviado al Desarrollo PTCQ.\n\nProcedencia: ${loadedForecastInfo.origin}\nAlcance: ${appliedNames.join(&#39;, &#39;)}\nResultado: ${removed} valores descartados en ${cols} columnas.\n\nEl resto de familias conserva exactamente los valores que ya tenía.`);
     if(openDevelopment)document.querySelector(&#39;.tab[data-tab=&quot;development&quot;]&#39;).click();
   }
+
+  document.getElementById(&#39;returnToForecast&#39;).onclick=()=&gt;document.querySelector(&#39;.tab[data-tab=&quot;history&quot;]&#39;).click();
+  document.getElementById(&#39;hideLoadedForecast&#39;).onclick=()=&gt;{document.getElementById(&#39;loadedForecastInfo&#39;).hidden=true};
 
   function currentVisibleFamily(){
     return document.getElementById(&#39;discardFamily&#39;).value;
@@ -18792,7 +18903,9 @@ El valor del último sorteo de cada columna se usa como candidato especial cuand
   };
   document.getElementById(&#39;applyDiscards&#39;).onclick=()=&gt;applyDiscardsToPTCQ(false);
   document.getElementById(&#39;applyAll63&#39;).onclick=()=&gt;{
-    if(discardMode===&#39;struct56&#39;){
+    if(discardMode===&#39;manual&#39;){
+      applyDiscardsToPTCQ(true,new Set([&#39;positions&#39;,&#39;pairs&#39;,&#39;trios&#39;,&#39;quartets&#39;,&#39;quintets&#39;]));
+    }else if(discardMode===&#39;struct56&#39;){
       if(!struct56Validation){
         validateAndRepairStruct56();
         return alert(&#39;El Estructural 56 se está comprobando y ajustando. Espera a que aparezca el resultado de viabilidad antes de enviarlo.&#39;);
