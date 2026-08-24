@@ -16905,10 +16905,13 @@ html&gt;body{padding:0}&lt;/style&gt;
     }).join(&#39;&#39;);
     document.getElementById(&#39;exportResults&#39;).disabled=!lastEvolution[end] || lastEvolution[end].after===0;
     document.getElementById(&#39;exportDigital&#39;).disabled=!currentDigitalKeys.length;
-    const completeTransfer=!truncated&amp;&amp;keep.length&gt;0&amp;&amp;keep.length===(lastEvolution[end]?.after??keep.length);
-    document.getElementById(&#39;sendStepSignatures&#39;).disabled=!completeTransfer;
-    document.getElementById(&#39;sendStepFilters&#39;).disabled=!completeTransfer;
-    document.getElementById(&#39;sendStepReducer&#39;).disabled=!completeTransfer;
+    const hasTransferStep=(lastEvolution[end]?.after??0)&gt;0&amp;&amp;keep.length&gt;0;
+    const transferHint=truncated
+      ?&#39;Este paso supera 250.000 combinaciones. Pulsa para ver el límite y elegir un paso posterior más reducido.&#39;
+      :&#39;Enviar las combinaciones naturales completas de este paso a QR Loto Suite.&#39;;
+    for(const id of [&#39;sendStepSignatures&#39;,&#39;sendStepFilters&#39;,&#39;sendStepReducer&#39;]){
+      const button=document.getElementById(id);button.disabled=!hasTransferStep;button.title=hasTransferStep?transferHint:&#39;Materializa primero un paso con «Ver apuestas».&#39;;
+    }
     const totalPaso=lastEvolution[end]?.after??keep.length;
     const base=`Paso ${end+1} (${pretty(state.sequence[end])}): ${fmt(totalPaso)} apuestas totales, representadas exactamente por ${fmt(currentDigitalKeys.length)} combinaciones digitales.`;
     const digitalLimit=currentDigitalKeys.length&gt;digitalPreviewLimit?` La lista digital muestra las primeras ${fmt(digitalPreviewLimit)} firmas; la exportación contiene las ${fmt(currentDigitalKeys.length)}.`:&#39;&#39;;
@@ -17080,36 +17083,55 @@ html&gt;body{padding:0}&lt;/style&gt;
   document.getElementById(&#39;exportDigital&#39;).onclick=()=&gt;exportClassified(&#39;digital&#39;);
 
   // ===== ENLACE PTCQ → QR LOTO SUITE =====
+  let suiteTransferSerial=0,suiteTransferRequest=&#39;&#39;,suiteTransferTimer=0;
+  function enableSuiteTransferButtons(){
+    const hasStep=currentResultStep!=null&amp;&amp;currentResults.length&gt;0;
+    for(const id of [&#39;sendStepSignatures&#39;,&#39;sendStepFilters&#39;,&#39;sendStepReducer&#39;])document.getElementById(id).disabled=!hasStep;
+  }
+  function failSuiteTransfer(message){
+    clearTimeout(suiteTransferTimer);suiteTransferRequest=&#39;&#39;;enableSuiteTransferButtons();
+    document.getElementById(&#39;resultNote&#39;).textContent=message;alert(message);
+  }
   function sendCurrentStepToSuite(target){
     if(window.parent===window)return alert(&#39;Esta función está disponible al abrir PTCQ desde QR Loto Suite +.&#39;);
     if(currentResultStep==null||!lastEvolution[currentResultStep])return alert(&#39;Selecciona primero un paso con «Ver apuestas».&#39;);
     const expected=lastEvolution[currentResultStep].after;
     if(!currentResults.length||currentResults.length!==expected){
-      return alert(&#39;Este paso no está materializado por completo. Selecciona un paso con un máximo de 250.000 combinaciones para enviarlo íntegro a QR Loto Suite.&#39;);
+      return alert(&#39;El paso &#39;+(currentResultStep+1)+&#39; contiene &#39;+fmt(expected)+&#39; combinaciones, pero la transferencia directa admite como máximo 250.000. Selecciona un paso posterior más reducido y pulsa «Ver apuestas».&#39;);
     }
     const packed=new Uint8Array(currentResults.length*6);
     for(let i=0;i&lt;currentResults.length;i++)for(let j=0;j&lt;6;j++)packed[i*6+j]=currentResults[i][j];
-    const stepId=state.sequence[currentResultStep];
+    const stepId=state.sequence[currentResultStep],requestId=&#39;ptcq-send-&#39;+Date.now()+&#39;-&#39;+(++suiteTransferSerial);
+    suiteTransferRequest=requestId;
     document.getElementById(&#39;sendStepSignatures&#39;).disabled=true;
     document.getElementById(&#39;sendStepFilters&#39;).disabled=true;
     document.getElementById(&#39;sendStepReducer&#39;).disabled=true;
     const destination=target===&#39;signatures&#39;?&#39;Firmas&#39;:target===&#39;filters&#39;?&#39;Filtros&#39;:&#39;Reductor&#39;;
     document.getElementById(&#39;resultNote&#39;).textContent=&#39;Enviando &#39;+fmt(currentResults.length)+&#39; combinaciones del paso &#39;+(currentResultStep+1)+&#39; a &#39;+destination+&#39;…&#39;;
-    window.parent.postMessage({
-      type:&#39;PTCQ_TO_QR&#39;,target,game:&#39;6/49&#39;,count:currentResults.length,
-      stepIndex:currentResultStep,stepId,stepLabel:pretty(stepId),packed:packed.buffer
-    },&#39;*&#39;,[packed.buffer]);
+    try{
+      // Se envía una copia normal. No se transfiere y separa el ArrayBuffer,
+      // evitando que algunos navegadores/PWA pierdan el bloque entre iframes.
+      window.parent.postMessage({
+        type:&#39;PTCQ_TO_QR&#39;,target,game:&#39;6/49&#39;,count:currentResults.length,requestId,
+        stepIndex:currentResultStep,stepId,stepLabel:pretty(stepId),packed:packed.buffer
+      },&#39;*&#39;);
+    }catch(error){
+      failSuiteTransfer(&#39;No se pudo iniciar el envío a &#39;+destination+&#39;: &#39;+(error?.message||String(error)));return;
+    }
+    clearTimeout(suiteTransferTimer);
+    suiteTransferTimer=setTimeout(()=&gt;{
+      if(suiteTransferRequest===requestId)failSuiteTransfer(&#39;QR Loto Suite no confirmó la recepción. Los botones se han reactivado para que puedas intentarlo de nuevo.&#39;);
+    },12000);
   }
   document.getElementById(&#39;sendStepSignatures&#39;).onclick=()=&gt;sendCurrentStepToSuite(&#39;signatures&#39;);
   document.getElementById(&#39;sendStepFilters&#39;).onclick=()=&gt;sendCurrentStepToSuite(&#39;filters&#39;);
   document.getElementById(&#39;sendStepReducer&#39;).onclick=()=&gt;sendCurrentStepToSuite(&#39;reducer&#39;);
   window.addEventListener(&#39;message&#39;,event=&gt;{
     const data=event.data;if(!data||data.type!==&#39;PTCQ_QR_ACK&#39;)return;
-    const complete=currentResultStep!=null&amp;&amp;currentResults.length===(lastEvolution[currentResultStep]?.after??-1);
-    document.getElementById(&#39;sendStepSignatures&#39;).disabled=!complete;
-    document.getElementById(&#39;sendStepFilters&#39;).disabled=!complete;
-    document.getElementById(&#39;sendStepReducer&#39;).disabled=!complete;
+    if(data.requestId&amp;&amp;suiteTransferRequest&amp;&amp;data.requestId!==suiteTransferRequest)return;
+    clearTimeout(suiteTransferTimer);suiteTransferRequest=&#39;&#39;;enableSuiteTransferButtons();
     document.getElementById(&#39;resultNote&#39;).textContent=data.message||(data.ok?&#39;Transferencia completada.&#39;:&#39;No se pudo completar la transferencia.&#39;);
+    if(!data.ok)alert(document.getElementById(&#39;resultNote&#39;).textContent);
   });
   // ===== FIN ENLACE PTCQ → QR LOTO SUITE =====
   document.getElementById(&#39;exportEvolution&#39;).onclick=()=&gt;{if(!lastEvolution.length)return alert(&#39;Primero calcula un recorrido.&#39;);const lines=[&#39;Paso\tFirma\tEstado\tAntes\tDespues\tElimina\tPorcentaje&#39;];lastEvolution.forEach(r=&gt;lines.push(`${r.step}\t${r.id}\t${r.active?&#39;ACTIVA&#39;:&#39;OMITIDA&#39;}\t${r.before}\t${r.after}\t${r.elim}\t${r.pct.toFixed(4)}`));download(&#39;PTCQ_evolucion.txt&#39;,lines.join(&#39;\n&#39;))};
@@ -19949,9 +19971,13 @@ if (&#39;serviceWorker&#39; in navigator) {
     if(event.source===ptcqFrame.contentWindow&&data.type==='PTCQ_TO_QR'){
       try{
         if(data.game!=='6/49')throw new Error('QR Loto Suite solo admite este enlace para 6/49.');
-        if(!(data.packed instanceof ArrayBuffer))throw new Error('No se recibió el desarrollo natural del paso PTCQ.');
-        const requestId='ptcq-'+Date.now()+'-'+(++requestSerial);
-        qrFrame.contentWindow?.postMessage({...data,type:'PTCQ_IMPORT_REQUEST',requestId},'*',[data.packed]);
+        if(!(data.packed instanceof ArrayBuffer)||!data.packed.byteLength)throw new Error('No se recibió el desarrollo natural del paso PTCQ.');
+        if(data.packed.byteLength%6!==0)throw new Error('El bloque recibido desde PTCQ está incompleto.');
+        const requestId=data.requestId||('ptcq-'+Date.now()+'-'+(++requestSerial));
+        const qrWindow=qrFrame.contentWindow;if(!qrWindow)throw new Error('QR Loto Suite todavía no está disponible.');
+        // Reenviar una copia sin separar el buffer del marco PTCQ evita que
+        // una PWA pierda silenciosamente el bloque entre los dos iframes.
+        qrWindow.postMessage({...data,type:'PTCQ_IMPORT_REQUEST',requestId,packed:data.packed.slice(0)},'*');
         linkStatus.textContent='Recibiendo paso PTCQ';linkStatus.classList.add('ready');
       }catch(error){
         const message=error?.message||String(error);
@@ -19960,7 +19986,7 @@ if (&#39;serviceWorker&#39; in navigator) {
       return;
     }
     if(event.source===qrFrame.contentWindow&&data.type==='PTCQ_IMPORT_ACK'){
-      ptcqFrame.contentWindow?.postMessage({type:'PTCQ_QR_ACK',ok:Boolean(data.ok),message:data.message||''},'*');
+      ptcqFrame.contentWindow?.postMessage({type:'PTCQ_QR_ACK',ok:Boolean(data.ok),message:data.message||'',requestId:data.requestId||''},'*');
       if(data.ok){showView('qr');linkStatus.textContent='Paso PTCQ recibido';linkStatus.classList.add('ready');showToast(data.message)}
       else{linkStatus.textContent='Revisar enlace PTCQ';linkStatus.classList.remove('ready');showToast('Error PTCQ: '+(data.message||'transferencia incompleta'))}
     }
