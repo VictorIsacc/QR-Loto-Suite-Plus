@@ -1419,6 +1419,34 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         &lt;button class=&quot;btn&quot; id=&quot;lottery-development-next&quot; type=&quot;button&quot;&gt;Siguientes&lt;/button&gt;
       &lt;/div&gt;
 
+      &lt;section class=&quot;development-random-sample&quot; aria-labelledby=&quot;lottery-development-random-sample-label&quot;&gt;
+        &lt;div class=&quot;development-random-sample-heading&quot;&gt;
+          &lt;div&gt;
+            &lt;h4 id=&quot;lottery-development-random-sample-label&quot;&gt;Selección aleatoria&lt;/h4&gt;
+            &lt;p class=&quot;text-muted&quot;&gt;Extrae sin repeticiones la cantidad que quieras del desarrollo completo o de la reducción y revísala en el listado superior.&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;span class=&quot;viz-badge&quot; id=&quot;lottery-development-random-badge&quot;&gt;Sin selección&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;development-random-sample-controls&quot;&gt;
+          &lt;label class=&quot;form-label&quot; for=&quot;lottery-development-random-source&quot;&gt;
+            Procedencia
+            &lt;select class=&quot;form-select&quot; id=&quot;lottery-development-random-source&quot;&gt;&lt;/select&gt;
+          &lt;/label&gt;
+          &lt;label class=&quot;form-label&quot; for=&quot;lottery-development-random-count&quot;&gt;
+            Cantidad solicitada
+            &lt;input class=&quot;form-input&quot; id=&quot;lottery-development-random-count&quot; type=&quot;number&quot; min=&quot;1&quot; step=&quot;1&quot; value=&quot;10&quot; inputmode=&quot;numeric&quot; /&gt;
+          &lt;/label&gt;
+          &lt;button class=&quot;btn btn-primary&quot; id=&quot;lottery-development-random-generate&quot; type=&quot;button&quot;&gt;Obtener selección&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;p class=&quot;development-random-sample-message text-muted&quot; id=&quot;lottery-development-random-message&quot; aria-live=&quot;polite&quot;&gt;Genera primero un desarrollo completo o una reducción.&lt;/p&gt;
+        &lt;p class=&quot;development-random-sample-note text-muted&quot;&gt;Esta muestra aleatoria no conserva por sí sola la garantía matemática de la reducción de origen.&lt;/p&gt;
+        &lt;div class=&quot;viz-controls development-random-sample-actions&quot;&gt;
+          &lt;button class=&quot;btn btn-primary&quot; id=&quot;lottery-development-random-qr&quot; type=&quot;button&quot; disabled&gt;Preparar QR de la selección&lt;/button&gt;
+          &lt;button class=&quot;btn&quot; id=&quot;lottery-development-random-export&quot; type=&quot;button&quot; disabled&gt;Exportar selección TXT&lt;/button&gt;
+          &lt;button class=&quot;btn btn-ghost&quot; id=&quot;lottery-development-random-clear&quot; type=&quot;button&quot; disabled&gt;Borrar selección&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/section&gt;
+
       &lt;div class=&quot;development-breakdown&quot; id=&quot;lottery-development-breakdown&quot;&gt;
         &lt;div class=&quot;development-breakdown-heading&quot;&gt;
           &lt;div&gt;
@@ -1765,6 +1793,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
           &lt;option value=&quot;imported&quot;&gt;Archivo TXT o texto pegado&lt;/option&gt;
           &lt;option value=&quot;reduced&quot;&gt;Reducción matemática generada&lt;/option&gt;
           &lt;option value=&quot;development&quot;&gt;Desarrollo completo generado&lt;/option&gt;
+          &lt;option value=&quot;development-random&quot;&gt;Selección aleatoria del reductor&lt;/option&gt;
           &lt;option value=&quot;digital&quot;&gt;Desarrollo por firma posicional&lt;/option&gt;
           &lt;option value=&quot;distance&quot;&gt;Desarrollo por firma de distancias&lt;/option&gt;
           &lt;option value=&quot;triple-signature&quot;&gt;Cruce de las tres firmas&lt;/option&gt;
@@ -2175,6 +2204,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
           &lt;option value=&quot;imported&quot;&gt;Archivo o texto pegado&lt;/option&gt;
           &lt;option value=&quot;reduced&quot;&gt;Reducción matemática generada&lt;/option&gt;
           &lt;option value=&quot;development&quot;&gt;Desarrollo completo generado&lt;/option&gt;
+          &lt;option value=&quot;development-random&quot;&gt;Selección aleatoria del reductor&lt;/option&gt;
           &lt;option value=&quot;digital&quot;&gt;Desarrollo por firma posicional&lt;/option&gt;
           &lt;option value=&quot;distance&quot;&gt;Desarrollo por firma de distancias&lt;/option&gt;
           &lt;option value=&quot;triple-signature&quot;&gt;Cruce de las tres firmas&lt;/option&gt;
@@ -3397,6 +3427,48 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
 
   #lottery-simulator-649 .development-pagination {
     justify-content: space-between;
+  }
+
+  #lottery-simulator-649 .development-random-sample {
+    display: grid;
+    gap: 0.75rem;
+    padding: 1rem;
+    border: 1px solid color-mix(in srgb, var(--primary) 38%, var(--border));
+    border-radius: 0.85rem;
+    background: color-mix(in srgb, var(--primary) 6%, var(--card));
+  }
+
+  #lottery-simulator-649 .development-random-sample-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  #lottery-simulator-649 .development-random-sample-heading h4,
+  #lottery-simulator-649 .development-random-sample-heading p,
+  #lottery-simulator-649 .development-random-sample-message,
+  #lottery-simulator-649 .development-random-sample-note {
+    margin: 0;
+  }
+
+  #lottery-simulator-649 .development-random-sample-controls {
+    display: grid;
+    grid-template-columns: minmax(13rem, 1.2fr) minmax(10rem, 0.7fr) auto;
+    align-items: end;
+    gap: 0.75rem;
+  }
+
+  #lottery-simulator-649 .development-random-sample-actions {
+    justify-content: flex-start;
+  }
+
+  #lottery-simulator-649 .development-random-sample-message.is-error {
+    color: var(--destructive);
+  }
+
+  #lottery-simulator-649 .development-random-sample-note {
+    font-size: 0.84rem;
   }
 
   #lottery-simulator-649 .development-breakdown {
@@ -6087,6 +6159,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
     #lottery-simulator-649 .development-generation-actions,
     #lottery-simulator-649 .development-breakdown-pending-actions,
     #lottery-simulator-649 .development-actions,
+    #lottery-simulator-649 .development-random-sample-actions,
     #lottery-simulator-649 .digital-main-actions,
     #lottery-simulator-649 .digital-combine-actions,
     #lottery-simulator-649 .digital-result-actions,
@@ -6111,6 +6184,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
     #lottery-simulator-649 .development-generation-actions .btn,
     #lottery-simulator-649 .development-breakdown-pending-actions .btn,
     #lottery-simulator-649 .development-actions .btn,
+    #lottery-simulator-649 .development-random-sample-actions .btn,
     #lottery-simulator-649 .digital-main-actions .btn,
     #lottery-simulator-649 .digital-combine-actions .btn,
     #lottery-simulator-649 .digital-result-actions .btn,
@@ -6175,10 +6249,15 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
     }
 
     #lottery-simulator-649 .development-random-controls,
+    #lottery-simulator-649 .development-random-sample-controls,
     #lottery-simulator-649 .development-result-controls,
     #lottery-simulator-649 .development-breakdown-heading {
       grid-template-columns: 1fr;
       align-items: stretch;
+    }
+
+    #lottery-simulator-649 .development-random-sample-heading {
+      display: grid;
     }
 
     #lottery-simulator-649 .development-mode-selector {
@@ -6635,6 +6714,14 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
     const developmentPreviousButton = root.querySelector(&#39;#lottery-development-previous&#39;);
     const developmentPage = root.querySelector(&#39;#lottery-development-page&#39;);
     const developmentNextButton = root.querySelector(&#39;#lottery-development-next&#39;);
+    const developmentRandomSourceSelect = root.querySelector(&#39;#lottery-development-random-source&#39;);
+    const developmentRandomCountInput = root.querySelector(&#39;#lottery-development-random-count&#39;);
+    const developmentRandomGenerateButton = root.querySelector(&#39;#lottery-development-random-generate&#39;);
+    const developmentRandomMessage = root.querySelector(&#39;#lottery-development-random-message&#39;);
+    const developmentRandomBadge = root.querySelector(&#39;#lottery-development-random-badge&#39;);
+    const developmentRandomQrButton = root.querySelector(&#39;#lottery-development-random-qr&#39;);
+    const developmentRandomExportButton = root.querySelector(&#39;#lottery-development-random-export&#39;);
+    const developmentRandomClearButton = root.querySelector(&#39;#lottery-development-random-clear&#39;);
     const developmentCopyButton = root.querySelector(&#39;#lottery-development-copy&#39;);
     const developmentQrButton = root.querySelector(&#39;#lottery-development-qr&#39;);
     const developmentClearOutputButton = root.querySelector(&#39;#lottery-development-clear-output&#39;);
@@ -6933,6 +7020,8 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
     let developmentExternalSource = null;
     let developmentReducedCombinations = [];
     let developmentFullCombinations = [];
+    let developmentRandomCombinations = [];
+    let developmentRandomSource = &#39;&#39;;
     let developmentBreakdownData = { conditioned: [], general: [] };
     let developmentPendingBreakdown = null;
     let developmentGeneratedFixedNumbers = [];
@@ -9981,6 +10070,21 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
           combinations: developmentFullCombinations
         };
       }
+      if (source === &#39;development-random&#39;) {
+        const route = [
+          developmentRandomSource === &#39;full&#39; ? &#39;Desarrollo completo&#39; : &#39;Reducción&#39;,
+          &#39;Selección aleatoria&#39;
+        ];
+        return {
+          key: &#39;development-random&#39;,
+          label: &#39;Selección aleatoria del reductor&#39;,
+          description: developmentRandomCombinations.length
+            ? `Muestra sin repeticiones obtenida ${developmentRandomSourceOrigin()}.`
+            : &#39;Todavía no se ha obtenido una selección aleatoria.&#39;,
+          route,
+          combinations: developmentRandomCombinations
+        };
+      }
       if (source === &#39;digital&#39;) {
         const label = signatureSourceLabel();
         return {
@@ -10051,7 +10155,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         : &#39;distance&#39;;
       filterDevelopmentButton.dataset.filterSource = developmentViewSelect.value === &#39;full&#39;
         ? &#39;development&#39;
-        : &#39;reduced&#39;;
+        : developmentViewSelect.value === &#39;random&#39; ? &#39;development-random&#39; : &#39;reduced&#39;;
       if (filterSourceSelect.value) updateFilterSourceSummary(false);
       refreshSignatureSourceSelectors();
       refreshScrutinySourceButtons();
@@ -10072,7 +10176,9 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
 
     function resolveScrutinySource(source) {
       if (source === &#39;development-auto&#39;) {
-        return developmentViewSelect.value === &#39;full&#39; ? &#39;development&#39; : &#39;reduced&#39;;
+        return developmentViewSelect.value === &#39;full&#39;
+          ? &#39;development&#39;
+          : developmentViewSelect.value === &#39;random&#39; ? &#39;development-random&#39; : &#39;reduced&#39;;
       }
       if (source === &#39;distance-auto&#39;) {
         return distanceGeneratedCrossMode === &#39;both&#39; ? &#39;triple-signature&#39; : &#39;distance&#39;;
@@ -10965,6 +11071,8 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
           ruleGeneratedCombinations, importedCombinations, importedSource, numberRules,
           developmentSelectedNumbers, developmentFixedNumbers, developmentExternalSource,
           developmentReducedCombinations, developmentFullCombinations,
+          developmentRandomCombinations, developmentRandomSource,
+          developmentView: developmentViewSelect.value,
           developmentGeneratedFixedNumbers, developmentGeneratedExternalSourceLabel,
           digitalSelections: serialiseSetList(digitalSelections),
           terminationSelections: serialiseSetList(terminationSelections),
@@ -10993,7 +11101,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       document.body.appendChild(anchor);
       anchor.click();
       anchor.remove();
-      URL.revokeObjectURL(url);
+      window.setTimeout(() =&gt; URL.revokeObjectURL(url), 1000);
       summary.textContent = &#39;Sesión completa descargada. Podrás cargarla desde esta misma barra en este u otro dispositivo.&#39;;
     }
 
@@ -11020,6 +11128,8 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       developmentExternalSource = state.developmentExternalSource ?? null;
       developmentReducedCombinations = copyCombinations(state.developmentReducedCombinations);
       developmentFullCombinations = copyCombinations(state.developmentFullCombinations);
+      developmentRandomCombinations = copyCombinations(state.developmentRandomCombinations);
+      developmentRandomSource = state.developmentRandomSource === &#39;full&#39; ? &#39;full&#39; : state.developmentRandomSource === &#39;reduced&#39; ? &#39;reduced&#39; : &#39;&#39;;
       developmentGeneratedFixedNumbers = Array.isArray(state.developmentGeneratedFixedNumbers) ? state.developmentGeneratedFixedNumbers.map(Number) : [];
       developmentGeneratedExternalSourceLabel = state.developmentGeneratedExternalSourceLabel ?? &#39;&#39;;
       digitalSelections = (state.digitalSelections ?? []).map((entry) =&gt; new Set(entry.map(Number)));
@@ -11059,6 +11169,11 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       renderDistanceResults();
       renderDevelopmentExternalSource();
       refreshDevelopmentControls();
+      createDevelopmentViewOptions(
+        state.developmentView === &#39;random&#39; &amp;&amp; developmentRandomCombinations.length
+          ? &#39;random&#39;
+          : state.developmentView === &#39;full&#39; ? &#39;full&#39; : &#39;reduced&#39;
+      );
       renderDevelopmentResults();
       updateImportedControls();
       updateTxtGuidance();
@@ -11974,6 +12089,13 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       }
 
       if (source === &#39;development&#39;) {
+        if (developmentViewSelect.value === &#39;random&#39;) {
+          return {
+            key: &#39;development-random&#39;,
+            label: &#39;Selección aleatoria del reductor&#39;,
+            description: `Combinaciones elegidas sin repeticiones ${developmentRandomSourceOrigin()}.`
+          };
+        }
         if (developmentViewSelect.value === &#39;full&#39;) {
           return {
             key: &#39;full&#39;,
@@ -13539,25 +13661,144 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       return `${percentageParts[0].padStart(3, &#39;0&#39;)},${percentageParts[1]} %`;
     }
 
+    function developmentRandomSourceLabel(source = developmentRandomSource) {
+      return source === &#39;full&#39; ? &#39;desarrollo completo&#39; : &#39;reducción matemática&#39;;
+    }
+
+    function developmentRandomSourceOrigin(source = developmentRandomSource) {
+      return source === &#39;full&#39; ? &#39;del desarrollo completo&#39; : &#39;de la reducción matemática&#39;;
+    }
+
+    function getDevelopmentRandomSourceCombinations(source = developmentRandomSourceSelect.value) {
+      return source === &#39;full&#39; ? developmentFullCombinations : developmentReducedCombinations;
+    }
+
+    function setDevelopmentRandomMessage(message, isError = false) {
+      developmentRandomMessage.textContent = message;
+      developmentRandomMessage.classList.toggle(&#39;is-error&#39;, isError);
+    }
+
+    function refreshDevelopmentRandomControls(preferredSource = developmentRandomSourceSelect.value) {
+      const sourceOptions = [];
+      if (developmentFullCombinations.length &gt; 0) {
+        sourceOptions.push({ value: &#39;full&#39;, label: `Desarrollo completo (${developmentFullCombinations.length.toLocaleString(&#39;es-ES&#39;)})` });
+      }
+      if (developmentReducedCombinations.length &gt; 0) {
+        sourceOptions.push({ value: &#39;reduced&#39;, label: `Reducción matemática (${developmentReducedCombinations.length.toLocaleString(&#39;es-ES&#39;)})` });
+      }
+      developmentRandomSourceSelect.replaceChildren();
+      if (sourceOptions.length === 0) {
+        const option = document.createElement(&#39;option&#39;);
+        option.value = &#39;&#39;;
+        option.textContent = &#39;No hay resultados disponibles&#39;;
+        developmentRandomSourceSelect.appendChild(option);
+      } else {
+        sourceOptions.forEach(({ value, label }) =&gt; {
+          const option = document.createElement(&#39;option&#39;);
+          option.value = value;
+          option.textContent = label;
+          developmentRandomSourceSelect.appendChild(option);
+        });
+        developmentRandomSourceSelect.value = sourceOptions.some(({ value }) =&gt; value === preferredSource)
+          ? preferredSource
+          : sourceOptions[0].value;
+      }
+      const availableTotal = getDevelopmentRandomSourceCombinations().length;
+      developmentRandomCountInput.max = String(Math.max(1, availableTotal));
+      developmentRandomGenerateButton.disabled = availableTotal === 0;
+      const hasSelection = developmentRandomCombinations.length &gt; 0;
+      developmentRandomQrButton.disabled = !hasSelection;
+      developmentRandomExportButton.disabled = !hasSelection;
+      developmentRandomClearButton.disabled = !hasSelection;
+      developmentRandomBadge.textContent = hasSelection
+        ? `${developmentRandomCombinations.length.toLocaleString(&#39;es-ES&#39;)} seleccionadas`
+        : &#39;Sin selección&#39;;
+    }
+
+    function secureDevelopmentRandomIndex(limit) {
+      if (!Number.isSafeInteger(limit) || limit &lt; 1) return 0;
+      if (window.crypto?.getRandomValues &amp;&amp; limit &lt;= 0x100000000) {
+        const range = 0x100000000;
+        const acceptedMaximum = range - (range % limit);
+        const buffer = new Uint32Array(1);
+        do {
+          window.crypto.getRandomValues(buffer);
+        } while (buffer[0] &gt;= acceptedMaximum);
+        return buffer[0] % limit;
+      }
+      return Math.floor(Math.random() * limit);
+    }
+
+    function sampleDevelopmentCombinations(combinations, quantity) {
+      const selected = new Array(quantity);
+      const swappedIndexes = new Map();
+      for (let offset = 0; offset &lt; quantity; offset += 1) {
+        const remaining = combinations.length - offset;
+        const randomIndex = secureDevelopmentRandomIndex(remaining);
+        const selectedIndex = swappedIndexes.has(randomIndex)
+          ? swappedIndexes.get(randomIndex)
+          : randomIndex;
+        const finalIndex = remaining - 1;
+        const replacementIndex = swappedIndexes.has(finalIndex)
+          ? swappedIndexes.get(finalIndex)
+          : finalIndex;
+        swappedIndexes.set(randomIndex, replacementIndex);
+        selected[offset] = combinations[selectedIndex].slice();
+      }
+      return selected;
+    }
+
     function createDevelopmentViewOptions(mode = &#39;reduced&#39;) {
       developmentViewSelect.replaceChildren();
-      if (mode === &#39;full&#39;) {
+      const requestedMode = mode === &#39;random&#39; &amp;&amp; developmentRandomCombinations.length &gt; 0
+        ? &#39;random&#39;
+        : mode === &#39;full&#39; ? &#39;full&#39; : &#39;reduced&#39;;
+      if (developmentFullCombinations.length &gt; 0 || requestedMode === &#39;full&#39;) {
         const fullOption = document.createElement(&#39;option&#39;);
         fullOption.value = &#39;full&#39;;
         fullOption.textContent = &#39;Desarrollo completo&#39;;
         developmentViewSelect.appendChild(fullOption);
-      } else {
+      }
+      if (developmentReducedCombinations.length &gt; 0 || requestedMode === &#39;reduced&#39;) {
         const reducedOption = document.createElement(&#39;option&#39;);
         reducedOption.value = &#39;reduced&#39;;
         reducedOption.textContent = &#39;Reducción generada&#39;;
         developmentViewSelect.appendChild(reducedOption);
       }
-      developmentViewSelect.value = mode === &#39;full&#39; ? &#39;full&#39; : &#39;reduced&#39;;
+      if (developmentRandomCombinations.length &gt; 0) {
+        const randomOption = document.createElement(&#39;option&#39;);
+        randomOption.value = &#39;random&#39;;
+        randomOption.textContent = `Selección aleatoria (${developmentRandomCombinations.length.toLocaleString(&#39;es-ES&#39;)}) · ${developmentRandomSourceLabel()}`;
+        developmentViewSelect.appendChild(randomOption);
+      }
+      developmentViewSelect.value = [...developmentViewSelect.options].some((option) =&gt; option.value === requestedMode)
+        ? requestedMode
+        : developmentViewSelect.options[0]?.value ?? &#39;&#39;;
+      refreshDevelopmentRandomControls();
+    }
+
+    function clearDevelopmentRandomSelection(message = &#39;Selección aleatoria borrada.&#39;, render = true) {
+      const wasVisible = developmentViewSelect.value === &#39;random&#39;;
+      const previousSource = developmentRandomSource;
+      developmentRandomCombinations = [];
+      developmentRandomSource = &#39;&#39;;
+      const fallbackMode = previousSource === &#39;full&#39; &amp;&amp; developmentFullCombinations.length
+        ? &#39;full&#39;
+        : developmentReducedCombinations.length ? &#39;reduced&#39; : getDevelopmentMode();
+      createDevelopmentViewOptions(wasVisible ? fallbackMode : developmentViewSelect.value || fallbackMode);
+      setDevelopmentRandomMessage(message);
+      if (render &amp;&amp; !developmentOutput.hidden) {
+        developmentPageIndex = 0;
+        renderDevelopmentResults();
+      }
+      hideQr();
     }
 
     function invalidateDevelopmentResults(message = &#39;La aplicación comprobará exactamente la cobertura solicitada sobre todos los casos posibles.&#39;) {
       developmentReducedCombinations = [];
       developmentFullCombinations = [];
+      developmentRandomCombinations = [];
+      developmentRandomSource = &#39;&#39;;
       developmentPageIndex = 0;
       developmentOutput.hidden = true;
       developmentList.replaceChildren();
@@ -13571,6 +13812,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       developmentGeneratedFixedNumbers = [];
       developmentGeneratedExternalSourceLabel = &#39;&#39;;
       createDevelopmentViewOptions(getDevelopmentMode());
+      setDevelopmentRandomMessage(&#39;Genera primero un desarrollo completo o una reducción.&#39;);
       setDevelopmentMessage(message);
       hideQr();
       refreshFilterSourceButtons();
@@ -14525,9 +14767,9 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
     }
 
     function getActiveDevelopmentCombinations() {
-      return developmentViewSelect.value === &#39;full&#39;
-        ? developmentFullCombinations
-        : developmentReducedCombinations;
+      if (developmentViewSelect.value === &#39;full&#39;) return developmentFullCombinations;
+      if (developmentViewSelect.value === &#39;random&#39;) return developmentRandomCombinations;
+      return developmentReducedCombinations;
     }
 
     function renderDevelopmentResults() {
@@ -14559,7 +14801,72 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       developmentNextButton.disabled = developmentPageIndex === pageTotal - 1;
       developmentCopyButton.disabled = combinations.length === 0;
       developmentQrButton.disabled = combinations.length === 0;
+      refreshDevelopmentRandomControls();
       refreshFilterSourceButtons();
+    }
+
+    function generateDevelopmentRandomSelection() {
+      const source = developmentRandomSourceSelect.value;
+      const sourceCombinations = getDevelopmentRandomSourceCombinations(source);
+      const quantity = Number(developmentRandomCountInput.value);
+      if (sourceCombinations.length === 0) {
+        setDevelopmentRandomMessage(&#39;Genera primero el desarrollo completo o la reducción que quieras utilizar.&#39;, true);
+        return;
+      }
+      if (!Number.isSafeInteger(quantity) || quantity &lt; 1) {
+        setDevelopmentRandomMessage(&#39;Indica una cantidad entera igual o mayor que 1.&#39;, true);
+        developmentRandomCountInput.focus();
+        return;
+      }
+      if (quantity &gt; sourceCombinations.length) {
+        setDevelopmentRandomMessage(
+          `La procedencia contiene ${sourceCombinations.length.toLocaleString(&#39;es-ES&#39;)} combinaciones; solicita esa cantidad o una menor.`,
+          true
+        );
+        developmentRandomCountInput.focus();
+        return;
+      }
+      developmentRandomCombinations = sampleDevelopmentCombinations(sourceCombinations, quantity);
+      developmentRandomSource = source;
+      createDevelopmentViewOptions(&#39;random&#39;);
+      developmentPageIndex = 0;
+      renderDevelopmentResults();
+      hideQr();
+      setDevelopmentRandomMessage(
+        `${quantity.toLocaleString(&#39;es-ES&#39;)} ${quantity === 1 ? &#39;combinación seleccionada&#39; : &#39;combinaciones seleccionadas&#39;} al azar, sin repeticiones, ${developmentRandomSourceOrigin()}. Ya puedes revisarlas arriba, preparar sus QR o exportarlas.`
+      );
+      summary.textContent = `Selección aleatoria preparada con ${quantity.toLocaleString(&#39;es-ES&#39;)} combinaciones ${developmentRandomSourceOrigin()}.`;
+    }
+
+    function generateDevelopmentRandomQr() {
+      if (developmentRandomCombinations.length === 0) {
+        setDevelopmentRandomMessage(&#39;Obtén primero una selección aleatoria.&#39;, true);
+        return;
+      }
+      createDevelopmentViewOptions(&#39;random&#39;);
+      developmentPageIndex = 0;
+      renderDevelopmentResults();
+      prepareQrGeneration(developmentRandomCombinations, &#39;development&#39;);
+    }
+
+    function exportDevelopmentRandomSelection() {
+      if (developmentRandomCombinations.length === 0) {
+        setDevelopmentRandomMessage(&#39;Obtén primero una selección aleatoria.&#39;, true);
+        return;
+      }
+      const text = combinationsToClipboardText(developmentRandomCombinations);
+      const blob = new Blob([`\uFEFF${text}\r\n`], { type: &#39;text/plain;charset=utf-8&#39; });
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement(&#39;a&#39;);
+      anchor.href = url;
+      anchor.download = `QR-Loto-seleccion-aleatoria-${developmentRandomSource}-${developmentRandomCombinations.length}.txt`;
+      document.body.appendChild(anchor);
+      anchor.click();
+      anchor.remove();
+      window.setTimeout(() =&gt; URL.revokeObjectURL(url), 1000);
+      setDevelopmentRandomMessage(
+        `TXT exportado con las ${developmentRandomCombinations.length.toLocaleString(&#39;es-ES&#39;)} combinaciones visibles de la selección aleatoria.`
+      );
     }
 
     async function generateDevelopmentReduction() {
@@ -14632,6 +14939,14 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
 
       developmentBusy = true;
       developmentStopRequested = false;
+      const discardedRandomSelection = developmentRandomCombinations.length &gt; 0;
+      developmentRandomCombinations = [];
+      developmentRandomSource = &#39;&#39;;
+      setDevelopmentRandomMessage(
+        discardedRandomSelection
+          ? &#39;La selección anterior se ha borrado al iniciar un nuevo cálculo.&#39;
+          : &#39;Al terminar el cálculo podrás solicitar aquí una muestra aleatoria.&#39;
+      );
       developmentRunCounter += 1;
       refreshDevelopmentControls();
       developmentOutput.hidden = true;
@@ -15136,6 +15451,8 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
           return developmentReducedCombinations.map((combination) =&gt; [...combination]);
         case &#39;development&#39;:
           return developmentFullCombinations.map((combination) =&gt; [...combination]);
+        case &#39;development-random&#39;:
+          return developmentRandomCombinations.map((combination) =&gt; [...combination]);
         case &#39;digital&#39;:
           return digitalGeneratedCombinations.map((combination) =&gt; [...combination]);
         case &#39;distance&#39;:
@@ -15169,6 +15486,8 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
           return &#39;combinaciones de la reducción matemática&#39;;
         case &#39;development&#39;:
           return &#39;combinaciones del desarrollo completo&#39;;
+        case &#39;development-random&#39;:
+          return `combinaciones de la selección aleatoria ${developmentRandomSourceOrigin()}`;
         case &#39;digital&#39;:
           return `combinaciones de ${signatureSourceLabel().toLocaleLowerCase(&#39;es-ES&#39;)}`;
         case &#39;distance&#39;:
@@ -15204,6 +15523,8 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
           return &#39;Reducción matemática&#39;;
         case &#39;development&#39;:
           return &#39;Desarrollo completo&#39;;
+        case &#39;development-random&#39;:
+          return &#39;Selección aleatoria del reductor&#39;;
         case &#39;digital&#39;:
           return signatureSourceLabel();
         case &#39;distance&#39;:
@@ -16238,6 +16559,19 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       developmentPageIndex = 0;
       renderDevelopmentResults();
     });
+    developmentRandomSourceSelect.addEventListener(&#39;change&#39;, () =&gt; {
+      refreshDevelopmentRandomControls(developmentRandomSourceSelect.value);
+      const availableTotal = getDevelopmentRandomSourceCombinations().length;
+      setDevelopmentRandomMessage(
+        availableTotal
+          ? `Puedes solicitar entre 1 y ${availableTotal.toLocaleString(&#39;es-ES&#39;)} combinaciones de esta procedencia.`
+          : &#39;Genera primero un desarrollo completo o una reducción.&#39;
+      );
+    });
+    developmentRandomGenerateButton.addEventListener(&#39;click&#39;, generateDevelopmentRandomSelection);
+    developmentRandomQrButton.addEventListener(&#39;click&#39;, generateDevelopmentRandomQr);
+    developmentRandomExportButton.addEventListener(&#39;click&#39;, exportDevelopmentRandomSelection);
+    developmentRandomClearButton.addEventListener(&#39;click&#39;, () =&gt; clearDevelopmentRandomSelection());
     developmentBreakdownViewSelect.addEventListener(&#39;change&#39;, renderSelectedDevelopmentPrizeBreakdown);
     developmentBreakdownCalculateButton.addEventListener(
       &#39;click&#39;,
@@ -16341,6 +16675,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
     updateFilterSourceSummary(false);
     createDevelopmentNumberButtons();
     createDevelopmentViewOptions(&#39;reduced&#39;);
+    refreshDevelopmentRandomControls();
     updateHighLoadOverride();
     populateRuleNumbers();
     updateRuleQuantityControls();
