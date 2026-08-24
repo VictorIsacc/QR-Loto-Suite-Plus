@@ -1,10 +1,9 @@
 const CACHE_PREFIX = "qr-loto-suite-plus-";
-const CACHE_NAME = `${CACHE_PREFIX}v6`;
+const CACHE_NAME = `${CACHE_PREFIX}v7`;
 
 const APP_ASSETS = [
   "./",
   "./index.html",
-  "./LotoLens_PRONOSTICO_EXP.html",
   "./manifest.webmanifest",
   "./icono-qr-loto-192.png",
   "./icono-qr-loto-512.png",
