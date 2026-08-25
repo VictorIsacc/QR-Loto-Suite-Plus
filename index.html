@@ -2235,6 +2235,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       &lt;button class=&quot;btn&quot; id=&quot;lottery-scrutiny-paste&quot; type=&quot;button&quot;&gt;Pegar combinación ganadora&lt;/button&gt;
       &lt;button class=&quot;btn&quot; id=&quot;lottery-scrutiny-analyse&quot; type=&quot;button&quot;&gt;Analizar combinación&lt;/button&gt;
       &lt;button class=&quot;btn btn-primary&quot; id=&quot;lottery-scrutiny-check&quot; type=&quot;button&quot;&gt;Escrutar combinaciones&lt;/button&gt;
+      &lt;button class=&quot;btn btn-ghost&quot; id=&quot;lottery-scrutiny-cancel&quot; type=&quot;button&quot; hidden&gt;Cancelar escrutinio&lt;/button&gt;
       &lt;button class=&quot;btn btn-ghost&quot; id=&quot;lottery-scrutiny-clear&quot; type=&quot;button&quot;&gt;Limpiar&lt;/button&gt;
     &lt;/div&gt;
 
@@ -2273,15 +2274,10 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         &lt;p class=&quot;scrutiny-hit-summary-title&quot;&gt;Resumen de aciertos&lt;/p&gt;
         &lt;div class=&quot;scrutiny-hit-summary&quot; id=&quot;lottery-scrutiny-hit-summary&quot; aria-label=&quot;Resumen por número de aciertos&quot;&gt;&lt;/div&gt;
       &lt;/div&gt;
-      &lt;div class=&quot;scrutiny-colour-key&quot; aria-label=&quot;Colores utilizados para diferenciar los premios&quot;&gt;
-        &lt;span class=&quot;scrutiny-key-item scrutiny-key-3&quot;&gt;3 aciertos&lt;/span&gt;
-        &lt;span class=&quot;scrutiny-key-item scrutiny-key-4&quot;&gt;4 aciertos&lt;/span&gt;
-        &lt;span class=&quot;scrutiny-key-item scrutiny-key-5&quot;&gt;5 aciertos&lt;/span&gt;
-        &lt;span class=&quot;scrutiny-key-item scrutiny-key-5c&quot;&gt;5 + C&lt;/span&gt;
-        &lt;span class=&quot;scrutiny-key-item scrutiny-key-6&quot;&gt;6 aciertos&lt;/span&gt;
-        &lt;span class=&quot;scrutiny-key-item scrutiny-key-6r&quot;&gt;6 + R&lt;/span&gt;
+      &lt;div class=&quot;scrutiny-prize-summary-block&quot;&gt;
+        &lt;p class=&quot;scrutiny-hit-summary-title&quot; id=&quot;lottery-scrutiny-prize-title&quot;&gt;Premios encontrados&lt;/p&gt;
+        &lt;div class=&quot;scrutiny-prize-summary&quot; id=&quot;lottery-scrutiny-prize-summary&quot; aria-label=&quot;Resumen de premios encontrados&quot;&gt;&lt;/div&gt;
       &lt;/div&gt;
-      &lt;div class=&quot;scrutiny-list&quot; id=&quot;lottery-scrutiny-list&quot;&gt;&lt;/div&gt;
       &lt;p class=&quot;scrutiny-note text-muted&quot; id=&quot;lottery-scrutiny-note&quot;&gt;&lt;/p&gt;
     &lt;/div&gt;
     &lt;div class=&quot;lottery-back-row&quot;&gt;
@@ -4922,9 +4918,33 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
     margin-left: 0.4rem;
   }
 
-  #lottery-simulator-649 .scrutiny-list {
+  #lottery-simulator-649 .scrutiny-prize-summary-block,
+  #lottery-simulator-649 .scrutiny-prize-summary {
     display: grid;
     gap: 0.5rem;
+  }
+
+  #lottery-simulator-649 .scrutiny-prize-item {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.7rem 0.8rem;
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    background: color-mix(in srgb, var(--secondary) 62%, transparent);
+  }
+
+  #lottery-simulator-649 .scrutiny-prize-item strong {
+    font-size: calc(var(--font-size-base) * 1.08);
+  }
+
+  #lottery-simulator-649 .scrutiny-prize-empty {
+    margin: 0;
+    padding: 0.8rem;
+    border: 1px dashed var(--border);
+    border-radius: 0.75rem;
+    color: var(--muted-foreground);
   }
 
   #lottery-simulator-649 .scrutiny-hit-summary-block {
@@ -4994,93 +5014,6 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
     background: color-mix(in srgb, #f472b6 20%, transparent);
   }
 
-  #lottery-simulator-649 .scrutiny-colour-key {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.45rem;
-  }
-
-  #lottery-simulator-649 .scrutiny-key-item {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.28rem 0.55rem;
-    border: 1px solid color-mix(in srgb, var(--scrutiny-colour) 62%, var(--border));
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--scrutiny-colour) 18%, transparent);
-    color: color-mix(in srgb, var(--scrutiny-colour) 82%, var(--foreground));
-    font-size: calc(var(--font-size-base) * 0.78);
-    font-weight: 700;
-  }
-
-  #lottery-simulator-649 .scrutiny-key-3,
-  #lottery-simulator-649 .scrutiny-prize-3 {
-    --scrutiny-colour: #38bdf8;
-  }
-
-  #lottery-simulator-649 .scrutiny-key-4,
-  #lottery-simulator-649 .scrutiny-prize-4 {
-    --scrutiny-colour: #2dd4bf;
-  }
-
-  #lottery-simulator-649 .scrutiny-key-5,
-  #lottery-simulator-649 .scrutiny-prize-5 {
-    --scrutiny-colour: #facc15;
-  }
-
-  #lottery-simulator-649 .scrutiny-key-5c,
-  #lottery-simulator-649 .scrutiny-prize-5c {
-    --scrutiny-colour: #fb923c;
-  }
-
-  #lottery-simulator-649 .scrutiny-key-6,
-  #lottery-simulator-649 .scrutiny-prize-6 {
-    --scrutiny-colour: #a78bfa;
-  }
-
-  #lottery-simulator-649 .scrutiny-key-6r,
-  #lottery-simulator-649 .scrutiny-prize-special {
-    --scrutiny-colour: #f472b6;
-  }
-
-  #lottery-simulator-649 .scrutiny-row {
-    display: grid;
-    grid-template-columns: minmax(2rem, auto) minmax(14rem, 1fr) minmax(6rem, auto) minmax(10rem, auto);
-    gap: 0.75rem;
-    align-items: center;
-    padding: 0.55rem 0.65rem;
-    border-bottom: 1px solid var(--border);
-    border-left: 0.28rem solid transparent;
-    border-radius: 0.65rem;
-    transition: background-color 160ms ease, border-color 160ms ease;
-  }
-
-  #lottery-simulator-649 .scrutiny-row[class*=&quot;scrutiny-prize-&quot;] {
-    border-left-color: var(--scrutiny-colour);
-    background: linear-gradient(90deg, color-mix(in srgb, var(--scrutiny-colour) 20%, transparent), transparent 72%);
-  }
-
-  #lottery-simulator-649 .scrutiny-row[class*=&quot;scrutiny-prize-&quot;] .scrutiny-hits-badge {
-    border-color: color-mix(in srgb, var(--scrutiny-colour) 66%, var(--border));
-    background: color-mix(in srgb, var(--scrutiny-colour) 24%, var(--background));
-    color: color-mix(in srgb, var(--scrutiny-colour) 82%, var(--foreground));
-    font-weight: 800;
-  }
-
-  #lottery-simulator-649 .scrutiny-row[class*=&quot;scrutiny-prize-&quot;] .scrutiny-category {
-    color: color-mix(in srgb, var(--scrutiny-colour) 84%, var(--foreground));
-  }
-
-  #lottery-simulator-649 .scrutiny-row:last-child {
-    border-bottom: 0;
-  }
-
-  #lottery-simulator-649 .scrutiny-combination {
-    font-variant-numeric: tabular-nums;
-  }
-
-  #lottery-simulator-649 .scrutiny-category {
-    text-align: right;
-  }
 
   #lottery-simulator-649 .qr-title-row {
     display: flex;
@@ -6045,14 +5978,6 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 
-    #lottery-simulator-649 .scrutiny-row {
-      grid-template-columns: minmax(2rem, auto) 1fr auto;
-    }
-
-    #lottery-simulator-649 .scrutiny-category {
-      grid-column: 2 / -1;
-      text-align: left;
-    }
 
     #lottery-simulator-649 .ticket-save-panel,
     #lottery-simulator-649 .ticket-import-panel {
@@ -6353,17 +6278,6 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
     #lottery-simulator-649 .saved-item,
     #lottery-simulator-649 .rule-item {
       gap: 0.35rem;
-    }
-
-    #lottery-simulator-649 .scrutiny-row {
-      grid-template-columns: auto minmax(0, 1fr);
-      gap: 0.4rem 0.55rem;
-    }
-
-    #lottery-simulator-649 .scrutiny-hits-badge,
-    #lottery-simulator-649 .scrutiny-category {
-      grid-column: 2;
-      justify-self: start;
     }
 
     #lottery-simulator-649 .ticket-card-heading {
@@ -6850,6 +6764,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
     const scrutinyPasteButton = root.querySelector(&#39;#lottery-scrutiny-paste&#39;);
     const scrutinyAnalyseButton = root.querySelector(&#39;#lottery-scrutiny-analyse&#39;);
     const scrutinyCheckButton = root.querySelector(&#39;#lottery-scrutiny-check&#39;);
+    const scrutinyCancelButton = root.querySelector(&#39;#lottery-scrutiny-cancel&#39;);
     const scrutinyClearButton = root.querySelector(&#39;#lottery-scrutiny-clear&#39;);
     const scrutinyMessage = root.querySelector(&#39;#lottery-scrutiny-message&#39;);
     const scrutinyAnalysis = root.querySelector(&#39;#lottery-scrutiny-analysis&#39;);
@@ -6865,7 +6780,8 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
     const scrutinyDraw = root.querySelector(&#39;#lottery-scrutiny-draw&#39;);
     const scrutinySummary = root.querySelector(&#39;#lottery-scrutiny-summary&#39;);
     const scrutinyHitSummary = root.querySelector(&#39;#lottery-scrutiny-hit-summary&#39;);
-    const scrutinyList = root.querySelector(&#39;#lottery-scrutiny-list&#39;);
+    const scrutinyPrizeTitle = root.querySelector(&#39;#lottery-scrutiny-prize-title&#39;);
+    const scrutinyPrizeSummary = root.querySelector(&#39;#lottery-scrutiny-prize-summary&#39;);
     const scrutinySourceButtons = Array.from(root.querySelectorAll(&#39;.lottery-scrutiny-source-button&#39;));
     const scrutinyNote = root.querySelector(&#39;#lottery-scrutiny-note&#39;);
     const reducedMotion = window.matchMedia(&#39;(prefers-reduced-motion: reduce)&#39;).matches;
@@ -7068,6 +6984,8 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
     let filteredSourceDetails = null;
     let scrutinyPreparedRoute = null;
     let scrutinyPreparedSource = null;
+    let scrutinyBusy = false;
+    let scrutinyCancelRequested = false;
     let filterPageIndex = 0;
     let filterBusy = false;
     let filterCancelRequested = false;
@@ -15442,31 +15360,31 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         case &#39;current&#39;:
           return drawn.length === 6 ? [[...drawn].sort((first, second) =&gt; first - second)] : [];
         case &#39;random&#39;:
-          return savedOrigin === &#39;random&#39; ? savedCombinations.map((combination) =&gt; [...combination]) : [];
+          return savedOrigin === &#39;random&#39; ? savedCombinations : [];
         case &#39;rules&#39;:
-          return ruleGeneratedCombinations.map((combination) =&gt; [...combination]);
+          return ruleGeneratedCombinations;
         case &#39;imported&#39;:
-          return importedCombinations.map((combination) =&gt; [...combination]);
+          return importedCombinations;
         case &#39;reduced&#39;:
-          return developmentReducedCombinations.map((combination) =&gt; [...combination]);
+          return developmentReducedCombinations;
         case &#39;development&#39;:
-          return developmentFullCombinations.map((combination) =&gt; [...combination]);
+          return developmentFullCombinations;
         case &#39;development-random&#39;:
-          return developmentRandomCombinations.map((combination) =&gt; [...combination]);
+          return developmentRandomCombinations;
         case &#39;digital&#39;:
-          return digitalGeneratedCombinations.map((combination) =&gt; [...combination]);
+          return digitalGeneratedCombinations;
         case &#39;distance&#39;:
-          return distanceGeneratedCombinations.map((combination) =&gt; [...combination]);
+          return distanceGeneratedCombinations;
         case &#39;triple-signature&#39;:
           return distanceGeneratedCrossMode === &#39;both&#39;
-            ? distanceGeneratedCombinations.map((combination) =&gt; [...combination])
+            ? distanceGeneratedCombinations
             : [];
         case &#39;ticket&#39;:
           return loadedTicketForScrutiny
-            ? loadedTicketForScrutiny.combinations.map((combination) =&gt; [...combination])
+            ? loadedTicketForScrutiny.combinations
             : [];
         case &#39;filtered&#39;:
-          return filteredCombinations.map((combination) =&gt; [...combination]);
+          return filteredCombinations;
         default:
           return [];
       }
@@ -15481,7 +15399,9 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         case &#39;rules&#39;:
           return &#39;combinaciones con fijos y semifijos&#39;;
         case &#39;imported&#39;:
-          return importedSource === &#39;clipboard&#39; ? &#39;combinaciones pegadas&#39; : &#39;combinaciones cargadas desde archivo&#39;;
+          return importedSource === &#39;ptcq&#39;
+            ? &#39;combinaciones recibidas de Filtro PTCQ&#39;
+            : importedSource === &#39;clipboard&#39; ? &#39;combinaciones pegadas&#39; : &#39;combinaciones cargadas desde archivo&#39;;
         case &#39;reduced&#39;:
           return &#39;combinaciones de la reducción matemática&#39;;
         case &#39;development&#39;:
@@ -15516,7 +15436,9 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         case &#39;rules&#39;:
           return &#39;Generador con fijos y semifijos&#39;;
         case &#39;imported&#39;:
-          return importedSource === &#39;clipboard&#39;
+          return importedSource === &#39;ptcq&#39;
+            ? &#39;Desarrollo recibido de Filtro PTCQ&#39;
+            : importedSource === &#39;clipboard&#39;
             ? &#39;Combinaciones pegadas desde el portapapeles&#39;
             : &#39;Archivo TXT cargado&#39;;
         case &#39;reduced&#39;:
@@ -15556,56 +15478,63 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       return [...(details.route ?? [scrutinySourceDisplayName()]), &#39;Escrutador&#39;].join(&#39; → &#39;);
     }
 
-    function classifyScrutinyCombination(combination, winning, complement, refund, playedRefund) {
-      const hits = combination.filter((number) =&gt; winning.includes(number)).length;
-      const complementHit = hits === 5 &amp;&amp; combination.includes(complement);
-      const isPrimitiva = scrutinyGameSelect.value === &#39;1&#39;;
-      const refundChecked = isPrimitiva &amp;&amp; Number.isInteger(refund);
-      const refundHit = refundChecked &amp;&amp; Number.isInteger(playedRefund) &amp;&amp; playedRefund === refund;
-      let category = &#39;Sin premio principal&#39;;
-      let rank = 7;
-      let prizeTone = &#39;&#39;;
+    const SCRUTINY_CHUNK_SIZE = 50000;
 
-      if (hits === 6) {
-        category = isPrimitiva &amp;&amp; refundHit ? &#39;Especial (6 + reintegro)&#39; : &#39;1.ª categoría&#39;;
-        rank = isPrimitiva &amp;&amp; refundHit ? 0 : 1;
-        prizeTone = isPrimitiva &amp;&amp; refundHit ? &#39;special&#39; : &#39;6&#39;;
-      } else if (hits === 5 &amp;&amp; complementHit) {
-        category = &#39;2.ª categoría (5 + C)&#39;;
-        rank = 2;
-        prizeTone = &#39;5c&#39;;
-      } else if (hits === 5) {
-        category = &#39;3.ª categoría&#39;;
-        rank = 3;
-        prizeTone = &#39;5&#39;;
-      } else if (hits === 4) {
-        category = &#39;4.ª categoría&#39;;
-        rank = 4;
-        prizeTone = &#39;4&#39;;
-      } else if (hits === 3) {
-        category = &#39;5.ª categoría&#39;;
-        rank = 5;
-        prizeTone = &#39;3&#39;;
+    function setScrutinyBusy(isBusy) {
+      scrutinyBusy = isBusy;
+      scrutinyCheckButton.disabled = isBusy;
+      scrutinyPasteButton.disabled = isBusy;
+      scrutinyAnalyseButton.disabled = isBusy;
+      scrutinyClearButton.disabled = isBusy;
+      scrutinySourceSelect.disabled = isBusy;
+      scrutinyGameSelect.disabled = isBusy;
+      scrutinyWinningInput.disabled = isBusy;
+      scrutinyComplementInput.disabled = isBusy;
+      scrutinyRefundInput.disabled = isBusy || scrutinyGameSelect.value !== &#39;1&#39;;
+      scrutinyCancelButton.hidden = !isBusy;
+      scrutinyCancelButton.disabled = !isBusy || scrutinyCancelRequested;
+    }
+
+    function cancelScrutiny() {
+      if (!scrutinyBusy || scrutinyCancelRequested) return;
+      scrutinyCancelRequested = true;
+      scrutinyCancelButton.disabled = true;
+      setScrutinyMessage(&#39;Cancelando el escrutinio…&#39;);
+    }
+
+    function renderScrutinyPrizeSummary(prizeCounts, scrutinizedTicket) {
+      scrutinyPrizeTitle.textContent = scrutinizedTicket
+        ? `Premios del boleto «${scrutinizedTicket.name}»`
+        : &#39;Premios encontrados&#39;;
+      scrutinyPrizeSummary.replaceChildren();
+      const entries = [
+        [&#39;Especial (6 + reintegro)&#39;, prizeCounts.special],
+        [&#39;1.ª categoría (6 aciertos)&#39;, prizeCounts.six],
+        [&#39;2.ª categoría (5 + complementario)&#39;, prizeCounts.fiveComplement],
+        [&#39;3.ª categoría (5 aciertos)&#39;, prizeCounts.five],
+        [&#39;4.ª categoría (4 aciertos)&#39;, prizeCounts.four],
+        [&#39;5.ª categoría (3 aciertos)&#39;, prizeCounts.three],
+        [&#39;Reintegro&#39;, prizeCounts.refund]
+      ].filter(([, count]) =&gt; count &gt; 0);
+      if (entries.length === 0) {
+        const empty = document.createElement(&#39;p&#39;);
+        empty.className = &#39;scrutiny-prize-empty&#39;;
+        empty.textContent = scrutinizedTicket
+          ? &#39;Este boleto no contiene apuestas premiadas con el resultado introducido.&#39;
+          : &#39;No se han encontrado apuestas premiadas con el resultado introducido.&#39;;
+        scrutinyPrizeSummary.appendChild(empty);
+        return;
       }
-
-      if (isPrimitiva &amp;&amp; refundHit &amp;&amp; hits &lt; 6) {
-        if (category === &#39;Sin premio principal&#39;) {
-          category = &#39;Reintegro&#39;;
-          rank = 6;
-        } else {
-          category += &#39; + reintegro&#39;;
-        }
-      }
-
-      return {
-        hits,
-        complementHit,
-        refundHit,
-        refundChecked,
-        category,
-        rank,
-        prizeTone
-      };
+      entries.forEach(([label, count]) =&gt; {
+        const item = document.createElement(&#39;div&#39;);
+        item.className = &#39;scrutiny-prize-item&#39;;
+        const name = document.createElement(&#39;span&#39;);
+        name.textContent = label;
+        const total = document.createElement(&#39;strong&#39;);
+        total.textContent = `${count.toLocaleString(&#39;es-ES&#39;)} ${count === 1 ? &#39;premio&#39; : &#39;premios&#39;}`;
+        item.append(name, total);
+        scrutinyPrizeSummary.appendChild(item);
+      });
     }
 
     function renderScrutinyDraw(winning, complement, refund) {
@@ -15630,17 +15559,17 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       }
     }
 
-    function renderScrutinyHitSummary(results) {
+    function renderScrutinyHitSummary(hitCounts, complementHits, specialHits) {
       const groups = [
-        { key: &#39;0&#39;, label: &#39;0 aciertos&#39;, count: results.filter((result) =&gt; result.hits === 0).length },
-        { key: &#39;1&#39;, label: &#39;1 acierto&#39;, count: results.filter((result) =&gt; result.hits === 1).length },
-        { key: &#39;2&#39;, label: &#39;2 aciertos&#39;, count: results.filter((result) =&gt; result.hits === 2).length },
-        { key: &#39;3&#39;, label: &#39;3 aciertos&#39;, count: results.filter((result) =&gt; result.hits === 3).length },
-        { key: &#39;4&#39;, label: &#39;4 aciertos&#39;, count: results.filter((result) =&gt; result.hits === 4).length },
-        { key: &#39;5&#39;, label: &#39;5 aciertos&#39;, count: results.filter((result) =&gt; result.hits === 5 &amp;&amp; !result.complementHit).length },
-        { key: &#39;5c&#39;, label: &#39;5 + C&#39;, count: results.filter((result) =&gt; result.complementHit).length },
-        { key: &#39;6&#39;, label: &#39;6 aciertos&#39;, count: results.filter((result) =&gt; result.hits === 6 &amp;&amp; !result.refundHit).length },
-        { key: &#39;6r&#39;, label: &#39;6 + R&#39;, count: results.filter((result) =&gt; result.hits === 6 &amp;&amp; result.refundHit).length }
+        { key: &#39;0&#39;, label: &#39;0 aciertos&#39;, count: hitCounts[0] },
+        { key: &#39;1&#39;, label: &#39;1 acierto&#39;, count: hitCounts[1] },
+        { key: &#39;2&#39;, label: &#39;2 aciertos&#39;, count: hitCounts[2] },
+        { key: &#39;3&#39;, label: &#39;3 aciertos&#39;, count: hitCounts[3] },
+        { key: &#39;4&#39;, label: &#39;4 aciertos&#39;, count: hitCounts[4] },
+        { key: &#39;5&#39;, label: &#39;5 aciertos&#39;, count: hitCounts[5] - complementHits },
+        { key: &#39;5c&#39;, label: &#39;5 + C&#39;, count: complementHits },
+        { key: &#39;6&#39;, label: &#39;6 aciertos&#39;, count: hitCounts[6] - specialHits },
+        { key: &#39;6r&#39;, label: &#39;6 + R&#39;, count: specialHits }
       ];
 
       scrutinyHitSummary.replaceChildren();
@@ -15660,7 +15589,8 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       });
     }
 
-    function scrutinizeCombinations() {
+    async function scrutinizeCombinations() {
+      if (scrutinyBusy) return;
       const scrutinizedTicket = scrutinySourceSelect.value === &#39;ticket&#39; ? loadedTicketForScrutiny : null;
       if (scrutinySourceSelect.value === &#39;ticket&#39; &amp;&amp; !scrutinizedTicket) {
         setScrutinyMessage(&#39;Abre «Mis boletos» y pulsa «Escrutar» en el boleto que quieras comprobar.&#39;, true);
@@ -15702,62 +15632,131 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         return;
       }
 
-      const results = combinations.map((combination) =&gt; ({
-        combination,
-        ...classifyScrutinyCombination(combination, winning, complement, refund, playedRefund)
-      }));
+      scrutinyCancelRequested = false;
+      setScrutinyBusy(true);
+      scrutinyOutput.hidden = true;
+      scrutinyPrizeSummary.replaceChildren();
+      const winningMask = new Uint8Array(50);
+      winning.forEach((number) =&gt; { winningMask[number] = 1; });
+      const hitCounts = Array(7).fill(0);
+      let complementHits = 0;
+      let processed = 0;
+      let bestRank = 7;
+      let bestCategory = &#39;Sin premio principal&#39;;
+      const refundHit = isPrimitiva
+        &amp;&amp; Number.isInteger(refund)
+        &amp;&amp; Number.isInteger(playedRefund)
+        &amp;&amp; playedRefund === refund;
+      const startedAt = performance.now();
+      setScrutinyMessage(`Escrutando ${combinations.length.toLocaleString(&#39;es-ES&#39;)} combinaciones sin crear una lista visual…`);
+      await wait(0);
 
-      scrutinyList.replaceChildren();
-      results.forEach((result, index) =&gt; {
-        const row = document.createElement(&#39;div&#39;);
-        row.className = &#39;scrutiny-row&#39;;
-        if (result.prizeTone) row.classList.add(`scrutiny-prize-${result.prizeTone}`);
+      try {
+        for (const combination of combinations) {
+          let hits = 0;
+          let complementHit = false;
+          for (let position = 0; position &lt; 6; position += 1) {
+            const number = combination[position];
+            hits += winningMask[number];
+            if (number === complement) complementHit = true;
+          }
+          hitCounts[hits] += 1;
+          if (hits === 6) {
+            const rank = refundHit ? 0 : 1;
+            if (rank &lt; bestRank) {
+              bestRank = rank;
+              bestCategory = refundHit ? &#39;Especial (6 + reintegro)&#39; : &#39;1.ª categoría&#39;;
+            }
+          } else if (hits === 5 &amp;&amp; complementHit) {
+            complementHits += 1;
+            if (bestRank &gt; 2) {
+              bestRank = 2;
+              bestCategory = &#39;2.ª categoría (5 + C)&#39;;
+            }
+          } else if (hits === 5 &amp;&amp; bestRank &gt; 3) {
+            bestRank = 3;
+            bestCategory = &#39;3.ª categoría&#39;;
+          } else if (hits === 4 &amp;&amp; bestRank &gt; 4) {
+            bestRank = 4;
+            bestCategory = &#39;4.ª categoría&#39;;
+          } else if (hits === 3 &amp;&amp; bestRank &gt; 5) {
+            bestRank = 5;
+            bestCategory = &#39;5.ª categoría&#39;;
+          } else if (refundHit &amp;&amp; bestRank &gt; 6) {
+            bestRank = 6;
+            bestCategory = &#39;Reintegro&#39;;
+          }
+          processed += 1;
+          if (processed % SCRUTINY_CHUNK_SIZE === 0) {
+            if (scrutinyCancelRequested) break;
+            const percentage = Math.min(100, (processed / combinations.length) * 100);
+            setScrutinyMessage(
+              `Escrutando… ${processed.toLocaleString(&#39;es-ES&#39;)} de ${combinations.length.toLocaleString(&#39;es-ES&#39;)} (${percentage.toLocaleString(&#39;es-ES&#39;, { maximumFractionDigits: 1 })} %).`
+            );
+            await wait(0);
+          }
+        }
 
-        const position = document.createElement(&#39;span&#39;);
-        position.textContent = `${index + 1}.`;
+        if (scrutinyCancelRequested) {
+          scrutinyOutput.hidden = true;
+          setScrutinyMessage(`Escrutinio cancelado después de comprobar ${processed.toLocaleString(&#39;es-ES&#39;)} combinaciones.`);
+          return;
+        }
 
-        const numbers = document.createElement(&#39;span&#39;);
-        numbers.className = &#39;scrutiny-combination&#39;;
-        numbers.textContent = result.combination.map((number) =&gt; String(number).padStart(2, &#39;0&#39;)).join(&#39; · &#39;);
-
-        const hits = document.createElement(&#39;span&#39;);
-        hits.className = &#39;viz-badge scrutiny-hits-badge&#39;;
-        hits.textContent = `${result.hits} ${result.hits === 1 ? &#39;acierto&#39; : &#39;aciertos&#39;}${result.complementHit ? &#39; + C&#39; : &#39;&#39;}`;
-
-        const category = document.createElement(&#39;strong&#39;);
-        category.className = &#39;scrutiny-category&#39;;
-        category.textContent = result.category;
-
-        row.append(position, numbers, hits, category);
-        scrutinyList.appendChild(row);
-      });
-
-      const best = [...results].sort((first, second) =&gt; first.rank - second.rank)[0];
-      const gameName = isPrimitiva ? &#39;La Primitiva&#39; : &#39;Bonoloto&#39;;
-      const sourceDisplayName = scrutinySourceDisplayName();
-      renderScrutinyDraw(winning, complement, refund);
-      renderScrutinyHitSummary(results);
-      scrutinyContextGameItem.dataset.game = isPrimitiva ? &#39;primitiva&#39; : &#39;bonoloto&#39;;
-      scrutinyContextGame.textContent = gameName;
-      scrutinyContextSourceItem.dataset.source = scrutinySourceSelect.value;
-      scrutinyContextSource.textContent = sourceDisplayName;
-      scrutinyContextRoute.textContent = scrutinyRouteDisplayName();
-      scrutinySummary.textContent = `${gameName} · Procedencia: ${sourceDisplayName} · ${results.length} ${results.length === 1 ? &#39;combinación escrutada&#39; : &#39;combinaciones escrutadas&#39;} · mejor resultado: ${best.category}.`;
-      if (isPrimitiva &amp;&amp; scrutinizedTicket) {
-        const jokerNote = scrutinizedTicket.joker === &#39;0&#39;
-          ? &#39;El boleto incluye Joker, aunque su número independiente no se almacena ni puede escrutarse.&#39;
-          : &#39;El boleto no incluye Joker.&#39;;
-        scrutinyNote.textContent = `Reintegro jugado: ${playedRefund} · reintegro oficial: ${refund} · ${playedRefund === refund ? &#39;coincide&#39; : &#39;no coincide&#39;}. ${jokerNote}`;
-      } else if (isPrimitiva) {
-        scrutinyNote.textContent = `Reintegro comprobado: ${playedRefund}, el seleccionado actualmente en el generador. El Joker no se comprueba porque no se almacena su número.`;
-      } else {
-        scrutinyNote.textContent = scrutinizedTicket
-          ? &#39;Boleto completo de Bonoloto: se comprueba la combinación principal; esta modalidad no guarda reintegro en el boleto.&#39;
-          : &#39;Se comprueba la combinación principal. El reintegro no puede verificarse porque no se guarda con cada combinación.&#39;;
+        if (refundHit &amp;&amp; bestRank &gt; 1 &amp;&amp; bestRank &lt; 6) bestCategory += &#39; + reintegro&#39;;
+        const specialHits = refundHit ? hitCounts[6] : 0;
+        const prizeCounts = {
+          special: specialHits,
+          six: hitCounts[6] - specialHits,
+          fiveComplement: complementHits,
+          five: hitCounts[5] - complementHits,
+          four: hitCounts[4],
+          three: hitCounts[3],
+          refund: refundHit ? processed - specialHits : 0
+        };
+        const principalPrizeTotal = prizeCounts.special
+          + prizeCounts.six
+          + prizeCounts.fiveComplement
+          + prizeCounts.five
+          + prizeCounts.four
+          + prizeCounts.three;
+        const elapsedSeconds = (performance.now() - startedAt) / 1000;
+        const gameName = isPrimitiva ? &#39;La Primitiva&#39; : &#39;Bonoloto&#39;;
+        const sourceDisplayName = scrutinySourceDisplayName();
+        renderScrutinyDraw(winning, complement, refund);
+        renderScrutinyHitSummary(hitCounts, complementHits, specialHits);
+        renderScrutinyPrizeSummary(prizeCounts, scrutinizedTicket);
+        scrutinyContextGameItem.dataset.game = isPrimitiva ? &#39;primitiva&#39; : &#39;bonoloto&#39;;
+        scrutinyContextGame.textContent = gameName;
+        scrutinyContextSourceItem.dataset.source = scrutinySourceSelect.value;
+        scrutinyContextSource.textContent = sourceDisplayName;
+        scrutinyContextRoute.textContent = scrutinyRouteDisplayName();
+        scrutinySummary.textContent = `${gameName} · Procedencia: ${sourceDisplayName} · ${processed.toLocaleString(&#39;es-ES&#39;)} ${processed === 1 ? &#39;combinación escrutada&#39; : &#39;combinaciones escrutadas&#39;} · mejor resultado: ${bestCategory}.`;
+        if (scrutinizedTicket) {
+          const ticketPrizeText = `${principalPrizeTotal.toLocaleString(&#39;es-ES&#39;)} ${principalPrizeTotal === 1 ? &#39;apuesta con premio principal&#39; : &#39;apuestas con premio principal&#39;}`;
+          if (isPrimitiva) {
+            const jokerNote = scrutinizedTicket.joker === &#39;0&#39;
+              ? &#39;El boleto incluye Joker, aunque su número independiente no se almacena ni puede escrutarse.&#39;
+              : &#39;El boleto no incluye Joker.&#39;;
+            scrutinyNote.textContent = `Boleto «${scrutinizedTicket.name}»: ${ticketPrizeText}. Reintegro jugado: ${playedRefund} · oficial: ${refund} · ${refundHit ? &#39;coincide&#39; : &#39;no coincide&#39;}. ${jokerNote}`;
+          } else {
+            scrutinyNote.textContent = `Boleto «${scrutinizedTicket.name}»: ${ticketPrizeText} de ${processed.toLocaleString(&#39;es-ES&#39;)}. Bonoloto no utiliza reintegro.`;
+          }
+        } else if (isPrimitiva) {
+          scrutinyNote.textContent = `Reintegro comprobado: ${playedRefund}, el seleccionado actualmente en el generador. El Joker no se comprueba porque no se almacena su número.`;
+        } else {
+          scrutinyNote.textContent = &#39;Se muestra el resumen completo de aciertos y premios; no se crea una fila por cada apuesta.&#39;;
+        }
+        scrutinyOutput.hidden = false;
+        setScrutinyMessage(`Escrutinio completado en ${elapsedSeconds.toLocaleString(&#39;es-ES&#39;, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} s sin materializar ni mostrar todas las apuestas.`);
+        summary.textContent = `Escrutinio completado: ${gameName} · ${sourceDisplayName} · ${processed.toLocaleString(&#39;es-ES&#39;)} combinaciones.`;
+      } catch (error) {
+        scrutinyOutput.hidden = true;
+        setScrutinyMessage(`No se ha podido completar el escrutinio: ${error.message}`, true);
+      } finally {
+        scrutinyCancelRequested = false;
+        setScrutinyBusy(false);
       }
-      scrutinyOutput.hidden = false;
-      setScrutinyMessage(&#39;Escrutinio completado con los datos introducidos.&#39;);
-      summary.textContent = `Escrutinio completado: ${gameName} · ${sourceDisplayName} · ${results.length} combinaciones.`;
     }
 
     async function pasteScrutinyWinningCombination() {
@@ -15813,7 +15812,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       scrutinyOutput.hidden = true;
       scrutinyDraw.replaceChildren();
       scrutinyHitSummary.replaceChildren();
-      scrutinyList.replaceChildren();
+      scrutinyPrizeSummary.replaceChildren();
       updateScrutinyGame();
     }
 
@@ -16638,6 +16637,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
     scrutinyPasteButton.addEventListener(&#39;click&#39;, pasteScrutinyWinningCombination);
     scrutinyAnalyseButton.addEventListener(&#39;click&#39;, analyseScrutinyWinningCombination);
     scrutinyCheckButton.addEventListener(&#39;click&#39;, scrutinizeCombinations);
+    scrutinyCancelButton.addEventListener(&#39;click&#39;, cancelScrutiny);
     scrutinyClearButton.addEventListener(&#39;click&#39;, clearScrutiny);
     scrutinyWinningInput.addEventListener(&#39;input&#39;, () =&gt; {
       scrutinyAnalysis.hidden = true;
