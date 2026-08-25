@@ -11758,7 +11758,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         } else if (total === 1 &amp;&amp; !rules.singleCombinationAllowed) {
           setQrMessage(getBonolotoSingleCombinationError(rules), true);
         } else {
-          const qrTotal = splitQrGroups(savedCombinations).length;
+          const qrTotal = getQrGroupCount(total);
           const weeklyNote = total === 1
             ? ` · válida para los ${rules.drawCount} sorteos pendientes`
             : &#39;&#39;;
@@ -11767,7 +11767,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       } else if (total === 0) {
         setQrMessage(&#39;La Primitiva admite de 1 a 8 combinaciones por cada QR.&#39;);
       } else {
-        const qrTotal = splitQrGroups(savedCombinations).length;
+        const qrTotal = getQrGroupCount(total);
         setQrMessage(`La Primitiva preparada con ${total} ${total === 1 ? &#39;combinación&#39; : &#39;combinaciones&#39;} · ${qrTotal} ${qrTotal === 1 ? &#39;QR&#39; : &#39;QRs&#39;}.`);
       }
     }
@@ -12076,6 +12076,10 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         remainingTotal -= size;
       }
       return sizes;
+    }
+
+    function getQrGroupCount(total) {
+      return total &gt; 0 ? Math.ceil(total / 8) : 0;
     }
 
     function setQrSetupMessage(message, isError = false) {
@@ -13146,7 +13150,10 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         setTxtMessage(`${sourceLabel} contiene 1 combinación válida para «Semana en curso»: quedan ${rules.drawCount} sorteos de Bonoloto.`);
         return;
       }
-      const qrTotal = splitQrGroups(importedCombinations).length;
+      // Esta zona puede conservar un paso PTCQ compacto con millones de apuestas.
+      // Para mostrar cuántos QR serían necesarios basta el total: partir la
+      // colección aquí obligaría a recorrerla y materializarla innecesariamente.
+      const qrTotal = getQrGroupCount(total);
       setTxtMessage(`${total} ${total === 1 ? &#39;combinación válida&#39; : &#39;combinaciones válidas&#39;} · se generarán ${qrTotal} ${qrTotal === 1 ? &#39;QR&#39; : &#39;QR&#39;}.`);
     }
 
