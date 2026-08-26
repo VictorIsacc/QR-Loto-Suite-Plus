@@ -7585,7 +7585,19 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       refreshSignatureSourceSelectors();
     }
 
-    function renderLoadedPositionalAnalysis(mode, combinations, patternKeys, sourceTotal) {
+    function encodeDigitalPattern(pattern) {
+      let code = 0;
+      for (const value of pattern) code = code * 9 + value - 1;
+      return code;
+    }
+
+    function encodeTerminationPattern(pattern) {
+      let code = 0;
+      for (const value of pattern) code = code * 10 + value;
+      return code;
+    }
+
+    function renderLoadedPositionalAnalysis(mode, combinations, patternKeys, sourceTotal, stats) {
       digitalPatternLabel.textContent = mode === &#39;combined&#39;
         ? &#39;Cruces de firmas retenidos&#39;
         : mode === &#39;termination&#39; ? &#39;Firmas de terminación retenidas&#39; : &#39;Firmas digitales retenidas&#39;;
@@ -7594,19 +7606,6 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       digitalSafeLimit.textContent = &#39;Entrada · &#39; + sourceTotal.toLocaleString(&#39;es-ES&#39;);
       digitalTotalBadge.textContent = combinations.length.toLocaleString(&#39;es-ES&#39;) + &#39; filtradas&#39;;
       digitalEquivalenceBreakdown.replaceChildren();
-      const stats = new Map(DIGITAL_EQUIVALENCE_VALUES.map((value) =&gt; [value, { patterns: new Set(), natural: 0 }]));
-      combinations.forEach((combination) =&gt; {
-        const pattern = mode === &#39;termination&#39;
-          ? combination.map((number) =&gt; number % 10)
-          : combination.map(digitalRoot);
-        const equivalence = mode === &#39;termination&#39;
-          ? countTerminationPatternEquivalents(pattern)
-          : countDigitalPatternEquivalents(pattern);
-        const item = stats.get(equivalence);
-        if (!item) return;
-        item.patterns.add(pattern.join(&#39;-&#39;));
-        item.natural += 1;
-      });
       DIGITAL_EQUIVALENCE_VALUES.forEach((value) =&gt; {
         const item = stats.get(value);
         const chip = document.createElement(&#39;span&#39;);
@@ -7614,7 +7613,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         const title = document.createElement(&#39;strong&#39;);
         title.textContent = value + &#39; eq.&#39;;
         chip.append(title, document.createTextNode(
-          item.patterns.size.toLocaleString(&#39;es-ES&#39;) + &#39; firmas · &#39;
+          item.patterns.toLocaleString(&#39;es-ES&#39;) + &#39; firmas · &#39;
           + item.natural.toLocaleString(&#39;es-ES&#39;) + &#39; conservadas&#39;
         ));
         digitalEquivalenceBreakdown.appendChild(chip);
@@ -7646,10 +7645,11 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
           ? createPackedCombinationAccumulator(input.length)
           : [];
         const patternKeys = new Set();
+        const positionalStats = new Map(DIGITAL_EQUIVALENCE_VALUES.map((value) =&gt; [value, { patterns: 0, natural: 0 }]));
         let index = 0;
         for (const combination of input) {
           index += 1;
-          if (index % 20000 === 0) {
+          if (index % 5000 === 0) {
             setDigitalMessage(&#39;Filtrando «&#39; + source.label + &#39;»… &#39; + index.toLocaleString(&#39;es-ES&#39;)
               + &#39; de &#39; + input.length.toLocaleString(&#39;es-ES&#39;) + &#39; revisadas.&#39;);
             await wait(0);
@@ -7658,9 +7658,26 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
           if (modes.includes(&#39;digital&#39;) &amp;&amp; !combinationMatchesDigitalConfiguration(combination, digitalCache)) continue;
           if (modes.includes(&#39;termination&#39;) &amp;&amp; !combinationMatchesTerminationConfiguration(combination, terminationCache)) continue;
           generated.push(combination);
-          const roots = combination.map(digitalRoot).join(&#39;-&#39;);
-          const endings = combination.map((number) =&gt; number % 10).join(&#39;-&#39;);
-          patternKeys.add(outputMode === &#39;combined&#39; ? roots + &#39;|&#39; + endings : outputMode === &#39;termination&#39; ? endings : roots);
+          const roots = combination.map(digitalRoot);
+          const endings = combination.map((number) =&gt; number % 10);
+          const digitalCode = encodeDigitalPattern(roots);
+          const terminationCode = encodeTerminationPattern(endings);
+          const patternCode = outputMode === &#39;combined&#39;
+            ? digitalCode * 1000000 + terminationCode
+            : outputMode === &#39;termination&#39; ? terminationCode : digitalCode;
+          const newPattern = !patternKeys.has(patternCode);
+          if (outputMode !== &#39;combined&#39;) {
+            const pattern = outputMode === &#39;termination&#39; ? endings : roots;
+            const equivalence = outputMode === &#39;termination&#39;
+              ? countTerminationPatternEquivalents(pattern)
+              : countDigitalPatternEquivalents(pattern);
+            const item = positionalStats.get(equivalence);
+            if (item) {
+              if (newPattern) item.patterns += 1;
+              item.natural += 1;
+            }
+          }
+          patternKeys.add(patternCode);
         }
         const generatedResult = Array.isArray(generated) ? generated : generated.finish();
         digitalGeneratedCombinations = generatedResult;
@@ -7675,7 +7692,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
           digitalSafeLimit.textContent = &#39;Entrada · &#39; + input.length.toLocaleString(&#39;es-ES&#39;);
           digitalTotalBadge.textContent = generatedResult.length.toLocaleString(&#39;es-ES&#39;) + &#39; filtradas&#39;;
         } else {
-          renderLoadedPositionalAnalysis(outputMode, generatedResult, patternKeys, input.length);
+          renderLoadedPositionalAnalysis(outputMode, generatedResult, patternKeys, input.length, positionalStats);
         }
         digitalResultDescription.textContent = generatedResult.length.toLocaleString(&#39;es-ES&#39;) + &#39; de &#39;
           + input.length.toLocaleString(&#39;es-ES&#39;) + &#39; combinaciones de «&#39; + source.label + &#39;» cumplen &#39;
@@ -7714,7 +7731,6 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         ? createPackedCombinationAccumulator(input.length)
         : [];
       const patternKeys = new Set();
-      const sumPatternKeys = new Map(DISTANCE_SUM_VALUES.map((sum) =&gt; [sum, new Set()]));
       const sumStats = Object.fromEntries(DISTANCE_SUM_VALUES.map((sum) =&gt; [sum, { patterns: 0, natural: 0 }]));
       distanceBusy = true;
       distanceCancelRequested = false;
@@ -7730,7 +7746,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         let index = 0;
         for (const combination of input) {
           index += 1;
-          if (index % 20000 === 0) {
+          if (index % 5000 === 0) {
             setDistanceMessage(&#39;Filtrando «&#39; + source.label + &#39;»… &#39; + index.toLocaleString(&#39;es-ES&#39;)
               + &#39; de &#39; + input.length.toLocaleString(&#39;es-ES&#39;) + &#39; revisadas.&#39;);
             await wait(0);
@@ -7745,12 +7761,12 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
           if ((crossMode === &#39;termination&#39; || crossMode === &#39;both&#39;)
             &amp;&amp; !combinationMatchesTerminationConfiguration(combination, terminationCache)) continue;
           generated.push(combination);
-          const patternKey = distances.join(&#39;-&#39;);
+          let patternKey = 0;
+          for (const distance of distances) patternKey = patternKey * 45 + distance;
+          if (!patternKeys.has(patternKey)) sumStats[sum].patterns += 1;
           patternKeys.add(patternKey);
-          sumPatternKeys.get(sum).add(patternKey);
           sumStats[sum].natural += 1;
         }
-        DISTANCE_SUM_VALUES.forEach((sum) =&gt; { sumStats[sum].patterns = sumPatternKeys.get(sum).size; });
         const generatedResult = Array.isArray(generated) ? generated : generated.finish();
         distanceGeneratedCombinations = generatedResult;
         distanceGeneratedPatternCount = patternKeys.size;
@@ -13089,16 +13105,41 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       summary.textContent = `Se han generado y guardado ${combinationCountLabel(total)} con los números fijos y semifijos seleccionados.`;
     }
 
-    function parseTxtCombinations(text) {
-      const combinations = [];
-      const errors = [];
-      const seen = new Set();
-      const lines = text.replace(/^\uFEFF/, &#39;&#39;).split(/\r?\n/);
+    const TXT_PACKED_IMPORT_THRESHOLD = 250000;
+    const TXT_PARSE_CHUNK_SIZE = 10000;
+    const txtBinomialTable = Array.from({ length: 50 }, () =&gt; Array(7).fill(0));
+    for (let number = 0; number &lt; txtBinomialTable.length; number += 1) {
+      txtBinomialTable[number][0] = 1;
+      for (let selected = 1; selected &lt;= Math.min(6, number); selected += 1) {
+        txtBinomialTable[number][selected] = number === 0
+          ? 0
+          : txtBinomialTable[number - 1][selected - 1] + txtBinomialTable[number - 1][selected];
+      }
+    }
 
-      lines.forEach((rawLine, index) =&gt; {
+    function txtCombinationRank(combination) {
+      let rank = 0;
+      for (let position = 0; position &lt; 6; position += 1) {
+        rank += txtBinomialTable[combination[position] - 1][position + 1];
+      }
+      return rank;
+    }
+
+    async function parseTxtCombinations(text) {
+      const lines = text.replace(/^\uFEFF/, &#39;&#39;).split(/\r?\n/);
+      const packed = lines.length &gt; TXT_PACKED_IMPORT_THRESHOLD;
+      const accumulator = packed ? createPackedCombinationAccumulator(lines.length) : [];
+      const duplicateMap = packed
+        ? new Uint8Array(LOTTERY_ABSOLUTE_COMBINATION_LIMIT)
+        : new Set();
+      const errors = [];
+      let errorCount = 0;
+
+      for (let index = 0; index &lt; lines.length; index += 1) {
+        const rawLine = lines[index];
         const lineNumber = index + 1;
         let line = rawLine.trim();
-        if (!line || line.startsWith(&#39;#&#39;)) return;
+        if (!line || line.startsWith(&#39;#&#39;)) continue;
         line = line.replace(/^\d+\s*[.)-]\s+/, &#39;&#39;).trim();
 
         let numbers;
@@ -13111,21 +13152,34 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         }
 
         if (numbers.length !== 6 || numbers.some((number) =&gt; number &lt; 1 || number &gt; 49) || new Set(numbers).size !== 6) {
-          errors.push(lineNumber);
-          return;
+          errorCount += 1;
+          if (errors.length &lt; 7) errors.push(lineNumber);
+          continue;
         }
 
         const combination = numbers.sort((first, second) =&gt; first - second);
-        const key = combinationKey(combination);
-        if (seen.has(key)) {
-          errors.push(lineNumber);
-          return;
+        const rank = txtCombinationRank(combination);
+        const duplicated = packed ? duplicateMap[rank] === 1 : duplicateMap.has(rank);
+        if (duplicated) {
+          errorCount += 1;
+          if (errors.length &lt; 7) errors.push(lineNumber);
+          continue;
         }
-        seen.add(key);
-        combinations.push(combination);
-      });
+        if (packed) duplicateMap[rank] = 1;
+        else duplicateMap.add(rank);
+        accumulator.push(combination);
 
-      return { combinations, errors };
+        if ((index + 1) % TXT_PARSE_CHUNK_SIZE === 0) {
+          setTxtMessage(`Leyendo combinaciones… ${Math.round((index + 1) / lines.length * 100)} %`);
+          await wait(0);
+        }
+      }
+
+      return {
+        combinations: packed ? accumulator.finish() : accumulator,
+        errors,
+        errorCount
+      };
     }
 
     function readFileAsText(file) {
@@ -13173,19 +13227,13 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       refreshFilterSourceButtons();
     }
 
-    function acceptImportedText(text, source) {
+    async function acceptImportedText(text, source) {
       resetImportedCombinations();
 
-      if (text.length &gt; 1024 * 1024) {
-        setTxtMessage(&#39;El contenido supera el máximo de 1 MB.&#39;, true);
-        updateImportedControls();
-        return false;
-      }
-
-      const result = parseTxtCombinations(text);
-      if (result.errors.length &gt; 0) {
+      const result = await parseTxtCombinations(text);
+      if (result.errorCount &gt; 0) {
         const shownLines = result.errors.slice(0, 6).join(&#39;, &#39;);
-        const extra = result.errors.length &gt; 6 ? &#39;…&#39; : &#39;&#39;;
+        const extra = result.errorCount &gt; 6 ? &#39;…&#39; : &#39;&#39;;
         setTxtMessage(`No se ha cargado: revisa las líneas ${shownLines}${extra}. Cada línea debe tener 6 números distintos del 1 al 49.`, true);
         updateImportedControls();
         return false;
@@ -13208,9 +13256,23 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         return false;
       }
       if (filterConfiguration) {
-        acceptedCombinations = result.combinations.filter((combination) =&gt;
-          combinationPassesActiveFilters(combination, filterConfiguration)
-        );
+        const filteredAccumulator = result.combinations.length &gt; TXT_PACKED_IMPORT_THRESHOLD
+          ? createPackedCombinationAccumulator(result.combinations.length)
+          : [];
+        let processed = 0;
+        for (const combination of result.combinations) {
+          if (combinationPassesActiveFilters(combination, filterConfiguration)) {
+            filteredAccumulator.push(combination);
+          }
+          processed += 1;
+          if (processed % TXT_PARSE_CHUNK_SIZE === 0) {
+            setTxtMessage(`Aplicando filtros durante la carga… ${Math.round(processed / result.combinations.length * 100)} %`);
+            await wait(0);
+          }
+        }
+        acceptedCombinations = Array.isArray(filteredAccumulator)
+          ? filteredAccumulator
+          : filteredAccumulator.finish();
         if (acceptedCombinations.length === 0) {
           setTxtMessage(
             `Las ${result.combinations.length.toLocaleString(&#39;es-ES&#39;)} combinaciones son válidas, pero ninguna cumple todos los filtros activos.`,
@@ -13224,6 +13286,13 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       importedCombinations = acceptedCombinations;
       importedSource = source;
       selectImportedForSignatures();
+      const importPreventiveLimit = window.matchMedia(&#39;(max-width: 760px)&#39;).matches
+        ? FILTER_MOBILE_COMBINATION_LIMIT
+        : FILTER_DESKTOP_COMBINATION_LIMIT;
+      if (importedCombinations.length &gt; importPreventiveLimit &amp;&amp; !highLoadOverrideEnabled) {
+        highLoadOverrideInput.checked = true;
+        updateHighLoadOverride();
+      }
       generateTxtQrButton.disabled = false;
       updateTxtGuidance();
       updateImportedControls();
@@ -13254,20 +13323,15 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       refreshFilterSourceButtons();
       updateImportedControls();
 
-      if (file.size &gt; 1024 * 1024) {
-        setTxtMessage(&#39;El archivo supera el máximo de 1 MB.&#39;, true);
-        return;
-      }
-
       try {
         const text = await readFileAsText(file);
-        acceptImportedText(text, &#39;file&#39;);
+        await acceptImportedText(text, &#39;file&#39;);
       } catch (error) {
         setTxtMessage(&#39;No se ha podido leer el archivo TXT.&#39;, true);
       }
     }
 
-    function loadPastedCombinations() {
+    async function loadPastedCombinations() {
       const text = pastedCombinationsInput.value.trim();
       if (!text) {
         setTxtMessage(&#39;Pega primero las combinaciones en el recuadro.&#39;, true);
@@ -13278,7 +13342,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
 
       txtFileInput.value = &#39;&#39;;
       hideQr();
-      acceptImportedText(text, &#39;clipboard&#39;);
+      await acceptImportedText(text, &#39;clipboard&#39;);
     }
 
     async function pasteCombinationsFromClipboard() {
@@ -13465,7 +13529,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       activateLotteryTab(&#39;development&#39;, { focusTarget: developmentSection });
     }
 
-    function sendCombinationsToReducer(combinations, sourceDetails, feedback) {
+    async function sendCombinationsToReducer(combinations, sourceDetails, feedback) {
       if (developmentBusy) {
         feedback?.(
           &#39;El reductor está realizando un cálculo. Detén o espera a que termine antes de enviar otro conjunto.&#39;,
@@ -13503,20 +13567,29 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       }
       const seen = new Set();
       const prepared = [];
-      combinations.forEach((combination) =&gt; {
+      const numberMask = new Uint8Array(50);
+      let processed = 0;
+      feedback?.(`Preparando ${combinations.length.toLocaleString(&#39;es-ES&#39;)} combinaciones para el reductor…`);
+      for (const combination of combinations) {
         const normalised = [...combination].sort((first, second) =&gt; first - second);
         if (
           normalised.length !== 6 ||
           new Set(normalised).size !== 6 ||
           normalised.some((number) =&gt; !Number.isInteger(number) || number &lt; 1 || number &gt; 49)
         ) {
-          return;
+          continue;
         }
         const key = combinationKey(normalised);
-        if (seen.has(key)) return;
+        if (seen.has(key)) continue;
         seen.add(key);
         prepared.push(normalised);
-      });
+        normalised.forEach((number) =&gt; { numberMask[number] = 1; });
+        processed += 1;
+        if (processed % TXT_PARSE_CHUNK_SIZE === 0) {
+          feedback?.(`Preparando el reductor… ${Math.round(processed / combinations.length * 100)} %`);
+          await wait(0);
+        }
+      }
 
       if (prepared.length &lt; 2) {
         feedback?.(
@@ -13526,9 +13599,10 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         return false;
       }
 
-      const numbers = [...new Set(prepared.flat())].sort(
-        (first, second) =&gt; first - second
-      );
+      const numbers = [];
+      for (let number = 1; number &lt;= 49; number += 1) {
+        if (numberMask[number]) numbers.push(number);
+      }
       if (numbers.length &lt; DEVELOPMENT_MIN_NUMBERS) {
         feedback?.(
           `Las combinaciones solo reúnen ${numbers.length} números distintos; el reductor necesita al menos ${DEVELOPMENT_MIN_NUMBERS}.`,
@@ -13540,7 +13614,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       developmentExternalSource = {
         key: sourceDetails.key,
         label: sourceDetails.label,
-        combinations: prepared.map((combination) =&gt; [...combination]),
+        combinations: prepared,
         numbers,
         route: [...(sourceDetails.route ?? [sourceDetails.label])]
       };
