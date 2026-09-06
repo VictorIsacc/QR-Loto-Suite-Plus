@@ -16900,20 +16900,6 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         return;
       }
 
-      const orderToggle = event.target.closest(&#39;[data-distance-order-toggle]&#39;);
-      if (orderToggle) {
-        distancePanelOrder = distancePanelOrder === &#39;digital&#39; ? &#39;natural&#39; : &#39;digital&#39;;
-        distanceSdClickState = { sd: null, count: 0, lastAt: 0 };
-        buildDistancePanel();
-        buildDistanceSumOptions();
-        invalidateDistanceDevelopment(
-          distancePanelOrder === &#39;digital&#39;
-            ? &#39;Distancias ordenadas visualmente por SD y sumas por VSCD; no se ha aplicado ningún filtro adicional.&#39;
-            : &#39;Se ha restaurado el orden natural de distancias y sumas; las selecciones se conservan.&#39;
-        );
-        return;
-      }
-
       const selectRowButton = event.target.closest(&#39;[data-digital-select-row]&#39;);
       if (selectRowButton) {
         const details = signatureModeDetails(mode);
@@ -17220,6 +17206,20 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
           allSelected
             ? `Se han desactivado todas las distancias de ${DISTANCE_COLUMN_LABELS[column]}.`
             : `Se han activado todas las distancias de ${DISTANCE_COLUMN_LABELS[column]}.`
+        );
+        return;
+      }
+
+      const orderToggle = event.target.closest(&#39;[data-distance-order-toggle]&#39;);
+      if (orderToggle) {
+        distancePanelOrder = distancePanelOrder === &#39;digital&#39; ? &#39;natural&#39; : &#39;digital&#39;;
+        distanceSdClickState = { sd: null, count: 0, lastAt: 0 };
+        buildDistancePanel();
+        buildDistanceSumOptions();
+        invalidateDistanceDevelopment(
+          distancePanelOrder === &#39;digital&#39;
+            ? &#39;Distancias ordenadas visualmente por SD y sumas por VSCD; no se ha aplicado ningún filtro adicional.&#39;
+            : &#39;Se ha restaurado el orden natural de distancias y sumas; las selecciones se conservan.&#39;
         );
         return;
       }
