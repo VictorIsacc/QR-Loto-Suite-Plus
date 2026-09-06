@@ -16069,34 +16069,45 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       return countFrom(0, 0);
     }
 
-    function countVsdtdEquivalentCombinations(targetVsdtd) {
+    function countDtdAnalysisEquivalences(targetSdcd, targetVdft, targetVscd) {
       const memo = new Map();
+      const targetSum = targetSdcd + targetVdft + targetVscd;
+      const targetVsdtd = digitalRoot(targetSum);
 
       function countFrom(position, previousNumber, firstNumber, digitalSum, terminationSum) {
         if (position === 6) {
           const sdcd = digitalSum || 9;
           const vdft = terminationSum || 9;
           const vscd = digitalRoot(previousNumber - firstNumber);
-          return digitalRoot(sdcd + vdft + vscd) === targetVsdtd ? 1 : 0;
+          const sum = sdcd + vdft + vscd;
+          return [
+            sdcd === targetSdcd &amp;&amp; vdft === targetVdft &amp;&amp; vscd === targetVscd ? 1 : 0,
+            sum === targetSum ? 1 : 0,
+            digitalRoot(sum) === targetVsdtd ? 1 : 0
+          ];
         }
         const key = `${position}|${previousNumber}|${firstNumber}|${digitalSum}|${terminationSum}`;
         if (memo.has(key)) return memo.get(key);
-        let total = 0;
+        const totals = [0, 0, 0];
         const maximum = 49 - (5 - position);
         for (let number = previousNumber + 1; number &lt;= maximum; number += 1) {
-          total += countFrom(
+          const counts = countFrom(
             position + 1,
             number,
             position === 0 ? number : firstNumber,
             (digitalSum + digitalRoot(number)) % 9,
             (terminationSum + number % 10) % 9
           );
+          totals[0] += counts[0];
+          totals[1] += counts[1];
+          totals[2] += counts[2];
         }
-        memo.set(key, total);
-        return total;
+        memo.set(key, totals);
+        return totals;
       }
 
-      return countFrom(0, 0, 0, 0, 0);
+      const [signature, sum, vsdtd] = countFrom(0, 0, 0, 0, 0);
+      return { signature, sum, vsdtd };
     }
 
     function analyseScrutinyWinningCombination() {
@@ -16135,7 +16146,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       const terminationActors = terminationActorCounts.filter((count) =&gt; count &gt; 0).length;
       const distanceDigitalActors = distanceDigitalActorCounts.filter((count) =&gt; count &gt; 0).length;
       const signatureCrossEquivalents = countSignatureDigitalCrossEquivalentCombinations(winning);
-      const vsdtdEquivalents = countVsdtdEquivalentCombinations(vsdtd);
+      const dtdEquivalents = countDtdAnalysisEquivalences(sdcd, vdft, vscd);
       const runs = consecutiveRuns(winning);
       const consecutivePairs = runs.reduce((total, run) =&gt; total + run.length - 1, 0);
       const decadeRanges = [
@@ -16182,13 +16193,22 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         createScrutinyActorFigureItem(&#39;Figura de actores digitales de distancias&#39;, [1, 2, 3, 4, 5, 6, 7, 8, 9], distanceDigitalActorCounts),
         createScrutinyAnalysisItem(&#39;Combinaciones equivalentes a la firma de distancia&#39;, distanceEquivalents.toLocaleString(&#39;es-ES&#39;)),
         createScrutinyAnalysisItem(&#39;Combinaciones equivalentes al cruce de firmas&#39;, signatureCrossEquivalents.toLocaleString(&#39;es-ES&#39;)),
+        createScrutinyAnalysisItem(&#39;Firma DTD&#39;, `${sdcd} · ${vdft} · ${vscd}`),
         createScrutinyAnalysisItem(
-          `Firma DTD ${sdcd} · ${vdft} · ${vscd} → suma DTD ${dtdSum} → VSDTD ${vsdtd}`,
-          `${vsdtdEquivalents.toLocaleString(&#39;es-ES&#39;)} combinaciones naturales con VSDTD ${vsdtd}`
+          &#39;Combinaciones equivalentes a la firma DTD&#39;,
+          dtdEquivalents.signature.toLocaleString(&#39;es-ES&#39;)
+        ),
+        createScrutinyAnalysisItem(
+          `Suma DTD ${dtdSum}`,
+          `${dtdEquivalents.sum.toLocaleString(&#39;es-ES&#39;)} combinaciones naturales`
+        ),
+        createScrutinyAnalysisItem(
+          `VSDTD ${vsdtd}`,
+          `${dtdEquivalents.vsdtd.toLocaleString(&#39;es-ES&#39;)} combinaciones naturales`
         ),
         createScrutinyAnalysisItem(&#39;Consecutivos&#39;, runSummary)
       );
-      scrutinyAnalysisNote.textContent = &#39;La firma DTD se escribe en el orden SDCD · VDFT · VSCD. Su suma natural está entre 3 y 27; VSDTD es la raíz digital de esa suma y el recuadro indica cuántas combinaciones del 6/49 tienen ese mismo VSDTD. La figura de actores escribe los recuentos en orden ascendente: 9 dígitos para la firma digital de la ganadora y la firma digital de distancias, y 10 para terminaciones 0–9. Por ejemplo, 010020011 significa 1 valor digital 2, 2 valores digitales 5, 1 valor digital 8 y 1 valor digital 9. Los actores indican cuántos valores distintos intervienen de los 9 digitales, 10 terminaciones y 9 valores digitales de distancia. Las combinaciones equivalentes individuales comparten una firma concreta; «Combinaciones equivalentes al cruce de firmas» cuenta la intersección de los mismos actores digitales, terminaciones y valores digitales de distancia. La firma de distancias natural muestra las cinco diferencias entre números contiguos; la firma digital de distancias convierte cada diferencia a su raíz digital. Bajos: 1–24 · Altos: 25–49.&#39;;
+      scrutinyAnalysisNote.textContent = &#39;La firma DTD se escribe en el orden SDCD · VDFT · VSCD. Sus cuatro recuadros separan la firma exacta, cuántas combinaciones comparten esa firma, su suma natural entre 3 y 27 con las combinaciones que comparten esa suma, y VSDTD —la raíz digital de la suma— con todas sus equivalentes. La figura de actores escribe los recuentos en orden ascendente: 9 dígitos para la firma digital de la ganadora y la firma digital de distancias, y 10 para terminaciones 0–9. Por ejemplo, 010020011 significa 1 valor digital 2, 2 valores digitales 5, 1 valor digital 8 y 1 valor digital 9. Los actores indican cuántos valores distintos intervienen de los 9 digitales, 10 terminaciones y 9 valores digitales de distancia. Las combinaciones equivalentes individuales comparten una firma concreta; «Combinaciones equivalentes al cruce de firmas» cuenta la intersección de los mismos actores digitales, terminaciones y valores digitales de distancia. La firma de distancias natural muestra las cinco diferencias entre números contiguos; la firma digital de distancias convierte cada diferencia a su raíz digital. Bajos: 1–24 · Altos: 25–49.&#39;;
       scrutinyAnalysis.hidden = false;
       setScrutinyMessage(&#39;Análisis de la combinación ganadora completado. No se han escrutado apuestas.&#39;);
     }
