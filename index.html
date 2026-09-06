@@ -1558,10 +1558,10 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       &lt;/section&gt;
       &lt;section class=&quot;signature-panel-card&quot; data-signature-card=&quot;termination&quot; aria-labelledby=&quot;lottery-termination-panel-title&quot;&gt;
         &lt;button class=&quot;signature-panel-heading&quot; id=&quot;lottery-termination-panel-title&quot; type=&quot;button&quot; data-signature-activate=&quot;termination&quot; aria-pressed=&quot;false&quot;&gt;
-          &lt;span&gt;Firma de terminación&lt;/span&gt;&lt;small&gt;Terminaciones 0–9 · P1–P6&lt;/small&gt;
+          &lt;span&gt;Firma de terminación&lt;/span&gt;&lt;small&gt;Terminaciones 0–9 · P1–P6 + VDFT&lt;/small&gt;
         &lt;/button&gt;
         &lt;div class=&quot;digital-panel-scroll&quot; id=&quot;lottery-termination-panel-scroll&quot; tabindex=&quot;0&quot; aria-label=&quot;Panel desplazable de terminaciones por posición&quot;&gt;
-          &lt;div class=&quot;digital-panel&quot; id=&quot;lottery-termination-panel&quot; data-signature-type=&quot;termination&quot; aria-label=&quot;Selección de terminaciones por posición P1 a P6&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;digital-panel&quot; id=&quot;lottery-termination-panel&quot; data-signature-type=&quot;termination&quot; aria-label=&quot;Selección de terminaciones por posición P1 a P6 y valor digital VDFT&quot;&gt;&lt;/div&gt;
         &lt;/div&gt;
       &lt;/section&gt;
     &lt;/div&gt;
@@ -1645,17 +1645,18 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
     &lt;div class=&quot;lottery-section-label distance-heading&quot;&gt;
       &lt;div&gt;
         &lt;h2 id=&quot;lottery-distance-label&quot;&gt;Desarrollo por firma de distancias&lt;/h2&gt;
-        &lt;p class=&quot;text-muted&quot;&gt;Selecciona las distancias entre las cinco parejas contiguas. La suma de la firma equivale a P6 − P1 y determina cuántas combinaciones naturales desarrolla. La columna izquierda muestra cada distancia natural junto a su valor digital (SD); «Orden SD» agrupa la lista 1–44 por esos valores.&lt;/p&gt;
+        &lt;p class=&quot;text-muted&quot;&gt;Selecciona las distancias entre las cinco parejas contiguas. La suma de la firma equivale a P6 − P1 y determina cuántas combinaciones naturales desarrolla. La columna izquierda muestra cada distancia natural junto a su valor digital (SD); la nueva columna VSCD permite filtrar el valor digital de la suma. «Orden SD» agrupa ambas listas por sus valores digitales.&lt;/p&gt;
       &lt;/div&gt;
       &lt;span class=&quot;viz-badge&quot; id=&quot;lottery-distance-total-badge&quot;&gt;Sin calcular&lt;/span&gt;
     &lt;/div&gt;
 
     &lt;div class=&quot;digital-explanation&quot;&gt;
       &lt;strong&gt;Relación exacta&lt;/strong&gt;
-      &lt;p&gt;Firma: D1–2 · D2–3 · D3–4 · D4–5 · D5–6. Cada valor admite 1–44; la suma válida está entre 5 y 48 y sus equivalencias naturales son 49 menos esa suma.&lt;/p&gt;
+      &lt;p&gt;Firma: D1–2 · D2–3 · D3–4 · D4–5 · D5–6. Cada valor admite 1–44; la suma válida está entre 5 y 48, VSCD es la raíz digital de esa suma y sus equivalencias naturales son 49 menos la suma.&lt;/p&gt;
     &lt;/div&gt;
 
-    &lt;div class=&quot;signature-source-panel signature-source-panel-distance&quot; aria-labelledby=&quot;lottery-distance-source-input-label&quot;&gt;
+    &lt;div class=&quot;distance-dtd-layout&quot;&gt;
+      &lt;div class=&quot;signature-source-panel signature-source-panel-distance&quot; aria-labelledby=&quot;lottery-distance-source-input-label&quot;&gt;
       &lt;label class=&quot;form-label&quot; for=&quot;lottery-distance-source-input&quot;&gt;
         &lt;strong id=&quot;lottery-distance-source-input-label&quot;&gt;Combinaciones sobre las que se aplicará la firma&lt;/strong&gt;
         &lt;select class=&quot;form-select&quot; id=&quot;lottery-distance-source-input&quot;&gt;
@@ -1676,7 +1677,37 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
     &lt;/div&gt;
 
     &lt;div class=&quot;distance-panel-scroll&quot; tabindex=&quot;0&quot; aria-label=&quot;Panel desplazable de distancias por parejas contiguas&quot;&gt;
-      &lt;div class=&quot;distance-panel&quot; id=&quot;lottery-distance-panel&quot; aria-label=&quot;Selección de distancias D1-2 a D5-6&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;distance-panel&quot; id=&quot;lottery-distance-panel&quot; aria-label=&quot;Selección de distancias D1-2 a D5-6&quot;&gt;&lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;section class=&quot;dtd-panel-card&quot; aria-labelledby=&quot;lottery-dtd-panel-label&quot;&gt;
+        &lt;div class=&quot;dtd-panel-heading&quot;&gt;
+          &lt;div&gt;
+            &lt;h3 id=&quot;lottery-dtd-panel-label&quot;&gt;Firma DTD y suma digital&lt;/h3&gt;
+            &lt;p class=&quot;text-muted&quot;&gt;SDCD, VDFT y VSCD están sincronizados con sus paneles originales. La cuarta columna selecciona sumas DTD exactas; en orden VSDTD quedan agrupadas por su raíz digital.&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;button class=&quot;btn&quot; id=&quot;lottery-dtd-order&quot; type=&quot;button&quot; aria-pressed=&quot;false&quot;&gt;Orden VSDTD&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;dtd-panel-scroll&quot; tabindex=&quot;0&quot; aria-label=&quot;Panel desplazable de firma DTD&quot;&gt;
+          &lt;div class=&quot;dtd-panel&quot; id=&quot;lottery-dtd-panel&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;dtd-occurrence-filter&quot;&gt;
+          &lt;div&gt;
+            &lt;strong&gt;Mínimos y máximos por valor digital DTD&lt;/strong&gt;
+            &lt;p class=&quot;text-muted&quot;&gt;Indica cuántas veces puede aparecer cada valor 1–9 entre SDCD, VDFT y VSCD. Los valores iniciales 0–3 no restringen; por ejemplo, 0–2 admite 0, 1 o 2 apariciones y excluye 3.&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;dtd-occurrence-scroll&quot; tabindex=&quot;0&quot;&gt;
+            &lt;div class=&quot;dtd-occurrence-grid&quot; id=&quot;lottery-dtd-occurrence-grid&quot;&gt;&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;viz-controls dtd-panel-actions&quot;&gt;
+          &lt;button class=&quot;btn&quot; id=&quot;lottery-dtd-activate-all&quot; type=&quot;button&quot;&gt;Activar todo DTD&lt;/button&gt;
+          &lt;button class=&quot;btn btn-ghost&quot; id=&quot;lottery-dtd-clear-sums&quot; type=&quot;button&quot;&gt;Todas las sumas&lt;/button&gt;
+          &lt;button class=&quot;btn btn-ghost&quot; id=&quot;lottery-dtd-reset-occurrences&quot; type=&quot;button&quot;&gt;Restablecer mín./máx.&lt;/button&gt;
+          &lt;button class=&quot;btn btn-primary&quot; id=&quot;lottery-dtd-generate&quot; type=&quot;button&quot;&gt;Calcular desarrollo DTD&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;p class=&quot;digital-message text-muted&quot; id=&quot;lottery-dtd-message&quot; aria-live=&quot;polite&quot;&gt;Selecciona valores o utiliza los que ya estén activos en los tres paneles. Pulsa un grupo VSDTD para activar conjuntamente todas sus sumas posibles.&lt;/p&gt;
+      &lt;/section&gt;
     &lt;/div&gt;
 
     &lt;div class=&quot;distance-digital-groups&quot; aria-labelledby=&quot;lottery-distance-digital-groups-label&quot;&gt;
@@ -1707,8 +1738,8 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
     &lt;div class=&quot;distance-sum-panel&quot; aria-labelledby=&quot;lottery-distance-sum-label&quot;&gt;
       &lt;div class=&quot;distance-sum-heading&quot;&gt;
         &lt;div&gt;
-          &lt;h3 id=&quot;lottery-distance-sum-label&quot;&gt;Sumas de firma admitidas&lt;/h3&gt;
-          &lt;p class=&quot;text-muted&quot;&gt;Selecciona valores entre 5 y 48. Si no marcas ninguno se admitirán todas las sumas compatibles.&lt;/p&gt;
+          &lt;h3 id=&quot;lottery-distance-sum-label&quot;&gt;Sumas exactas de firma admitidas&lt;/h3&gt;
+          &lt;p class=&quot;text-muted&quot;&gt;Selecciona sumas exactas entre 5 y 48. Se combinarán con los VSCD activos; si no marcas ninguna se admitirán todas las compatibles con VSCD.&lt;/p&gt;
         &lt;/div&gt;
         &lt;div class=&quot;viz-controls distance-sum-actions&quot;&gt;
           &lt;button class=&quot;btn&quot; id=&quot;lottery-distance-sums-all&quot; type=&quot;button&quot;&gt;Activar todas&lt;/button&gt;
@@ -3762,8 +3793,14 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
   }
 
   #lottery-simulator-649 .digital-panel[data-signature-type=&quot;termination&quot;] {
-    grid-template-columns: minmax(4.2rem, 0.85fr) repeat(6, minmax(2.7rem, 1fr));
-    min-width: 22rem;
+    grid-template-columns: minmax(4.2rem, 0.85fr) repeat(7, minmax(2.7rem, 1fr));
+    min-width: 25rem;
+  }
+
+  #lottery-simulator-649 .digital-value-unavailable {
+    opacity: 0.38;
+    border-style: dashed;
+    cursor: default;
   }
 
   #lottery-simulator-649 .digital-grid-cell {
@@ -3893,7 +3930,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
     #lottery-simulator-649 .signature-panels {
       width: fit-content;
       max-width: 100%;
-      grid-template-columns: 32rem 28rem;
+      grid-template-columns: 32rem 32rem;
       justify-content: center;
       margin-inline: auto;
     }
@@ -3916,7 +3953,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
     }
 
     #lottery-simulator-649 .signature-panel-card .digital-panel[data-signature-type=&quot;termination&quot;] {
-      grid-template-columns: 3.55rem repeat(6, 3.45rem);
+      grid-template-columns: 3.55rem repeat(7, 3.45rem);
     }
 
     #lottery-simulator-649 .signature-panel-card :is(.digital-grid-cell, .digital-panel-button, .digital-random-count) {
@@ -3956,6 +3993,186 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
   #lottery-simulator-649 .digital-combine-panel &gt; div:first-child {
     display: grid;
     gap: 0.25rem;
+  }
+
+  #lottery-simulator-649 .distance-dtd-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.85rem;
+    align-items: start;
+  }
+
+  #lottery-simulator-649 .dtd-panel-card {
+    min-width: 0;
+    display: grid;
+    gap: 0.65rem;
+    padding: 0.75rem;
+    border: 1px solid color-mix(in srgb, #f59e0b 42%, var(--border));
+    border-radius: 0.85rem;
+    background: color-mix(in srgb, #f59e0b 7%, var(--card));
+  }
+
+  #lottery-simulator-649 .dtd-panel-heading {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  #lottery-simulator-649 .dtd-panel-heading h3,
+  #lottery-simulator-649 .dtd-panel-heading p,
+  #lottery-simulator-649 .dtd-panel-card &gt; p {
+    margin: 0;
+  }
+
+  #lottery-simulator-649 .dtd-panel-heading &gt; div {
+    display: grid;
+    gap: 0.2rem;
+  }
+
+  #lottery-simulator-649 .dtd-panel-scroll {
+    max-width: 100%;
+    max-height: 34rem;
+    overflow: auto;
+    padding: 0.35rem;
+    border: 1px solid color-mix(in srgb, #f59e0b 30%, var(--border));
+    border-radius: 0.75rem;
+    background: color-mix(in srgb, var(--background) 82%, #422006 18%);
+    scrollbar-width: thin;
+  }
+
+  #lottery-simulator-649 .dtd-panel {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(5.4rem, 1fr));
+    gap: 0.45rem;
+    min-width: 23rem;
+  }
+
+  #lottery-simulator-649 .dtd-column {
+    min-width: 0;
+    display: grid;
+    align-content: start;
+    gap: 0.32rem;
+  }
+
+  #lottery-simulator-649 .dtd-column-heading {
+    display: grid;
+    gap: 0.28rem;
+    position: sticky;
+    top: -0.35rem;
+    z-index: 2;
+    padding: 0.35rem;
+    border-radius: 0.5rem;
+    background: color-mix(in srgb, #78350f 45%, var(--card));
+    text-align: center;
+  }
+
+  #lottery-simulator-649 .dtd-column-heading strong {
+    color: #fde68a;
+    font-size: 0.78rem;
+  }
+
+  #lottery-simulator-649 .dtd-column-button,
+  #lottery-simulator-649 .dtd-value-button,
+  #lottery-simulator-649 .dtd-vsdtd-group {
+    width: 100%;
+    min-height: 2rem;
+    padding: 0.26rem 0.38rem;
+    border: 1px solid color-mix(in srgb, #f59e0b 35%, var(--border));
+    border-radius: 0.42rem;
+    color: var(--foreground);
+    background: color-mix(in srgb, #78350f 18%, var(--card));
+    cursor: pointer;
+    font-variant-numeric: tabular-nums;
+  }
+
+  #lottery-simulator-649 :is(.dtd-column-button, .dtd-value-button, .dtd-vsdtd-group)[aria-pressed=&quot;true&quot;] {
+    color: #211500;
+    border-color: #fde68a;
+    background: linear-gradient(145deg, #fde68a, #f59e0b);
+    font-weight: 850;
+  }
+
+  #lottery-simulator-649 .dtd-vsdtd-groups {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.25rem;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid color-mix(in srgb, #f59e0b 28%, transparent);
+  }
+
+  #lottery-simulator-649 .dtd-vsdtd-group {
+    min-height: 1.75rem;
+    padding: 0.18rem;
+    font-size: 0.64rem;
+  }
+
+  #lottery-simulator-649 .dtd-panel-actions {
+    justify-content: center;
+  }
+
+  #lottery-simulator-649 .dtd-occurrence-filter {
+    display: grid;
+    gap: 0.45rem;
+    padding: 0.65rem;
+    border: 1px solid color-mix(in srgb, #f59e0b 28%, var(--border));
+    border-radius: 0.7rem;
+    background: color-mix(in srgb, #78350f 10%, var(--card));
+  }
+
+  #lottery-simulator-649 .dtd-occurrence-filter p {
+    margin: 0.16rem 0 0;
+  }
+
+  #lottery-simulator-649 .dtd-occurrence-scroll {
+    max-width: 100%;
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+
+  #lottery-simulator-649 .dtd-occurrence-grid {
+    display: grid;
+    grid-template-columns: minmax(4.9rem, auto) repeat(9, minmax(2.6rem, 1fr));
+    gap: 0.28rem;
+    align-items: center;
+    min-width: 31rem;
+  }
+
+  #lottery-simulator-649 .dtd-occurrence-cell {
+    min-height: 1.85rem;
+    display: grid;
+    place-items: center;
+    padding: 0.2rem;
+    border-radius: 0.38rem;
+    background: color-mix(in srgb, #f59e0b 8%, var(--card));
+    font-size: 0.72rem;
+    font-weight: 750;
+    text-align: center;
+  }
+
+  #lottery-simulator-649 .dtd-occurrence-cell.is-label {
+    justify-items: start;
+    color: #fde68a;
+  }
+
+  #lottery-simulator-649 .dtd-occurrence-select {
+    width: 100%;
+    min-width: 2.35rem;
+    min-height: 1.85rem;
+    padding: 0.14rem;
+    border: 1px solid color-mix(in srgb, #f59e0b 38%, var(--border));
+    border-radius: 0.38rem;
+    color: var(--foreground);
+    background: var(--card);
+    text-align: center;
+  }
+
+  @media (min-width: 1180px) {
+    #lottery-simulator-649 .distance-dtd-layout {
+      grid-template-columns: max-content minmax(25rem, 31rem);
+      justify-content: center;
+    }
   }
 
   #lottery-simulator-649 .digital-combine-actions {
@@ -4174,9 +4391,9 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
 
   #lottery-simulator-649 .distance-panel {
     display: grid;
-    grid-template-columns: minmax(6.7rem, 1.2fr) repeat(5, minmax(3rem, 1fr));
+    grid-template-columns: minmax(6.7rem, 1.2fr) repeat(5, minmax(3rem, 1fr)) minmax(6.7rem, 1.15fr);
     gap: 0.28rem;
-    min-width: 22rem;
+    min-width: 29rem;
     padding: 0.35rem;
   }
 
@@ -4190,7 +4407,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
     #lottery-simulator-649 .distance-panel {
       width: max-content;
       min-width: 0;
-      grid-template-columns: 6.9rem repeat(5, 5.4rem);
+      grid-template-columns: 6.9rem repeat(5, 5.4rem) 7.2rem;
     }
   }
 
@@ -4305,6 +4522,29 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
     background: linear-gradient(145deg, #ddd6fe, #a78bfa);
   }
 
+  #lottery-simulator-649 .distance-vscd-column {
+    color: #fef3c7;
+    border-color: color-mix(in srgb, #f59e0b 62%, var(--border));
+    background: color-mix(in srgb, #92400e 42%, var(--card));
+    box-shadow: inset 3px 0 #f59e0b;
+  }
+
+  #lottery-simulator-649 .distance-vscd-button {
+    color: #fde68a;
+    border-color: color-mix(in srgb, #f59e0b 48%, var(--border));
+    background: color-mix(in srgb, #78350f 40%, var(--card));
+    font-size: 0.72rem;
+    font-weight: 850;
+  }
+
+  #lottery-simulator-649 .distance-vscd-button[aria-pressed=&quot;true&quot;],
+  #lottery-simulator-649 .distance-vscd-all[aria-pressed=&quot;true&quot;] {
+    color: #1f1800;
+    border-color: #fde68a;
+    background: linear-gradient(145deg, #fff36a, #facc15);
+    box-shadow: inset 3px 0 #b45309, 0 0 0 1px color-mix(in srgb, #facc15 45%, transparent);
+  }
+
   #lottery-simulator-649 .distance-row-all[aria-pressed=&quot;true&quot;] {
     color: #052e2b;
     border-color: #5eead4;
@@ -4403,7 +4643,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
 
   #lottery-simulator-649 .distance-sum-options {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(2.7rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(5.5rem, 1fr));
     gap: 0.35rem;
   }
 
@@ -6657,9 +6897,17 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
     const digitalEquivalencePanel = root.querySelector(&#39;#lottery-digital-equivalence-panel&#39;);
     const digitalEquivalenceDescription = root.querySelector(&#39;#lottery-digital-equivalence-description&#39;);
     const digitalEquivalenceOptions = root.querySelector(&#39;#lottery-digital-equivalence-options&#39;);
-     const digitalCombineButton = root.querySelector(&#39;#lottery-digital-combine&#39;);
-     const digitalCombineDistanceButton = root.querySelector(&#39;#lottery-digital-combine-distance&#39;);
-     const digitalCombineAllButton = root.querySelector(&#39;#lottery-digital-combine-all&#39;);
+    const dtdPanel = root.querySelector(&#39;#lottery-dtd-panel&#39;);
+    const dtdOrderButton = root.querySelector(&#39;#lottery-dtd-order&#39;);
+    const dtdOccurrenceGrid = root.querySelector(&#39;#lottery-dtd-occurrence-grid&#39;);
+    const dtdActivateAllButton = root.querySelector(&#39;#lottery-dtd-activate-all&#39;);
+    const dtdClearSumsButton = root.querySelector(&#39;#lottery-dtd-clear-sums&#39;);
+    const dtdResetOccurrencesButton = root.querySelector(&#39;#lottery-dtd-reset-occurrences&#39;);
+    const dtdGenerateButton = root.querySelector(&#39;#lottery-dtd-generate&#39;);
+    const dtdMessage = root.querySelector(&#39;#lottery-dtd-message&#39;);
+    const digitalCombineButton = root.querySelector(&#39;#lottery-digital-combine&#39;);
+    const digitalCombineDistanceButton = root.querySelector(&#39;#lottery-digital-combine-distance&#39;);
+    const digitalCombineAllButton = root.querySelector(&#39;#lottery-digital-combine-all&#39;);
     const digitalSelectionSummary = root.querySelector(&#39;#lottery-digital-selection-summary&#39;);
     const digitalPatternLabel = root.querySelector(&#39;#lottery-digital-pattern-label&#39;);
     const digitalPatternTotal = root.querySelector(&#39;#lottery-digital-pattern-total&#39;);
@@ -6949,7 +7197,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
     let developmentBreakdownBusy = false;
     let developmentBreakdownCancelRequested = false;
     let digitalSelections = Array.from({ length: 7 }, () =&gt; new Set());
-    let terminationSelections = Array.from({ length: 6 }, () =&gt; new Set());
+    let terminationSelections = Array.from({ length: 7 }, () =&gt; new Set());
     let digitalEquivalenceSelections = new Set();
     let terminationEquivalenceSelections = new Set();
     let digitalGeneratedCombinations = [];
@@ -6966,6 +7214,11 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
     let distanceSdClickState = { sd: null, count: 0, lastAt: 0 };
     const DISTANCE_SD_CLICK_WINDOW = 1200;
     let distanceSumSelections = new Set();
+    let distanceSumDigitalSelections = new Set();
+    let dtdNaturalSumSelections = new Set(Array.from({ length: 25 }, (_, index) =&gt; index + 3));
+    let dtdPanelOrder = &#39;natural&#39;;
+    let dtdOccurrenceMinimums = Array(9).fill(0);
+    let dtdOccurrenceMaximums = Array(9).fill(3);
     let distanceGeneratedCombinations = [];
     let distanceGeneratedPatternCount = 0;
     let distanceGeneratedCrossMode = &#39;none&#39;;
@@ -7029,14 +7282,24 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
     const DIGITAL_MOBILE_COMBINATION_LIMIT = 100000;
     const DIGITAL_QR_WARNING_THRESHOLD = 8000;
     const DIGITAL_COLUMN_LABELS = [&#39;P1&#39;, &#39;P2&#39;, &#39;P3&#39;, &#39;P4&#39;, &#39;P5&#39;, &#39;P6&#39;, &#39;SDCD&#39;];
-    const TERMINATION_COLUMN_LABELS = [&#39;P1&#39;, &#39;P2&#39;, &#39;P3&#39;, &#39;P4&#39;, &#39;P5&#39;, &#39;P6&#39;];
+    const TERMINATION_COLUMN_LABELS = [&#39;P1&#39;, &#39;P2&#39;, &#39;P3&#39;, &#39;P4&#39;, &#39;P5&#39;, &#39;P6&#39;, &#39;VDFT&#39;];
     const DIGITAL_EQUIVALENCE_VALUES = [1, 7, 28, 84, 210];
     const DISTANCE_COLUMN_LABELS = [&#39;D1–2&#39;, &#39;D2–3&#39;, &#39;D3–4&#39;, &#39;D4–5&#39;, &#39;D5–6&#39;];
     const DISTANCE_VALUES = Array.from({ length: 44 }, (_, index) =&gt; index + 1);
     const DISTANCE_SUM_VALUES = Array.from({ length: 44 }, (_, index) =&gt; index + 5);
+    const DTD_DIGITAL_VALUES = Array.from({ length: 9 }, (_, index) =&gt; index + 1);
+    const DTD_SUM_VALUES = Array.from({ length: 25 }, (_, index) =&gt; index + 3);
 
     function orderedDistanceValues() {
       const values = [...DISTANCE_VALUES];
+      if (distancePanelOrder !== &#39;digital&#39;) return values;
+      return values.sort(
+        (first, second) =&gt; digitalRoot(first) - digitalRoot(second) || first - second
+      );
+    }
+
+    function orderedDistanceSumValues() {
+      const values = [...DISTANCE_SUM_VALUES];
       if (distancePanelOrder !== &#39;digital&#39;) return values;
       return values.sort(
         (first, second) =&gt; digitalRoot(first) - digitalRoot(second) || first - second
@@ -7139,19 +7402,28 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
 
     function signatureModeDetails(mode = getSignatureMode()) {
       if (mode === &#39;termination&#39;) {
+        const terminationValues = Array.from({ length: 10 }, (_, index) =&gt; index);
+        const vdftValues = Array.from({ length: 9 }, (_, index) =&gt; index + 1);
         return {
           mode,
           labels: TERMINATION_COLUMN_LABELS,
-          values: Array.from({ length: 10 }, (_, index) =&gt; index),
+          values: terminationValues,
+          columnValues: [
+            terminationValues, terminationValues, terminationValues,
+            terminationValues, terminationValues, terminationValues,
+            vdftValues
+          ],
           selections: terminationSelections,
           shortLabel: &#39;Terminaciones&#39;,
           sourceLabel: &#39;Firma de terminación por posición&#39;
         };
       }
+      const digitalValues = Array.from({ length: 9 }, (_, index) =&gt; index + 1);
       return {
         mode: &#39;digital&#39;,
         labels: DIGITAL_COLUMN_LABELS,
-        values: Array.from({ length: 9 }, (_, index) =&gt; index + 1),
+        values: digitalValues,
+        columnValues: DIGITAL_COLUMN_LABELS.map(() =&gt; digitalValues),
         selections: digitalSelections,
         shortLabel: &#39;DR9&#39;,
         sourceLabel: &#39;Firma de raíz digital por posición&#39;
@@ -7191,10 +7463,10 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       });
       digitalEquivalencePanel.hidden = false;
       digitalHeadingDescription.textContent = terminationMode
-        ? &#39;Genera todas las combinaciones naturales cuya terminación cumple los valores seleccionados en cada posición P1–P6.&#39;
+        ? &#39;Genera todas las combinaciones naturales cuya terminación cumple los valores seleccionados en P1–P6 y cuyo VDFT coincide con la raíz digital de la suma de esas seis terminaciones.&#39;
         : &#39;Genera todas las combinaciones naturales equivalentes a los valores de raíz digital seleccionados en P1–P6 y SDCD.&#39;;
       digitalExplanationText.textContent = terminationMode
-        ? &#39;Cada número se coloca de menor a mayor y se comprueba su última cifra: P1 corresponde al número menor y P6 al mayor. En esta firma se utilizan los valores 0–9 y no existe columna SDCD.&#39;
+        ? &#39;Cada número se coloca de menor a mayor y se comprueba su última cifra: P1 corresponde al número menor y P6 al mayor. VDFT es la raíz digital de T1 + T2 + T3 + T4 + T5 + T6 y admite valores 1–9.&#39;
         : &#39;La raíz digital de cada número ocupa su posición natural P1–P6. La SDCD es la raíz digital de la suma de los seis valores digitales. Con los nueve valores activos en todas las columnas se representan las 13.983.816 combinaciones del 6/49.&#39;;
       digitalPatternLabel.textContent = terminationMode
         ? &#39;Firmas de terminación&#39;
@@ -7223,6 +7495,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       panel.appendChild(randomButton);
 
       details.labels.forEach((label, column) =&gt; {
+        const columnValues = details.columnValues[column];
         const select = createDigitalPanelCell(
           &#39;select&#39;,
           null,
@@ -7231,7 +7504,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         );
         select.dataset.digitalRandomCount = String(column);
         select.setAttribute(&#39;aria-label&#39;, `Cantidad aleatoria de valores para ${label}`);
-        for (let count = 1; count &lt;= details.values.length; count += 1) {
+        for (let count = 1; count &lt;= columnValues.length; count += 1) {
           const option = document.createElement(&#39;option&#39;);
           option.value = String(count);
           option.textContent = String(count);
@@ -7286,6 +7559,17 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         rowButton.title = `Primer toque: activar ${value} en P1–P6. Segundo toque: desactivar.`;
         panel.appendChild(rowButton);
         details.labels.forEach((label, column) =&gt; {
+          if (!details.columnValues[column].includes(value)) {
+            const emptyCell = createDigitalPanelCell(
+              &#39;span&#39;,
+              &#39;—&#39;,
+              &#39;digital-grid-cell digital-value-unavailable&#39;,
+              column
+            );
+            emptyCell.setAttribute(&#39;aria-label&#39;, `${label} no admite el valor ${value}`);
+            panel.appendChild(emptyCell);
+            return;
+          }
           const button = createDigitalPanelCell(
             &#39;button&#39;,
             String(value),
@@ -7297,7 +7581,9 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
           button.setAttribute(
             &#39;aria-label&#39;,
             details.mode === &#39;termination&#39;
-              ? `${label}, terminación ${value}`
+              ? column === 6
+                ? `${label}, valor digital ${value}`
+                : `${label}, terminación ${value}`
               : `${label}, valor digital ${value}`
           );
           panel.appendChild(button);
@@ -7326,7 +7612,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       });
       panel.querySelectorAll(&#39;[data-digital-select-column]&#39;).forEach((button) =&gt; {
         const column = Number(button.dataset.digitalSelectColumn);
-        const allSelected = details.values.every((value) =&gt;
+        const allSelected = details.columnValues[column].every((value) =&gt;
           details.selections[column]?.has(value)
         );
         button.setAttribute(&#39;aria-pressed&#39;, String(allSelected));
@@ -7338,6 +7624,179 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
           .every((selection) =&gt; selection.has(value));
         button.setAttribute(&#39;aria-pressed&#39;, String(selectedInEveryPosition));
       });
+    }
+
+    function effectiveDtdVscdSelections() {
+      return distanceSumDigitalSelections.size
+        ? distanceSumDigitalSelections
+        : new Set(DTD_DIGITAL_VALUES);
+    }
+
+    function orderedDtdNaturalSums() {
+      const sums = [...DTD_SUM_VALUES];
+      if (dtdPanelOrder !== &#39;digital&#39;) return sums;
+      return sums.sort(
+        (first, second) =&gt; digitalRoot(first) - digitalRoot(second) || first - second
+      );
+    }
+
+    function dtdSumsForDigitalValue(value) {
+      return DTD_SUM_VALUES.filter((sum) =&gt; digitalRoot(sum) === value);
+    }
+
+    function appendDtdColumn(key, label, selection, options = {}) {
+      const column = document.createElement(&#39;section&#39;);
+      column.className = &#39;dtd-column&#39;;
+      const heading = document.createElement(&#39;div&#39;);
+      heading.className = &#39;dtd-column-heading&#39;;
+      const title = document.createElement(&#39;strong&#39;);
+      title.textContent = label;
+      const allButton = document.createElement(&#39;button&#39;);
+      allButton.className = &#39;dtd-column-button&#39;;
+      allButton.type = &#39;button&#39;;
+      allButton.dataset.dtdColumnAll = key;
+      allButton.textContent = &#39;Todos&#39;;
+      allButton.setAttribute(&#39;aria-pressed&#39;, String(DTD_DIGITAL_VALUES.every((value) =&gt; selection.has(value))));
+      heading.append(title, allButton);
+      column.appendChild(heading);
+      DTD_DIGITAL_VALUES.forEach((value) =&gt; {
+        const button = document.createElement(&#39;button&#39;);
+        button.className = &#39;dtd-value-button&#39;;
+        button.type = &#39;button&#39;;
+        button.dataset.dtdColumn = key;
+        button.dataset.dtdValue = String(value);
+        button.textContent = String(value);
+        button.setAttribute(&#39;aria-pressed&#39;, String(selection.has(value)));
+        button.setAttribute(&#39;aria-label&#39;, `${label}, valor ${value}`);
+        column.appendChild(button);
+      });
+      dtdPanel.appendChild(column);
+    }
+
+    function renderDtdOccurrenceGrid() {
+      dtdOccurrenceGrid.replaceChildren();
+      const appendCell = (text, className = &#39;&#39;) =&gt; {
+        const cell = document.createElement(&#39;span&#39;);
+        cell.className = `dtd-occurrence-cell${className ? ` ${className}` : &#39;&#39;}`;
+        cell.textContent = text;
+        dtdOccurrenceGrid.appendChild(cell);
+      };
+      appendCell(&#39;Valor DTD&#39;, &#39;is-label&#39;);
+      DTD_DIGITAL_VALUES.forEach((value) =&gt; appendCell(String(value)));
+      [
+        { label: &#39;Mínimo&#39;, key: &#39;min&#39;, values: dtdOccurrenceMinimums },
+        { label: &#39;Máximo&#39;, key: &#39;max&#39;, values: dtdOccurrenceMaximums }
+      ].forEach((row) =&gt; {
+        appendCell(row.label, &#39;is-label&#39;);
+        DTD_DIGITAL_VALUES.forEach((value, index) =&gt; {
+          const select = document.createElement(&#39;select&#39;);
+          select.className = &#39;dtd-occurrence-select&#39;;
+          select.dataset[`dtdOccurrence${row.key === &#39;min&#39; ? &#39;Min&#39; : &#39;Max&#39;}`] = String(value);
+          select.setAttribute(&#39;aria-label&#39;, `${row.label} de apariciones del valor DTD ${value}`);
+          for (let count = 0; count &lt;= 3; count += 1) {
+            const option = document.createElement(&#39;option&#39;);
+            option.value = String(count);
+            option.textContent = String(count);
+            option.selected = row.values[index] === count;
+            select.appendChild(option);
+          }
+          dtdOccurrenceGrid.appendChild(select);
+        });
+      });
+    }
+
+    function renderDtdPanel() {
+      dtdPanel.replaceChildren();
+      appendDtdColumn(&#39;sdcd&#39;, &#39;SDCD&#39;, digitalSelections[6]);
+      appendDtdColumn(&#39;vdft&#39;, &#39;VDFT&#39;, terminationSelections[6]);
+      appendDtdColumn(&#39;vscd&#39;, &#39;VSCD&#39;, effectiveDtdVscdSelections());
+
+      const sumColumn = document.createElement(&#39;section&#39;);
+      sumColumn.className = &#39;dtd-column&#39;;
+      const heading = document.createElement(&#39;div&#39;);
+      heading.className = &#39;dtd-column-heading&#39;;
+      const title = document.createElement(&#39;strong&#39;);
+      title.textContent = &#39;Suma DTD&#39;;
+      const allButton = document.createElement(&#39;button&#39;);
+      allButton.className = &#39;dtd-column-button&#39;;
+      allButton.type = &#39;button&#39;;
+      allButton.dataset.dtdSumsAll = &#39;true&#39;;
+      allButton.textContent = &#39;Todas&#39;;
+      allButton.setAttribute(&#39;aria-pressed&#39;, String(dtdNaturalSumSelections.size === DTD_SUM_VALUES.length));
+      heading.append(title, allButton);
+      sumColumn.appendChild(heading);
+
+      if (dtdPanelOrder === &#39;digital&#39;) {
+        const groups = document.createElement(&#39;div&#39;);
+        groups.className = &#39;dtd-vsdtd-groups&#39;;
+        DTD_DIGITAL_VALUES.forEach((value) =&gt; {
+          const sums = dtdSumsForDigitalValue(value);
+          const button = document.createElement(&#39;button&#39;);
+          button.className = &#39;dtd-vsdtd-group&#39;;
+          button.type = &#39;button&#39;;
+          button.dataset.dtdVsdtdGroup = String(value);
+          button.textContent = `V${value}`;
+          button.title = `VSDTD ${value}: sumas ${sums.join(&#39;, &#39;)}`;
+          button.setAttribute(&#39;aria-pressed&#39;, String(sums.every((sum) =&gt; dtdNaturalSumSelections.has(sum))));
+          groups.appendChild(button);
+        });
+        sumColumn.appendChild(groups);
+      }
+
+      orderedDtdNaturalSums().forEach((sum) =&gt; {
+        const button = document.createElement(&#39;button&#39;);
+        button.className = &#39;dtd-value-button&#39;;
+        button.type = &#39;button&#39;;
+        button.dataset.dtdNaturalSum = String(sum);
+        button.textContent = `Σ${sum} · V${digitalRoot(sum)}`;
+        button.setAttribute(&#39;aria-pressed&#39;, String(dtdNaturalSumSelections.has(sum)));
+        button.setAttribute(&#39;aria-label&#39;, `Suma DTD ${sum}, VSDTD ${digitalRoot(sum)}`);
+        sumColumn.appendChild(button);
+      });
+      dtdPanel.appendChild(sumColumn);
+
+      const digitalOrder = dtdPanelOrder === &#39;digital&#39;;
+      dtdOrderButton.textContent = digitalOrder ? &#39;Orden natural&#39; : &#39;Orden VSDTD&#39;;
+      dtdOrderButton.setAttribute(&#39;aria-pressed&#39;, String(digitalOrder));
+      renderDtdOccurrenceGrid();
+      refreshDtdControls();
+    }
+
+    function setDtdMessage(message, tone = &#39;&#39;) {
+      dtdMessage.textContent = message;
+      dtdMessage.classList.toggle(&#39;is-error&#39;, tone === &#39;error&#39;);
+      dtdMessage.classList.toggle(&#39;is-warning&#39;, tone === &#39;warning&#39;);
+    }
+
+    function refreshDtdControls() {
+      const complete = hasCompleteSignatureConfiguration(&#39;digital&#39;)
+        &amp;&amp; hasCompleteSignatureConfiguration(&#39;termination&#39;)
+        &amp;&amp; effectiveDistanceSelections().every((selection) =&gt; selection.length &gt; 0)
+        &amp;&amp; effectiveDistanceSums().size &gt; 0
+        &amp;&amp; dtdNaturalSumSelections.size &gt; 0;
+      const disabled = digitalBusy || distanceBusy;
+      dtdOrderButton.disabled = disabled;
+      dtdActivateAllButton.disabled = disabled;
+      dtdClearSumsButton.disabled = disabled;
+      dtdResetOccurrencesButton.disabled = disabled;
+      dtdGenerateButton.disabled = disabled || !complete;
+      dtdPanel.querySelectorAll(&#39;button, select&#39;).forEach((control) =&gt; {
+        control.disabled = disabled;
+      });
+      dtdOccurrenceGrid.querySelectorAll(&#39;select&#39;).forEach((control) =&gt; {
+        control.disabled = disabled;
+      });
+    }
+
+    function invalidateDtdConfiguration(message, affectsPositionalSignature = false) {
+      if (digitalBusy || distanceBusy) return;
+      if (affectsPositionalSignature) clearDigitalGeneratedResult();
+      clearDistanceGeneratedResult();
+      renderDigitalPanel();
+      renderDistancePanel();
+      if (affectsPositionalSignature) setDigitalMessage(message);
+      setDistanceMessage(message);
+      setDtdMessage(message);
     }
 
     function renderDigitalPanel() {
@@ -7352,6 +7811,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
             : &#39;false&#39;
         );
       });
+      renderDtdPanel();
       renderDigitalSelectionSummary();
       refreshDigitalControls();
     }
@@ -7367,7 +7827,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         chip.append(
           name,
           document.createTextNode(
-            `${details.selections[column].size} de ${details.values.length}`
+            `${details.selections[column].size} de ${details.columnValues[column].length}`
           )
         );
         digitalSelectionSummary.appendChild(chip);
@@ -7411,6 +7871,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       digitalEquivalenceOptions.querySelectorAll(&#39;button&#39;).forEach((control) =&gt; {
         control.disabled = digitalBusy;
       });
+      refreshDtdControls();
     }
 
     function resetDigitalQrWarning() {
@@ -7441,13 +7902,16 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
     function invalidateDigitalDevelopment(message = &#39;Selección modificada. Pulsa «Calcular y generar desarrollo».&#39;) {
       if (digitalBusy) return;
       clearDigitalGeneratedResult(message);
+      if (distanceGeneratedCombinations.length &gt; 0) clearDistanceGeneratedResult();
       renderDigitalPanel();
     }
 
     function setAllDigitalValues(active) {
       if (digitalBusy) return;
       const details = signatureModeDetails();
-      const selections = details.labels.map(() =&gt; new Set(active ? details.values : []));
+      const selections = details.labels.map((label, column) =&gt;
+        new Set(active ? details.columnValues[column] : [])
+      );
       if (details.mode === &#39;termination&#39;) {
         terminationSelections = selections;
         terminationEquivalenceSelections = new Set(
@@ -7469,8 +7933,9 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       const details = signatureModeDetails(mode);
       const panel = mode === &#39;termination&#39; ? terminationPanel : digitalPanel;
       const selections = details.labels.map((label, column) =&gt; {
+        const columnValues = details.columnValues[column];
         const requested = Math.min(
-          details.values.length,
+          columnValues.length,
           Math.max(
             1,
             Math.trunc(
@@ -7480,7 +7945,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
             ) || 1
           )
         );
-        const shuffled = details.values.slice();
+        const shuffled = columnValues.slice();
         for (let index = shuffled.length - 1; index &gt; 0; index -= 1) {
           const other = Math.floor(Math.random() * (index + 1));
           [shuffled[index], shuffled[other]] = [shuffled[other], shuffled[index]];
@@ -7504,7 +7969,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         restored
           ? `${details.sourceLabel}: se ha recuperado la configuración conservada para este modo.`
           : details.mode === &#39;termination&#39;
-            ? &#39;Firma de terminación preparada. Marca directamente valores 0–9 y activa al menos una equivalencia; no se utiliza SDCD.&#39;
+            ? &#39;Firma de terminación preparada. Marca valores 0–9 en P1–P6, valores 1–9 en VDFT y activa al menos una equivalencia.&#39;
             : &#39;Firma de raíz digital preparada. Marca directamente valores 1–9 y activa también una equivalencia.&#39;
       );
     }
@@ -7760,6 +8225,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
             &amp;&amp; !combinationMatchesDigitalConfiguration(combination, digitalCache)) continue;
           if ((crossMode === &#39;termination&#39; || crossMode === &#39;both&#39;)
             &amp;&amp; !combinationMatchesTerminationConfiguration(combination, terminationCache)) continue;
+          if (crossMode === &#39;both&#39; &amp;&amp; !combinationMatchesDtdSumDigital(combination)) continue;
           generated.push(combination);
           let patternKey = 0;
           for (const distance of distances) patternKey = patternKey * 45 + distance;
@@ -7892,9 +8358,10 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
 
     async function analyseTerminationPatterns(safeLimit) {
       const activeEquivalences = effectiveEquivalenceSelectionsForMode(&#39;termination&#39;);
-      const allowedPositions = terminationSelections.map((selection) =&gt;
+      const allowedPositions = terminationSelections.slice(0, 6).map((selection) =&gt;
         [...selection].sort((first, second) =&gt; first - second)
       );
+      const allowedVdft = terminationSelections[6];
       const pattern = Array(6).fill(0);
       const classStats = Object.fromEntries(
         DIGITAL_EQUIVALENCE_VALUES.map((value) =&gt; [
@@ -7913,6 +8380,8 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
 
       function visit(position) {
         if (position === 6) {
+          const vdft = digitalRoot(pattern.reduce((total, value) =&gt; total + value, 0));
+          if (!allowedVdft.has(vdft)) return;
           const equivalenceCount = countTerminationPatternEquivalents(pattern);
           if (!DIGITAL_EQUIVALENCE_VALUES.includes(equivalenceCount)) return;
           const stats = classStats[equivalenceCount];
@@ -7960,7 +8429,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       const details = signatureModeDetails(&#39;termination&#39;);
       if (details.selections.some((selection) =&gt; selection.size === 0)) {
         setDigitalMessage(
-          &#39;Activa directamente al menos una terminación en cada posición P1–P6.&#39;,
+          &#39;Activa directamente al menos una terminación en cada posición P1–P6 y un valor en VDFT.&#39;,
           &#39;error&#39;
         );
         return;
@@ -8033,7 +8502,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         digitalGeneratedPatternCount = analysis.patternCount;
         digitalPageIndex = 0;
         digitalResultDescription.textContent =
-          `${generated.length.toLocaleString(&#39;es-ES&#39;)} combinaciones naturales cumplen la firma de terminación configurada en P1–P6.`;
+          `${generated.length.toLocaleString(&#39;es-ES&#39;)} combinaciones naturales cumplen la firma de terminación configurada en P1–P6 y VDFT.`;
         renderDigitalResults();
         refreshFilterSourceButtons();
         setDigitalMessage(
@@ -8187,7 +8656,8 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
           if (digitalGeneratedSignatureMode === &#39;termination&#39;) {
             const endings = combination.map((number) =&gt; number % 10);
             const terminationEquivalence = countTerminationPatternEquivalents(endings);
-            detail.textContent = `Terminaciones ${endings.join(&#39;-&#39;)} · ${terminationEquivalence} ${terminationEquivalence === 1 ? &#39;equivalencia&#39; : &#39;equivalencias&#39;}`;
+            const vdft = digitalRoot(endings.reduce((sum, value) =&gt; sum + value, 0));
+            detail.textContent = `Terminaciones ${endings.join(&#39;-&#39;)} · VDFT ${vdft} · ${terminationEquivalence} ${terminationEquivalence === 1 ? &#39;equivalencia&#39; : &#39;equivalencias&#39;}`;
           } else if (digitalGeneratedSignatureMode === &#39;combined&#39;) {
             const roots = combination.map(digitalRoot);
             const endings = combination.map((number) =&gt; number % 10);
@@ -8195,7 +8665,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
             const terminationEquivalence = countTerminationPatternEquivalents(endings);
             detail.textContent = `DR ${roots.join(&#39;-&#39;)} (${digitalEquivalence}) · T ${endings.join(&#39;-&#39;)} (${terminationEquivalence}) · SDCD ${digitalRoot(
               roots.reduce((sum, value) =&gt; sum + value, 0)
-            )}`;
+            )} · VDFT ${digitalRoot(endings.reduce((sum, value) =&gt; sum + value, 0))}`;
           } else {
             const roots = combination.map(digitalRoot);
             const equivalenceTotal = countDigitalPatternEquivalents(roots);
@@ -8341,6 +8811,8 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       for (let position = 0; position &lt; 6; position += 1) {
         if (!terminationSelections[position].has(pattern[position])) return false;
       }
+      const vdft = digitalRoot(pattern.reduce((total, value) =&gt; total + value, 0));
+      if (!terminationSelections[6].has(vdft)) return false;
       const key = terminationPatternKey(pattern);
       let equivalenceCount = equivalenceCache.get(key);
       if (equivalenceCount === undefined) {
@@ -8361,7 +8833,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       }
       if (!hasCompleteSignatureConfiguration(&#39;termination&#39;)) {
         setDigitalMessage(
-          &#39;Completa P1–P6 y las equivalencias de la firma de terminación antes de combinar.&#39;,
+          &#39;Completa P1–P6, VDFT y las equivalencias de la firma de terminación antes de combinar.&#39;,
           &#39;error&#39;
         );
         return;
@@ -8476,7 +8948,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         digitalGeneratedPatternCount = patternCount;
         digitalPageIndex = 0;
         digitalResultDescription.textContent =
-          `${generated.length.toLocaleString(&#39;es-ES&#39;)} combinaciones cumplen simultáneamente la firma digital y la firma de terminación configuradas.`;
+          `${generated.length.toLocaleString(&#39;es-ES&#39;)} combinaciones cumplen simultáneamente la firma digital y la firma de terminación configuradas, incluidos SDCD y VDFT.`;
         renderDigitalResults();
         refreshFilterSourceButtons();
         setDigitalMessage(
@@ -8591,6 +9063,20 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         });
         distancePanel.appendChild(select);
       });
+      const vscdRandomSelect = createDistancePanelCell(
+        &#39;select&#39;,
+        null,
+        &#39;distance-random-count distance-vscd-column&#39;
+      );
+      vscdRandomSelect.dataset.distanceVscdRandomCount = &#39;true&#39;;
+      vscdRandomSelect.setAttribute(&#39;aria-label&#39;, &#39;Cantidad aleatoria de valores VSCD&#39;);
+      for (let count = 0; count &lt;= 9; count += 1) {
+        const option = document.createElement(&#39;option&#39;);
+        option.value = String(count);
+        option.textContent = count === 0 ? &#39;0 · sin filtro&#39; : String(count);
+        vscdRandomSelect.appendChild(option);
+      }
+      distancePanel.appendChild(vscdRandomSelect);
 
       const orderToggle = createDistancePanelCell(
         &#39;button&#39;,
@@ -8616,6 +9102,16 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         button.setAttribute(&#39;aria-label&#39;, `Activar o desactivar todas las distancias de ${label}`);
         distancePanel.appendChild(button);
       });
+      const vscdAllButton = createDistancePanelCell(
+        &#39;button&#39;,
+        &#39;✓ VSCD&#39;,
+        &#39;distance-panel-button distance-vscd-all distance-vscd-column&#39;
+      );
+      vscdAllButton.type = &#39;button&#39;;
+      vscdAllButton.dataset.distanceVscdAll = &#39;true&#39;;
+      vscdAllButton.setAttribute(&#39;aria-pressed&#39;, &#39;false&#39;);
+      vscdAllButton.setAttribute(&#39;aria-label&#39;, &#39;Activar o desactivar los nueve valores VSCD&#39;);
+      distancePanel.appendChild(vscdAllButton);
 
       distancePanel.appendChild(
         createDistancePanelCell(&#39;span&#39;, &#39;Dist. · SD&#39;, &#39;distance-grid-cell distance-grid-header distance-global-column&#39;)
@@ -8625,8 +9121,13 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
           createDistancePanelCell(&#39;span&#39;, label, &#39;distance-grid-cell distance-grid-header&#39;, column)
         );
       });
+      distancePanel.appendChild(
+        createDistancePanelCell(&#39;span&#39;, &#39;VSCD&#39;, &#39;distance-grid-cell distance-grid-header distance-vscd-column&#39;)
+      );
 
-      orderedDistanceValues().forEach((value) =&gt; {
+      const orderedDistances = orderedDistanceValues();
+      const orderedSums = orderedDistanceSumValues();
+      orderedDistances.forEach((value, rowIndex) =&gt; {
         const displayLabel = `${value} · SD${digitalRoot(value)}`;
         const rowButton = createDistancePanelCell(
           &#39;button&#39;,
@@ -8651,6 +9152,23 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
           button.setAttribute(&#39;aria-label&#39;, `${label}, distancia ${value}`);
           distancePanel.appendChild(button);
         });
+        const sum = orderedSums[rowIndex];
+        const vscd = digitalRoot(sum);
+        const vscdButton = createDistancePanelCell(
+          &#39;button&#39;,
+          `Σ${sum} · VSCD${vscd}`,
+          &#39;distance-panel-button distance-vscd-button distance-vscd-column&#39;
+        );
+        vscdButton.type = &#39;button&#39;;
+        vscdButton.dataset.distanceVscd = String(vscd);
+        vscdButton.dataset.distanceVscdSum = String(sum);
+        vscdButton.setAttribute(&#39;aria-pressed&#39;, &#39;false&#39;);
+        vscdButton.setAttribute(
+          &#39;aria-label&#39;,
+          `Suma ${sum}, VSCD${vscd}. Activar o desactivar este valor digital de suma`
+        );
+        vscdButton.title = `Σ ${sum} · VSCD${vscd} · ${49 - sum} equivalencias naturales`;
+        distancePanel.appendChild(vscdButton);
       });
     }
 
@@ -8675,7 +9193,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
 
     function buildDistanceSumOptions() {
       distanceSumOptions.replaceChildren();
-      DISTANCE_SUM_VALUES.forEach((sum) =&gt; {
+      orderedDistanceSumValues().forEach((sum) =&gt; {
         const button = document.createElement(&#39;button&#39;);
         button.className = &#39;distance-sum-button&#39;;
         button.type = &#39;button&#39;;
@@ -8683,24 +9201,38 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         button.setAttribute(&#39;aria-pressed&#39;, &#39;false&#39;);
         button.setAttribute(
           &#39;aria-label&#39;,
-          `Suma ${sum}, ${49 - sum} combinaciones naturales por firma`
+          `Suma ${sum}, VSCD${digitalRoot(sum)}, ${49 - sum} combinaciones naturales por firma`
         );
-        button.title = `Suma ${sum} · ${49 - sum} equivalencias naturales`;
-        button.textContent = String(sum);
+        button.title = `Suma ${sum} · VSCD${digitalRoot(sum)} · ${49 - sum} equivalencias naturales`;
+        button.textContent = `Σ${sum} · VSCD${digitalRoot(sum)}`;
         distanceSumOptions.appendChild(button);
       });
     }
 
     function effectiveDistanceSums() {
-      return distanceSumSelections.size
+      const exactSums = distanceSumSelections.size
         ? distanceSumSelections
         : new Set(DISTANCE_SUM_VALUES);
+      return new Set(
+        [...exactSums].filter((sum) =&gt;
+          distanceSumDigitalSelections.size === 0 || distanceSumDigitalSelections.has(digitalRoot(sum))
+        )
+      );
     }
 
     function distanceCrossModeLabel(mode = distanceGeneratedCrossMode) {
       if (mode === &#39;digital&#39;) return &#39;firma de distancias + firma digital&#39;;
       if (mode === &#39;termination&#39;) return &#39;firma de distancias + firma de terminación&#39;;
-      if (mode === &#39;both&#39;) return &#39;firma digital + firma de terminación + firma de distancia&#39;;
+      if (mode === &#39;both&#39;) {
+        const sumSuffix = dtdNaturalSumSelections.size &lt; DTD_SUM_VALUES.length
+          ? ` + ${dtdNaturalSumSelections.size} sumas DTD`
+          : &#39;&#39;;
+        const occurrenceSuffix = dtdOccurrenceMinimums.some((value) =&gt; value &gt; 0)
+          || dtdOccurrenceMaximums.some((value) =&gt; value &lt; 3)
+          ? &#39; + límites de aparición DTD&#39;
+          : &#39;&#39;;
+        return `firma digital + firma de terminación + firma de distancia${sumSuffix}${occurrenceSuffix}`;
+      }
       return &#39;firma de distancias&#39;;
     }
 
@@ -8732,6 +9264,19 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         )
       );
       distanceSelectionSummary.appendChild(digitalChip);
+      const vscdChip = document.createElement(&#39;span&#39;);
+      vscdChip.className = &#39;digital-selection-chip&#39;;
+      const vscdName = document.createElement(&#39;strong&#39;);
+      vscdName.textContent = &#39;VSCD&#39;;
+      vscdChip.append(
+        vscdName,
+        document.createTextNode(
+          distanceSumDigitalSelections.size
+            ? [...distanceSumDigitalSelections].sort((first, second) =&gt; first - second).map((value) =&gt; `VSCD${value}`).join(&#39; · &#39;)
+            : &#39;todos · sin filtro&#39;
+        )
+      );
+      distanceSelectionSummary.appendChild(vscdChip);
       const sumChip = document.createElement(&#39;span&#39;);
       sumChip.className = &#39;digital-selection-chip&#39;;
       const name = document.createElement(&#39;strong&#39;);
@@ -8745,10 +9290,35 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         )
       );
       distanceSelectionSummary.appendChild(sumChip);
+      const dtdSumChip = document.createElement(&#39;span&#39;);
+      dtdSumChip.className = &#39;digital-selection-chip&#39;;
+      const dtdSumName = document.createElement(&#39;strong&#39;);
+      dtdSumName.textContent = &#39;Sumas DTD&#39;;
+      dtdSumChip.append(
+        dtdSumName,
+        document.createTextNode(`${dtdNaturalSumSelections.size} de ${DTD_SUM_VALUES.length}`)
+      );
+      distanceSelectionSummary.appendChild(dtdSumChip);
+      const constrainedOccurrences = DTD_DIGITAL_VALUES
+        .filter((value, index) =&gt; dtdOccurrenceMinimums[index] &gt; 0 || dtdOccurrenceMaximums[index] &lt; 3)
+        .map((value, index, values) =&gt; {
+          const originalIndex = value - 1;
+          return `${value}:${dtdOccurrenceMinimums[originalIndex]}–${dtdOccurrenceMaximums[originalIndex]}`;
+        });
+      const occurrenceChip = document.createElement(&#39;span&#39;);
+      occurrenceChip.className = &#39;digital-selection-chip&#39;;
+      const occurrenceName = document.createElement(&#39;strong&#39;);
+      occurrenceName.textContent = &#39;Apariciones DTD&#39;;
+      occurrenceChip.append(
+        occurrenceName,
+        document.createTextNode(constrainedOccurrences.length ? constrainedOccurrences.join(&#39; · &#39;) : &#39;0–3 · sin filtro&#39;)
+      );
+      distanceSelectionSummary.appendChild(occurrenceChip);
     }
 
     function refreshDistanceControls() {
-      const complete = effectiveDistanceSelections().every((selection) =&gt; selection.length &gt; 0);
+      const complete = effectiveDistanceSelections().every((selection) =&gt; selection.length &gt; 0)
+        &amp;&amp; effectiveDistanceSums().size &gt; 0;
       distanceGenerateButton.disabled = distanceBusy || !complete;
       distanceSelectAllButton.disabled = distanceBusy;
       distanceClearSelectionButton.disabled = distanceBusy;
@@ -8767,6 +9337,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       distanceSumOptions.querySelectorAll(&#39;button&#39;).forEach((control) =&gt; {
         control.disabled = distanceBusy;
       });
+      refreshDtdControls();
     }
 
     function renderDistancePanel() {
@@ -8801,6 +9372,17 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
           String(distanceSelections.every((selection) =&gt; selection.has(value)))
         );
       });
+      distancePanel.querySelectorAll(&#39;[data-distance-vscd]&#39;).forEach((button) =&gt; {
+        const vscd = Number(button.dataset.distanceVscd);
+        button.setAttribute(&#39;aria-pressed&#39;, String(distanceSumDigitalSelections.has(vscd)));
+      });
+      const vscdAllButton = distancePanel.querySelector(&#39;[data-distance-vscd-all]&#39;);
+      if (vscdAllButton) {
+        vscdAllButton.setAttribute(
+          &#39;aria-pressed&#39;,
+          String(distanceSumDigitalSelections.size === 9)
+        );
+      }
       distanceDigitalGroupOptions.querySelectorAll(&#39;[data-distance-digital-group]&#39;).forEach((button) =&gt; {
         const sd = Number(button.dataset.distanceDigitalGroup);
         button.setAttribute(&#39;aria-pressed&#39;, String(distanceDigitalSelections.has(sd)));
@@ -8811,6 +9393,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
           String(distanceSumSelections.has(Number(button.dataset.distanceSum)))
         );
       });
+      renderDtdPanel();
       renderDistanceSelectionSummary();
       refreshDistanceControls();
     }
@@ -8894,10 +9477,25 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         [shuffledDigital[index], shuffledDigital[other]] = [shuffledDigital[other], shuffledDigital[index]];
       }
       distanceDigitalSelections = new Set(shuffledDigital.slice(0, requestedDigital));
+      const vscdRandomCount = Math.min(
+        9,
+        Math.max(
+          0,
+          Math.trunc(
+            Number(distancePanel.querySelector(&#39;[data-distance-vscd-random-count]&#39;)?.value)
+          ) || 0
+        )
+      );
+      const shuffledVscd = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+      for (let index = shuffledVscd.length - 1; index &gt; 0; index -= 1) {
+        const other = Math.floor(Math.random() * (index + 1));
+        [shuffledVscd[index], shuffledVscd[other]] = [shuffledVscd[other], shuffledVscd[index]];
+      }
+      distanceSumDigitalSelections = new Set(shuffledVscd.slice(0, vscdRandomCount));
       invalidateDistanceDevelopment(
-        requestedDigital
-          ? `Selección aleatoria realizada, incluido un filtro de ${requestedDigital} valores SD de distancia.`
-          : &#39;Selección aleatoria de distancias realizada sin filtro SD adicional.&#39;
+        requestedDigital || vscdRandomCount
+          ? `Selección aleatoria realizada con ${requestedDigital} valores SD de distancia y ${vscdRandomCount} valores VSCD.`
+          : &#39;Selección aleatoria de distancias realizada sin filtros SD ni VSCD adicionales.&#39;
       );
     }
 
@@ -8911,13 +9509,56 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       );
     }
 
+    function setAllDistanceSumDigitalValues(active) {
+      if (distanceBusy) return;
+      distanceSumDigitalSelections = new Set(active ? [1, 2, 3, 4, 5, 6, 7, 8, 9] : []);
+      invalidateDistanceDevelopment(
+        active
+          ? &#39;Se han activado los nueve valores VSCD.&#39;
+          : &#39;No hay filtro VSCD: se admitirá cualquier valor digital de la suma.&#39;
+      );
+    }
+
+    function combinationDtdDigitalValues(combination) {
+      let digitalSum = 0;
+      let terminationSum = 0;
+      for (const number of combination) {
+        digitalSum += digitalRoot(number);
+        terminationSum += number % 10;
+      }
+      const sdcd = digitalRoot(digitalSum);
+      const vdft = digitalRoot(terminationSum);
+      const vscd = digitalRoot(combination[5] - combination[0]);
+      const sum = sdcd + vdft + vscd;
+      return {
+        sdcd,
+        vdft,
+        vscd,
+        sum,
+        vsdtd: digitalRoot(sum)
+      };
+    }
+
+    function combinationMatchesDtdSumDigital(combination) {
+      const values = combinationDtdDigitalValues(combination);
+      if (!dtdNaturalSumSelections.has(values.sum)) return false;
+      const occurrences = Array(9).fill(0);
+      occurrences[values.sdcd - 1] += 1;
+      occurrences[values.vdft - 1] += 1;
+      occurrences[values.vscd - 1] += 1;
+      return occurrences.every((count, index) =&gt;
+        count &gt;= dtdOccurrenceMinimums[index]
+        &amp;&amp; count &lt;= dtdOccurrenceMaximums[index]
+      );
+    }
+
     function validateDistanceCrossMode(mode) {
       if ((mode === &#39;digital&#39; || mode === &#39;both&#39;) &amp;&amp; !hasCompleteSignatureConfiguration(&#39;digital&#39;)) {
         setDistanceMessage(&#39;Completa primero P1–P6 y SDCD en la firma digital.&#39;, &#39;error&#39;);
         return false;
       }
       if ((mode === &#39;termination&#39; || mode === &#39;both&#39;) &amp;&amp; !hasCompleteSignatureConfiguration(&#39;termination&#39;)) {
-        setDistanceMessage(&#39;Completa primero P1–P6 en la firma de terminación.&#39;, &#39;error&#39;);
+        setDistanceMessage(&#39;Completa primero P1–P6 y VDFT en la firma de terminación.&#39;, &#39;error&#39;);
         return false;
       }
       return true;
@@ -8969,7 +9610,9 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       const allowedSums = effectiveDistanceSums();
       const digitalEquivalenceCache = new Map();
       const terminationEquivalenceCache = new Map();
-      const generated = [];
+      const generated = safeLimit &gt; 250000
+        ? createPackedCombinationAccumulator(safeLimit)
+        : [];
       const sumStats = Object.fromEntries(
         DISTANCE_SUM_VALUES.map((sum) =&gt; [sum, { patterns: 0, natural: 0 }])
       );
@@ -8997,12 +9640,15 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
             &amp;&amp; !combinationMatchesTerminationConfiguration(combination, terminationEquivalenceCache)) {
             continue;
           }
+          if (crossMode === &#39;both&#39; &amp;&amp; !combinationMatchesDtdSumDigital(combination)) {
+            continue;
+          }
           matchingNaturals += 1;
           naturalTotal += 1;
           if (keepGenerated) {
             if (naturalTotal &lt;= safeLimit) generated.push(combination);
             else {
-              generated.length = 0;
+              if (Array.isArray(generated)) generated.length = 0;
               keepGenerated = false;
             }
           }
@@ -9026,7 +9672,9 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         patternCount,
         naturalTotal,
         sumStats,
-        generated: keepGenerated ? generated : [],
+        generated: keepGenerated
+          ? (Array.isArray(generated) ? generated : generated.finish())
+          : [],
         withinLimit: naturalTotal &lt;= safeLimit
       };
     }
@@ -9037,13 +9685,13 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       distanceSafeLimit.textContent = formatOperationLimit(safeLimit);
       distanceTotalBadge.textContent = `${analysis.naturalTotal.toLocaleString(&#39;es-ES&#39;)} naturales`;
       distanceBreakdown.replaceChildren();
-      DISTANCE_SUM_VALUES.forEach((sum) =&gt; {
+      orderedDistanceSumValues().forEach((sum) =&gt; {
         const stats = analysis.sumStats[sum];
         if (!stats || stats.patterns === 0) return;
         const item = document.createElement(&#39;span&#39;);
         item.className = &#39;distance-breakdown-item&#39;;
         const title = document.createElement(&#39;strong&#39;);
-        title.textContent = `Σ ${sum} · ${49 - sum} eq.`;
+        title.textContent = `Σ ${sum} · VSCD${digitalRoot(sum)} · ${49 - sum} eq.`;
         item.append(
           title,
           document.createTextNode(
@@ -9076,7 +9724,13 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
           const sum = distances.reduce((totalValue, value) =&gt; totalValue + value, 0);
           const detail = document.createElement(&#39;span&#39;);
           detail.className = &#39;digital-result-roots&#39;;
-          detail.textContent = `D ${distances.join(&#39;-&#39;)} · Σ ${sum} · ${49 - sum} equivalencias`;
+          const dtdValues = distanceGeneratedCrossMode === &#39;both&#39;
+            ? combinationDtdDigitalValues(combination)
+            : null;
+          const dtdDetail = dtdValues
+            ? ` · ΣDTD${dtdValues.sum} · VSDTD${dtdValues.vsdtd}`
+            : &#39;&#39;;
+          detail.textContent = `D ${distances.join(&#39;-&#39;)} · Σ ${sum} · VSCD${digitalRoot(sum)}${dtdDetail} · ${49 - sum} equivalencias`;
           item.append(index, numbers, detail);
           distanceResultList.appendChild(item);
         });
@@ -9096,6 +9750,10 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       if (distanceBusy) return;
       if (effectiveDistanceSelections().some((selection) =&gt; selection.length === 0)) {
         setDistanceMessage(&#39;Activa al menos una distancia compatible con el filtro SD en cada pareja D1–2 a D5–6.&#39;, &#39;error&#39;);
+        return;
+      }
+      if (effectiveDistanceSums().size === 0) {
+        setDistanceMessage(&#39;Las sumas exactas y los valores VSCD seleccionados no tienen ninguna coincidencia. Ajusta uno de los dos criterios.&#39;, &#39;error&#39;);
         return;
       }
       const crossMode = distanceCrossModeSelect.value;
@@ -9208,7 +9866,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       if (missingMode) {
         const missingLabel = missingMode === &#39;digital&#39;
           ? &#39;la firma digital, incluida SDCD y sus equivalencias&#39;
-          : &#39;la firma de terminación y sus equivalencias&#39;;
+          : &#39;la firma de terminación, incluido VDFT y sus equivalencias&#39;;
         setDigitalMessage(`Completa primero ${missingLabel}.`, &#39;error&#39;);
         return;
       }
@@ -10026,9 +10684,9 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
           label,
           description: digitalGeneratedCombinations.length
             ? digitalGeneratedSignatureMode === &#39;combined&#39;
-              ? &#39;Combinaciones que cumplen simultáneamente la firma digital, la firma de terminación y sus equivalencias.&#39;
+              ? &#39;Combinaciones que cumplen simultáneamente la firma digital, la firma de terminación, SDCD, VDFT y sus equivalencias.&#39;
               : digitalGeneratedSignatureMode === &#39;termination&#39;
-                ? &#39;Combinaciones naturales generadas con las terminaciones y equivalencias seleccionadas en P1–P6.&#39;
+                ? &#39;Combinaciones naturales generadas con las terminaciones, VDFT y equivalencias seleccionadas.&#39;
                 : &#39;Combinaciones naturales equivalentes generadas mediante P1–P6, SDCD y las clases de equivalencia seleccionadas.&#39;
             : `Todavía no se ha generado un desarrollo de ${label.toLocaleLowerCase(&#39;es-ES&#39;)}.`,
           route: [label],
@@ -11016,6 +11674,11 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
           distanceSelections: serialiseSetList(distanceSelections),
           distanceDigitalSelections: [...distanceDigitalSelections],
           distancePanelOrder, distanceSumSelections: [...distanceSumSelections],
+          distanceSumDigitalSelections: [...distanceSumDigitalSelections],
+          dtdNaturalSumSelections: [...dtdNaturalSumSelections],
+          dtdPanelOrder,
+          dtdOccurrenceMinimums: [...dtdOccurrenceMinimums],
+          dtdOccurrenceMaximums: [...dtdOccurrenceMaximums],
           distanceGeneratedCombinations, distanceGeneratedPatternCount, distanceGeneratedCrossMode,
           filteredCombinations, filteredSourceDetails,
           scrutinyPreparedRoute, scrutinyPreparedSource,
@@ -11070,6 +11733,9 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       while (digitalSelections.length &lt; 7) digitalSelections.push(new Set());
       terminationSelections = (state.terminationSelections ?? []).map((entry) =&gt; new Set(entry.map(Number)));
       while (terminationSelections.length &lt; 6) terminationSelections.push(new Set());
+      if (terminationSelections.length &lt; 7) {
+        terminationSelections.push(new Set([1, 2, 3, 4, 5, 6, 7, 8, 9]));
+      }
       digitalEquivalenceSelections = new Set((state.digitalEquivalenceSelections ?? []).map(Number));
       terminationEquivalenceSelections = new Set((state.terminationEquivalenceSelections ?? []).map(Number));
       digitalGeneratedCombinations = copyCombinations(state.digitalGeneratedCombinations);
@@ -11080,6 +11746,25 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       distanceDigitalSelections = new Set((state.distanceDigitalSelections ?? []).map(Number));
       distancePanelOrder = state.distancePanelOrder === &#39;digital&#39; ? &#39;digital&#39; : &#39;natural&#39;;
       distanceSumSelections = new Set((state.distanceSumSelections ?? []).map(Number));
+      distanceSumDigitalSelections = new Set((state.distanceSumDigitalSelections ?? []).map(Number));
+      const restoredDtdSums = Array.isArray(state.dtdNaturalSumSelections)
+        ? state.dtdNaturalSumSelections.map(Number).filter((value) =&gt; DTD_SUM_VALUES.includes(value))
+        : DTD_SUM_VALUES.filter((sum) =&gt;
+          (state.dtdSumDigitalSelections ?? []).map(Number).includes(digitalRoot(sum))
+        );
+      dtdNaturalSumSelections = new Set(
+        restoredDtdSums.length || Array.isArray(state.dtdNaturalSumSelections)
+          ? restoredDtdSums
+          : DTD_SUM_VALUES
+      );
+      dtdPanelOrder = state.dtdPanelOrder === &#39;digital&#39; ? &#39;digital&#39; : &#39;natural&#39;;
+      dtdOccurrenceMinimums = Array.from({ length: 9 }, (_, index) =&gt;
+        Math.min(3, Math.max(0, Number(state.dtdOccurrenceMinimums?.[index]) || 0))
+      );
+      dtdOccurrenceMaximums = Array.from({ length: 9 }, (_, index) =&gt; {
+        const value = Number(state.dtdOccurrenceMaximums?.[index]);
+        return Number.isFinite(value) ? Math.min(3, Math.max(dtdOccurrenceMinimums[index], value)) : 3;
+      });
       distanceGeneratedCombinations = copyCombinations(state.distanceGeneratedCombinations);
       distanceGeneratedPatternCount = Number(state.distanceGeneratedPatternCount) || 0;
       distanceGeneratedCrossMode = state.distanceGeneratedCrossMode ?? &#39;none&#39;;
@@ -11099,6 +11784,8 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       renderNumberRules();
       renderDigitalPanel();
       renderDigitalResults();
+      buildDistancePanel();
+      buildDistanceSumOptions();
       renderDistancePanel();
       renderDistanceResults();
       renderDevelopmentExternalSource();
@@ -15352,6 +16039,36 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       return countFrom(0, 0);
     }
 
+    function countVsdtdEquivalentCombinations(targetVsdtd) {
+      const memo = new Map();
+
+      function countFrom(position, previousNumber, firstNumber, digitalSum, terminationSum) {
+        if (position === 6) {
+          const sdcd = digitalSum || 9;
+          const vdft = terminationSum || 9;
+          const vscd = digitalRoot(previousNumber - firstNumber);
+          return digitalRoot(sdcd + vdft + vscd) === targetVsdtd ? 1 : 0;
+        }
+        const key = `${position}|${previousNumber}|${firstNumber}|${digitalSum}|${terminationSum}`;
+        if (memo.has(key)) return memo.get(key);
+        let total = 0;
+        const maximum = 49 - (5 - position);
+        for (let number = previousNumber + 1; number &lt;= maximum; number += 1) {
+          total += countFrom(
+            position + 1,
+            number,
+            position === 0 ? number : firstNumber,
+            (digitalSum + digitalRoot(number)) % 9,
+            (terminationSum + number % 10) % 9
+          );
+        }
+        memo.set(key, total);
+        return total;
+      }
+
+      return countFrom(0, 0, 0, 0, 0);
+    }
+
     function analyseScrutinyWinningCombination() {
       const winning = parseScrutinyWinningCombination();
       if (!winning) {
@@ -15373,7 +16090,11 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       const distanceSum = gaps.reduce((total, value) =&gt; total + value, 0);
       const distanceEquivalents = 49 - distanceSum;
       const digitalDistances = gaps.map(digitalRoot);
-      const digitalDistanceSum = digitalDistances.reduce((total, value) =&gt; total + value, 0);
+      const sdcd = digitalRoot(digitalSum);
+      const vdft = digitalRoot(endings.reduce((total, value) =&gt; total + value, 0));
+      const vscd = digitalRoot(distanceSum);
+      const dtdSum = sdcd + vdft + vscd;
+      const vsdtd = digitalRoot(dtdSum);
       const digitalActorCounts = Array(9).fill(0);
       roots.forEach((value) =&gt; { digitalActorCounts[value - 1] += 1; });
       const terminationActorCounts = Array(10).fill(0);
@@ -15384,6 +16105,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       const terminationActors = terminationActorCounts.filter((count) =&gt; count &gt; 0).length;
       const distanceDigitalActors = distanceDigitalActorCounts.filter((count) =&gt; count &gt; 0).length;
       const signatureCrossEquivalents = countSignatureDigitalCrossEquivalentCombinations(winning);
+      const vsdtdEquivalents = countVsdtdEquivalentCombinations(vsdtd);
       const runs = consecutiveRuns(winning);
       const consecutivePairs = runs.reduce((total, run) =&gt; total + run.length - 1, 0);
       const decadeRanges = [
@@ -15406,11 +16128,12 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         createScrutinyAnalysisItem(&#39;Suma natural&#39;, String(naturalSum)),
         createScrutinyAnalysisItem(&#39;Firma digital de la ganadora&#39;, roots.join(&#39; · &#39;)),
         createScrutinyAnalysisItem(&#39;Suma de valores de la firma digital&#39;, String(digitalSum)),
-        createScrutinyAnalysisItem(&#39;Valor digital de la suma de la firma digital&#39;, String(digitalRoot(digitalSum))),
+        createScrutinyAnalysisItem(&#39;Valor digital de la suma de la firma digital (SDCD)&#39;, String(sdcd)),
         createScrutinyAnalysisItem(&#39;Combinaciones equivalentes a la firma digital&#39;, digitalEquivalents.toLocaleString(&#39;es-ES&#39;)),
         createScrutinyAnalysisItem(&#39;Actores firma digital&#39;, `${digitalActors}/9`),
         createScrutinyActorFigureItem(&#39;Figura de actores digitales&#39;, [1, 2, 3, 4, 5, 6, 7, 8, 9], digitalActorCounts),
         createScrutinyAnalysisItem(&#39;Firma de terminación&#39;, endings.join(&#39; · &#39;)),
+        createScrutinyAnalysisItem(&#39;Valor digital de la firma de terminación (VDFT)&#39;, String(vdft)),
         createScrutinyAnalysisItem(&#39;Combinaciones equivalentes a la firma de terminación&#39;, terminationEquivalents.toLocaleString(&#39;es-ES&#39;)),
         createScrutinyAnalysisItem(&#39;Actores firma de terminación&#39;, `${terminationActors}/10`),
         createScrutinyActorFigureItem(&#39;Figura de actores de terminación&#39;, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], terminationActorCounts),
@@ -15424,14 +16147,18 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         createScrutinyAnalysisItem(&#39;Amplitud&#39;, `${winning[5] - winning[0]} (${winning[0]}–${winning[5]})`),
         createScrutinyAnalysisItem(&#39;Firma de distancias natural&#39;, gaps.join(&#39; · &#39;)),
         createScrutinyAnalysisItem(&#39;Firma digital de distancias&#39;, digitalDistances.join(&#39; · &#39;)),
-        createScrutinyAnalysisItem(&#39;Valor digital de la suma de distancias digitales&#39;, String(digitalRoot(digitalDistanceSum))),
+        createScrutinyAnalysisItem(&#39;Valor digital de la suma de combinación de distancia (VSCD)&#39;, String(vscd)),
         createScrutinyAnalysisItem(&#39;Actores digitales de distancias&#39;, `${distanceDigitalActors}/9`),
         createScrutinyActorFigureItem(&#39;Figura de actores digitales de distancias&#39;, [1, 2, 3, 4, 5, 6, 7, 8, 9], distanceDigitalActorCounts),
         createScrutinyAnalysisItem(&#39;Combinaciones equivalentes a la firma de distancia&#39;, distanceEquivalents.toLocaleString(&#39;es-ES&#39;)),
         createScrutinyAnalysisItem(&#39;Combinaciones equivalentes al cruce de firmas&#39;, signatureCrossEquivalents.toLocaleString(&#39;es-ES&#39;)),
+        createScrutinyAnalysisItem(
+          `Firma DTD ${sdcd} · ${vdft} · ${vscd} → suma DTD ${dtdSum} → VSDTD ${vsdtd}`,
+          `${vsdtdEquivalents.toLocaleString(&#39;es-ES&#39;)} combinaciones naturales con VSDTD ${vsdtd}`
+        ),
         createScrutinyAnalysisItem(&#39;Consecutivos&#39;, runSummary)
       );
-      scrutinyAnalysisNote.textContent = &#39;La figura de actores escribe los recuentos en orden ascendente: 9 dígitos para la firma digital de la ganadora y la firma digital de distancias, y 10 para terminaciones 0–9. Por ejemplo, 010020011 significa 1 valor digital 2, 2 valores digitales 5, 1 valor digital 8 y 1 valor digital 9. Los actores indican cuántos valores distintos intervienen de los 9 digitales, 10 terminaciones y 9 valores digitales de distancia. Las combinaciones equivalentes individuales comparten una firma concreta; «Combinaciones equivalentes al cruce de firmas» cuenta la intersección de los mismos actores digitales, terminaciones y valores digitales de distancia aplicados en las seis posiciones, sin limitar el valor digital de la suma de la firma digital. La firma de distancias natural muestra las cinco diferencias entre números contiguos; la firma digital de distancias convierte cada diferencia a su raíz digital. Bajos: 1–24 · Altos: 25–49.&#39;;
+      scrutinyAnalysisNote.textContent = &#39;La firma DTD se escribe en el orden SDCD · VDFT · VSCD. Su suma natural está entre 3 y 27; VSDTD es la raíz digital de esa suma y el recuadro indica cuántas combinaciones del 6/49 tienen ese mismo VSDTD. La figura de actores escribe los recuentos en orden ascendente: 9 dígitos para la firma digital de la ganadora y la firma digital de distancias, y 10 para terminaciones 0–9. Por ejemplo, 010020011 significa 1 valor digital 2, 2 valores digitales 5, 1 valor digital 8 y 1 valor digital 9. Los actores indican cuántos valores distintos intervienen de los 9 digitales, 10 terminaciones y 9 valores digitales de distancia. Las combinaciones equivalentes individuales comparten una firma concreta; «Combinaciones equivalentes al cruce de firmas» cuenta la intersección de los mismos actores digitales, terminaciones y valores digitales de distancia. La firma de distancias natural muestra las cinco diferencias entre números contiguos; la firma digital de distancias convierte cada diferencia a su raíz digital. Bajos: 1–24 · Altos: 25–49.&#39;;
       scrutinyAnalysis.hidden = false;
       setScrutinyMessage(&#39;Análisis de la combinación ganadora completado. No se han escrutado apuestas.&#39;);
     }
@@ -16222,10 +16949,11 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       if (selectColumnButton) {
         const details = signatureModeDetails(mode);
         const column = Number(selectColumnButton.dataset.digitalSelectColumn);
-        const allSelected = details.values.every((value) =&gt;
+        const columnValues = details.columnValues[column];
+        const allSelected = columnValues.every((value) =&gt;
           details.selections[column].has(value)
         );
-        details.selections[column] = new Set(allSelected ? [] : details.values);
+        details.selections[column] = new Set(allSelected ? [] : columnValues);
         invalidateDigitalDevelopment(
           allSelected
             ? `Se han desactivado todos los valores de ${details.labels[column]}.`
@@ -16265,7 +16993,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         details.selections[column].add(value);
       }
       invalidateDigitalDevelopment(
-        `${details.labels[column]} actualizado directamente: ${details.selections[column].size} de ${details.values.length} valores activos.`
+        `${details.labels[column]} actualizado directamente: ${details.selections[column].size} de ${details.columnValues[column].length} valores activos.`
       );
     };
     digitalPanel.addEventListener(&#39;click&#39;, handleSignaturePanelClick);
@@ -16293,6 +17021,159 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
           ? `Equivalencias activas para ${signatureModeDetails().shortLabel}: ${DIGITAL_EQUIVALENCE_VALUES.filter((item) =&gt; activeEquivalences.has(item)).join(&#39;, &#39;)}.`
           : &#39;No hay filtro de equivalencias: se admitirán todas las cantidades.&#39;
       );
+    });
+    dtdPanel.addEventListener(&#39;click&#39;, (event) =&gt; {
+      if (digitalBusy || distanceBusy) return;
+      const columnAllButton = event.target.closest(&#39;[data-dtd-column-all]&#39;);
+      const valueButton = event.target.closest(&#39;[data-dtd-column][data-dtd-value]&#39;);
+      const sumsAllButton = event.target.closest(&#39;[data-dtd-sums-all]&#39;);
+      const naturalSumButton = event.target.closest(&#39;[data-dtd-natural-sum]&#39;);
+      const vsdtdGroupButton = event.target.closest(&#39;[data-dtd-vsdtd-group]&#39;);
+
+      if (columnAllButton) {
+        const key = columnAllButton.dataset.dtdColumnAll;
+        if (key === &#39;sdcd&#39;) digitalSelections[6] = new Set(DTD_DIGITAL_VALUES);
+        else if (key === &#39;vdft&#39;) terminationSelections[6] = new Set(DTD_DIGITAL_VALUES);
+        else if (key === &#39;vscd&#39;) distanceSumDigitalSelections = new Set(DTD_DIGITAL_VALUES);
+        else return;
+        invalidateDtdConfiguration(
+          `Se han activado los nueve valores de ${key.toUpperCase()}.`,
+          key === &#39;sdcd&#39; || key === &#39;vdft&#39;
+        );
+        return;
+      }
+
+      if (valueButton) {
+        const key = valueButton.dataset.dtdColumn;
+        const value = Number(valueButton.dataset.dtdValue);
+        let selection;
+        let affectsPositionalSignature = false;
+        if (key === &#39;sdcd&#39;) {
+          selection = digitalSelections[6];
+          affectsPositionalSignature = true;
+        } else if (key === &#39;vdft&#39;) {
+          selection = terminationSelections[6];
+          affectsPositionalSignature = true;
+        } else if (key === &#39;vscd&#39;) {
+          if (distanceSumDigitalSelections.size === 0 || distanceSumDigitalSelections.size === 9) {
+            distanceSumDigitalSelections = new Set([value]);
+          } else if (distanceSumDigitalSelections.has(value)) {
+            distanceSumDigitalSelections.delete(value);
+          } else {
+            distanceSumDigitalSelections.add(value);
+          }
+          selection = effectiveDtdVscdSelections();
+        } else {
+          return;
+        }
+        if (key !== &#39;vscd&#39;) {
+          if (selection.has(value)) selection.delete(value);
+          else selection.add(value);
+        }
+        invalidateDtdConfiguration(
+          `${key.toUpperCase()} actualizado: ${selection.size} de 9 valores activos.`,
+          affectsPositionalSignature
+        );
+        return;
+      }
+
+      if (sumsAllButton) {
+        dtdNaturalSumSelections = new Set(DTD_SUM_VALUES);
+        invalidateDtdConfiguration(&#39;Se admiten todas las sumas DTD, de 3 a 27.&#39;);
+        return;
+      }
+
+      if (naturalSumButton) {
+        const sum = Number(naturalSumButton.dataset.dtdNaturalSum);
+        if (dtdNaturalSumSelections.size === DTD_SUM_VALUES.length) {
+          dtdNaturalSumSelections = new Set([sum]);
+        } else if (dtdNaturalSumSelections.has(sum)) {
+          dtdNaturalSumSelections.delete(sum);
+        } else {
+          dtdNaturalSumSelections.add(sum);
+        }
+        invalidateDtdConfiguration(
+          dtdNaturalSumSelections.size
+            ? `${dtdNaturalSumSelections.size} de ${DTD_SUM_VALUES.length} sumas DTD activas.`
+            : &#39;No hay ninguna suma DTD activa. Selecciona una o pulsa «Todas las sumas».&#39;
+        );
+        return;
+      }
+
+      if (vsdtdGroupButton) {
+        const value = Number(vsdtdGroupButton.dataset.dtdVsdtdGroup);
+        const sums = dtdSumsForDigitalValue(value);
+        if (dtdNaturalSumSelections.size === DTD_SUM_VALUES.length) {
+          dtdNaturalSumSelections = new Set(sums);
+        } else {
+          const groupActive = sums.every((sum) =&gt; dtdNaturalSumSelections.has(sum));
+          sums.forEach((sum) =&gt; {
+            if (groupActive) dtdNaturalSumSelections.delete(sum);
+            else dtdNaturalSumSelections.add(sum);
+          });
+        }
+        invalidateDtdConfiguration(
+          `Grupo VSDTD ${value} actualizado: sumas ${sums.join(&#39;, &#39;)}.`
+        );
+      }
+    });
+    dtdOrderButton.addEventListener(&#39;click&#39;, () =&gt; {
+      if (digitalBusy || distanceBusy) return;
+      dtdPanelOrder = dtdPanelOrder === &#39;digital&#39; ? &#39;natural&#39; : &#39;digital&#39;;
+      renderDtdPanel();
+      setDtdMessage(
+        dtdPanelOrder === &#39;digital&#39;
+          ? &#39;Sumas DTD agrupadas por VSDTD; las selecciones se conservan.&#39;
+          : &#39;Sumas DTD ordenadas de 3 a 27; las selecciones se conservan.&#39;
+      );
+    });
+    dtdActivateAllButton.addEventListener(&#39;click&#39;, () =&gt; {
+      if (digitalBusy || distanceBusy) return;
+      digitalSelections[6] = new Set(DTD_DIGITAL_VALUES);
+      terminationSelections[6] = new Set(DTD_DIGITAL_VALUES);
+      distanceSumDigitalSelections = new Set(DTD_DIGITAL_VALUES);
+      dtdNaturalSumSelections = new Set(DTD_SUM_VALUES);
+      invalidateDtdConfiguration(&#39;Se han activado todos los valores y todas las sumas de la firma DTD.&#39;, true);
+    });
+    dtdClearSumsButton.addEventListener(&#39;click&#39;, () =&gt; {
+      if (digitalBusy || distanceBusy) return;
+      dtdNaturalSumSelections = new Set(DTD_SUM_VALUES);
+      invalidateDtdConfiguration(&#39;Se admiten todas las sumas DTD, de 3 a 27.&#39;);
+    });
+    dtdResetOccurrencesButton.addEventListener(&#39;click&#39;, () =&gt; {
+      if (digitalBusy || distanceBusy) return;
+      dtdOccurrenceMinimums = Array(9).fill(0);
+      dtdOccurrenceMaximums = Array(9).fill(3);
+      invalidateDtdConfiguration(&#39;Límites DTD restablecidos a 0–3: no restringen ninguna aparición.&#39;);
+    });
+    dtdOccurrenceGrid.addEventListener(&#39;change&#39;, (event) =&gt; {
+      if (digitalBusy || distanceBusy) return;
+      const minSelect = event.target.closest(&#39;[data-dtd-occurrence-min]&#39;);
+      const maxSelect = event.target.closest(&#39;[data-dtd-occurrence-max]&#39;);
+      if (!minSelect &amp;&amp; !maxSelect) return;
+      const value = Number((minSelect || maxSelect).dataset[minSelect ? &#39;dtdOccurrenceMin&#39; : &#39;dtdOccurrenceMax&#39;]);
+      const index = value - 1;
+      const count = Math.min(3, Math.max(0, Number((minSelect || maxSelect).value)));
+      if (minSelect) {
+        dtdOccurrenceMinimums[index] = count;
+        if (dtdOccurrenceMaximums[index] &lt; count) dtdOccurrenceMaximums[index] = count;
+      } else {
+        dtdOccurrenceMaximums[index] = count;
+        if (dtdOccurrenceMinimums[index] &gt; count) dtdOccurrenceMinimums[index] = count;
+      }
+      invalidateDtdConfiguration(
+        `Valor DTD ${value}: se admitirá entre ${dtdOccurrenceMinimums[index]} y ${dtdOccurrenceMaximums[index]} apariciones.`
+      );
+    });
+    dtdGenerateButton.addEventListener(&#39;click&#39;, async () =&gt; {
+      if (digitalBusy || distanceBusy) return;
+      setDtdMessage(&#39;Calculando el desarrollo con todos los criterios DTD activos…&#39;);
+      await generateDistanceFromPositionalSignature(true);
+      if (distanceGeneratedCombinations.length) {
+        setDtdMessage(
+          `Desarrollo DTD calculado: ${distanceGeneratedCombinations.length.toLocaleString(&#39;es-ES&#39;)} combinaciones naturales disponibles.`
+        );
+      }
     });
     digitalSelectAllButton.addEventListener(&#39;click&#39;, () =&gt; setAllDigitalValues(true));
     digitalClearSelectionButton.addEventListener(&#39;click&#39;, () =&gt; setAllDigitalValues(false));
@@ -16372,10 +17253,31 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         distancePanelOrder = distancePanelOrder === &#39;digital&#39; ? &#39;natural&#39; : &#39;digital&#39;;
         distanceSdClickState = { sd: null, count: 0, lastAt: 0 };
         buildDistancePanel();
+        buildDistanceSumOptions();
         invalidateDistanceDevelopment(
           distancePanelOrder === &#39;digital&#39;
-            ? &#39;Panel ordenado por valor digital. La selección natural se ha conservado.&#39;
-            : &#39;Se ha restaurado el orden natural de las distancias.&#39;
+            ? &#39;Distancias y sumas ordenadas por SD y VSCD. Las selecciones se han conservado.&#39;
+            : &#39;Se ha restaurado el orden natural de distancias y sumas.&#39;
+        );
+        return;
+      }
+
+      const vscdAllButton = event.target.closest(&#39;[data-distance-vscd-all]&#39;);
+      if (vscdAllButton) {
+        setAllDistanceSumDigitalValues(distanceSumDigitalSelections.size !== 9);
+        return;
+      }
+
+      const vscdButton = event.target.closest(&#39;[data-distance-vscd]&#39;);
+      if (vscdButton) {
+        const vscd = Number(vscdButton.dataset.distanceVscd);
+        if (distanceSumDigitalSelections.has(vscd)) distanceSumDigitalSelections.delete(vscd);
+        else distanceSumDigitalSelections.add(vscd);
+        const compatibleSums = DISTANCE_SUM_VALUES.filter((sum) =&gt; digitalRoot(sum) === vscd);
+        invalidateDistanceDevelopment(
+          distanceSumDigitalSelections.size
+            ? `VSCD actualizado: ${[...distanceSumDigitalSelections].sort((first, second) =&gt; first - second).map((value) =&gt; `VSCD${value}`).join(&#39;, &#39;)}. VSCD${vscd} representa las sumas ${compatibleSums.join(&#39;, &#39;)}.`
+            : &#39;No hay filtro VSCD: se admitirá cualquier valor digital de la suma.&#39;
         );
         return;
       }
@@ -16452,7 +17354,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       else distanceSumSelections.add(sum);
       invalidateDistanceDevelopment(
         distanceSumSelections.size
-          ? `${distanceSumSelections.size} sumas de firma activas.`
+          ? `${distanceSumSelections.size} sumas exactas activas; ${effectiveDistanceSums().size} cumplen también el criterio VSCD.`
           : &#39;No hay filtro de suma: se admitirán todas las sumas compatibles.&#39;
       );
     });
