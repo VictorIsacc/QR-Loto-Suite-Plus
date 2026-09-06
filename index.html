@@ -1645,7 +1645,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
     &lt;div class=&quot;lottery-section-label distance-heading&quot;&gt;
       &lt;div&gt;
         &lt;h2 id=&quot;lottery-distance-label&quot;&gt;Desarrollo por firma de distancias&lt;/h2&gt;
-        &lt;p class=&quot;text-muted&quot;&gt;Selecciona las distancias entre las cinco parejas contiguas. La suma de la firma equivale a P6 − P1 y determina cuántas combinaciones naturales desarrolla. La columna izquierda muestra cada distancia natural junto a su valor digital (SD); la nueva columna VSCD permite filtrar el valor digital de la suma. «Orden SD» agrupa ambas listas por sus valores digitales.&lt;/p&gt;
+        &lt;p class=&quot;text-muted&quot;&gt;Selecciona las distancias entre las cinco parejas contiguas. La suma de la firma equivale a P6 − P1 y determina cuántas combinaciones naturales desarrolla. La columna VSCD permite elegir directamente el valor digital de la suma de la firma de distancia.&lt;/p&gt;
       &lt;/div&gt;
       &lt;span class=&quot;viz-badge&quot; id=&quot;lottery-distance-total-badge&quot;&gt;Sin calcular&lt;/span&gt;
     &lt;/div&gt;
@@ -1709,31 +1709,6 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         &lt;/div&gt;
         &lt;button class=&quot;btn btn-ghost&quot; id=&quot;lottery-dtd-reset-occurrences&quot; type=&quot;button&quot;&gt;Restablecer 0–3&lt;/button&gt;
       &lt;/section&gt;
-    &lt;/div&gt;
-
-    &lt;div class=&quot;distance-digital-groups&quot; aria-labelledby=&quot;lottery-distance-digital-groups-label&quot;&gt;
-      &lt;div class=&quot;distance-digital-group-heading&quot;&gt;
-        &lt;div&gt;
-          &lt;h3 id=&quot;lottery-distance-digital-groups-label&quot;&gt;Valores digitales de distancia&lt;/h3&gt;
-          &lt;p class=&quot;text-muted&quot;&gt;Filtran conjuntamente las cinco parejas. Sin valores marcados se admiten todos los SD.&lt;/p&gt;
-        &lt;/div&gt;
-        &lt;label class=&quot;form-label distance-digital-random-label&quot; for=&quot;lottery-distance-digital-random-count&quot;&gt;
-          SD al pulsar Azar
-          &lt;select class=&quot;form-select&quot; id=&quot;lottery-distance-digital-random-count&quot;&gt;
-            &lt;option value=&quot;0&quot; selected&gt;0 · sin filtro&lt;/option&gt;
-            &lt;option value=&quot;1&quot;&gt;1&lt;/option&gt;
-            &lt;option value=&quot;2&quot;&gt;2&lt;/option&gt;
-            &lt;option value=&quot;3&quot;&gt;3&lt;/option&gt;
-            &lt;option value=&quot;4&quot;&gt;4&lt;/option&gt;
-            &lt;option value=&quot;5&quot;&gt;5&lt;/option&gt;
-            &lt;option value=&quot;6&quot;&gt;6&lt;/option&gt;
-            &lt;option value=&quot;7&quot;&gt;7&lt;/option&gt;
-            &lt;option value=&quot;8&quot;&gt;8&lt;/option&gt;
-            &lt;option value=&quot;9&quot;&gt;9&lt;/option&gt;
-          &lt;/select&gt;
-        &lt;/label&gt;
-      &lt;/div&gt;
-      &lt;div class=&quot;distance-digital-group-options&quot; id=&quot;lottery-distance-digital-group-options&quot; aria-label=&quot;Valores SD1 a SD9&quot;&gt;&lt;/div&gt;
     &lt;/div&gt;
 
     &lt;div class=&quot;distance-sum-panel&quot; aria-labelledby=&quot;lottery-distance-sum-label&quot;&gt;
@@ -4413,7 +4388,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
 
   #lottery-simulator-649 .distance-panel {
     display: grid;
-    grid-template-columns: minmax(6.2rem, 1.15fr) minmax(3.2rem, 0.58fr) repeat(5, minmax(2.8rem, 0.8fr)) minmax(6.2rem, 1.1fr);
+    grid-template-columns: minmax(5.4rem, 1fr) repeat(5, minmax(2.8rem, 0.8fr)) minmax(6.2rem, 1.1fr);
     gap: 0.28rem;
     min-width: 32rem;
     padding: 0.35rem;
@@ -4429,26 +4404,9 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
     #lottery-simulator-649 .distance-panel {
       width: 100%;
       min-width: 0;
-      grid-template-columns: minmax(5rem, 0.92fr) minmax(2.8rem, 0.5fr) repeat(5, minmax(2.4rem, 0.58fr)) minmax(5.1rem, 0.96fr);
+      grid-template-columns: minmax(4.8rem, 0.9fr) repeat(5, minmax(2.4rem, 0.62fr)) minmax(5.1rem, 0.96fr);
       gap: 0.2rem;
     }
-  }
-
-  #lottery-simulator-649 .distance-global-sd-button {
-    color: #cffafe;
-    border-color: color-mix(in srgb, #22d3ee 62%, var(--border));
-    background: color-mix(in srgb, #155e75 58%, var(--card));
-    font-weight: 850;
-  }
-
-  #lottery-simulator-649 .distance-global-sd-button[aria-pressed=&quot;true&quot;] {
-    color: #1f1800;
-    border-color: #fde68a;
-    background: linear-gradient(145deg, #fff36a, #facc15);
-  }
-
-  #lottery-simulator-649 .distance-global-sd-placeholder {
-    min-height: 2rem;
   }
 
   #lottery-simulator-649 .distance-grid-cell,
@@ -4590,78 +4548,6 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
     border-color: #5eead4;
     background: linear-gradient(145deg, #99f6e4, #2dd4bf);
     box-shadow: inset 3px 0 #0f766e, 0 0 0 1px color-mix(in srgb, #2dd4bf 45%, transparent);
-  }
-
-  #lottery-simulator-649 .distance-digital-groups {
-    display: none;
-    gap: 0.65rem;
-    padding: 0.8rem;
-    border: 1px solid color-mix(in srgb, #22d3ee 34%, var(--border));
-    border-radius: 0.8rem;
-    background: color-mix(in srgb, #155e75 9%, var(--card));
-  }
-
-  #lottery-simulator-649 .distance-digital-groups h3,
-  #lottery-simulator-649 .distance-digital-groups p {
-    margin: 0;
-  }
-
-  #lottery-simulator-649 .distance-digital-group-heading {
-    display: flex;
-    align-items: end;
-    justify-content: space-between;
-    gap: 0.75rem;
-  }
-
-  #lottery-simulator-649 .distance-digital-random-label {
-    flex: 0 0 auto;
-    min-width: 9.5rem;
-    margin: 0;
-  }
-
-  #lottery-simulator-649 .distance-digital-random-label .form-select {
-    min-width: 9.5rem;
-  }
-
-  #lottery-simulator-649 .distance-digital-group-options {
-    display: grid;
-    grid-template-columns: repeat(9, minmax(2.8rem, 1fr));
-    gap: 0.4rem;
-  }
-
-  #lottery-simulator-649 .distance-digital-group-button {
-    min-height: 2.35rem;
-    padding: 0.35rem 0.25rem;
-    border: 1px solid color-mix(in srgb, #22d3ee 62%, var(--border));
-    border-radius: 0.45rem;
-    color: #cffafe;
-    background: linear-gradient(145deg, #164e63, #155e75);
-    font-weight: 850;
-    cursor: pointer;
-    touch-action: manipulation;
-  }
-
-  #lottery-simulator-649 .distance-digital-group-button[aria-pressed=&quot;true&quot;] {
-    color: #1f1800;
-    border-color: #fde68a;
-    background: linear-gradient(145deg, #fff36a, #facc15);
-    box-shadow: 0 0 0 1px color-mix(in srgb, #facc15 45%, transparent);
-  }
-
-  @media (max-width: 600px) {
-    #lottery-simulator-649 .distance-digital-group-heading {
-      align-items: stretch;
-      flex-direction: column;
-    }
-
-    #lottery-simulator-649 .distance-digital-random-label,
-    #lottery-simulator-649 .distance-digital-random-label .form-select {
-      width: 100%;
-    }
-
-    #lottery-simulator-649 .distance-digital-group-options {
-      grid-template-columns: repeat(5, minmax(2.8rem, 1fr));
-    }
   }
 
   #lottery-simulator-649 .distance-sum-panel {
@@ -6972,8 +6858,6 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
     const digitalQrButton = root.querySelector(&#39;#lottery-digital-qr&#39;);
     const digitalClearResultButton = root.querySelector(&#39;#lottery-digital-clear-result&#39;);
     const distancePanel = root.querySelector(&#39;#lottery-distance-panel&#39;);
-    const distanceDigitalGroupOptions = root.querySelector(&#39;#lottery-distance-digital-group-options&#39;);
-    const distanceDigitalRandomCount = root.querySelector(&#39;#lottery-distance-digital-random-count&#39;);
     const distanceSumOptions = root.querySelector(&#39;#lottery-distance-sum-options&#39;);
     const distanceSumsAllButton = root.querySelector(&#39;#lottery-distance-sums-all&#39;);
     const distanceSumsClearButton = root.querySelector(&#39;#lottery-distance-sums-clear&#39;);
@@ -7249,10 +7133,6 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
     let digitalQrWarningArmed = false;
     let digitalLastAnalysis = null;
     let distanceSelections = Array.from({ length: 5 }, () =&gt; new Set());
-    let distanceDigitalSelections = new Set();
-    let distancePanelOrder = &#39;natural&#39;;
-    let distanceSdClickState = { sd: null, count: 0, lastAt: 0 };
-    const DISTANCE_SD_CLICK_WINDOW = 1200;
     let distanceSumSelections = new Set();
     let distanceSumDigitalSelections = new Set();
     let dtdNaturalSumSelections = new Set(Array.from({ length: 25 }, (_, index) =&gt; index + 3));
@@ -7330,46 +7210,12 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
     const DTD_DIGITAL_VALUES = Array.from({ length: 9 }, (_, index) =&gt; index + 1);
     const DTD_SUM_VALUES = Array.from({ length: 25 }, (_, index) =&gt; index + 3);
 
-    function orderedDistanceValues() {
-      const values = [...DISTANCE_VALUES];
-      if (distancePanelOrder !== &#39;digital&#39;) return values;
-      return values.sort(
-        (first, second) =&gt; digitalRoot(first) - digitalRoot(second) || first - second
-      );
-    }
-
     function orderedDistanceSumValues() {
-      const values = [...DISTANCE_SUM_VALUES];
-      if (distancePanelOrder !== &#39;digital&#39;) return values;
-      return values.sort(
-        (first, second) =&gt; digitalRoot(first) - digitalRoot(second) || first - second
-      );
-    }
-
-    function distanceValuesForDigitalValue(sd) {
-      return DISTANCE_VALUES.filter((value) =&gt; digitalRoot(value) === sd);
+      return [...DISTANCE_SUM_VALUES];
     }
 
     function effectiveDistanceSelections() {
-      return distanceSelections.map((selection) =&gt;
-        [...selection].filter((value) =&gt;
-          distanceDigitalSelections.size === 0 || distanceDigitalSelections.has(digitalRoot(value))
-        )
-      );
-    }
-
-    function toggleDistanceDigitalGroup(sd) {
-      const values = distanceValuesForDigitalValue(sd);
-      const allSelected = distanceSelections.every((selection) =&gt;
-        values.every((value) =&gt; selection.has(value))
-      );
-      distanceSelections.forEach((selection) =&gt; {
-        values.forEach((value) =&gt; {
-          if (allSelected) selection.delete(value);
-          else selection.add(value);
-        });
-      });
-      return { values, allSelected };
+      return distanceSelections.map((selection) =&gt; [...selection]);
     }
     const euroFormatter = new Intl.NumberFormat(&#39;es-ES&#39;, {
       style: &#39;currency&#39;,
@@ -9098,10 +8944,6 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       randomButton.title = &#39;Activa al azar la cantidad indicada en cada pareja&#39;;
       distancePanel.appendChild(randomButton);
 
-      distanceDigitalRandomCount.classList.add(&#39;distance-random-count&#39;, &#39;distance-sd-global-random&#39;);
-      distanceDigitalRandomCount.setAttribute(&#39;aria-label&#39;, &#39;Cantidad aleatoria de valores digitales de distancia al pulsar Azar&#39;);
-      distancePanel.appendChild(distanceDigitalRandomCount);
-
       DISTANCE_COLUMN_LABELS.forEach((label, column) =&gt; {
         const select = createDistancePanelCell(
           &#39;select&#39;,
@@ -9135,27 +8977,9 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       }
       distancePanel.appendChild(vscdRandomSelect);
 
-      const orderToggle = createDistancePanelCell(
-        &#39;button&#39;,
-        &#39;Orden SD&#39;,
-        &#39;distance-panel-button distance-order-toggle distance-global-column&#39;
+      distancePanel.appendChild(
+        createDistancePanelCell(&#39;span&#39;, &#39;Todas&#39;, &#39;distance-grid-cell distance-grid-header distance-global-column&#39;)
       );
-      orderToggle.type = &#39;button&#39;;
-      orderToggle.dataset.distanceOrderToggle = &#39;true&#39;;
-      orderToggle.setAttribute(&#39;aria-pressed&#39;, &#39;false&#39;);
-      orderToggle.setAttribute(&#39;aria-label&#39;, &#39;Ordenar las distancias naturales por su valor digital&#39;);
-      orderToggle.title = &#39;Pulsa para ordenar 1–44 por SD1–SD9; vuelve a pulsar para recuperar el orden natural.&#39;;
-      distancePanel.appendChild(orderToggle);
-      const sdAllButton = createDistancePanelCell(
-        &#39;button&#39;,
-        &#39;✓ SD&#39;,
-        &#39;distance-panel-button distance-global-sd-button&#39;
-      );
-      sdAllButton.type = &#39;button&#39;;
-      sdAllButton.dataset.distanceInlineDigitalAll = &#39;true&#39;;
-      sdAllButton.setAttribute(&#39;aria-pressed&#39;, &#39;false&#39;);
-      sdAllButton.setAttribute(&#39;aria-label&#39;, &#39;Activar o desactivar los nueve valores digitales de distancia&#39;);
-      distancePanel.appendChild(sdAllButton);
       DISTANCE_COLUMN_LABELS.forEach((label, column) =&gt; {
         const button = createDistancePanelCell(
           &#39;button&#39;,
@@ -9181,10 +9005,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       distancePanel.appendChild(vscdAllButton);
 
       distancePanel.appendChild(
-        createDistancePanelCell(&#39;span&#39;, &#39;Dist. · SD&#39;, &#39;distance-grid-cell distance-grid-header distance-global-column&#39;)
-      );
-      distancePanel.appendChild(
-        createDistancePanelCell(&#39;span&#39;, &#39;SD&#39;, &#39;distance-grid-cell distance-grid-header&#39;)
+        createDistancePanelCell(&#39;span&#39;, &#39;Distancia&#39;, &#39;distance-grid-cell distance-grid-header distance-global-column&#39;)
       );
       DISTANCE_COLUMN_LABELS.forEach((label, column) =&gt; {
         distancePanel.appendChild(
@@ -9195,40 +9016,20 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         createDistancePanelCell(&#39;span&#39;, &#39;VSCD&#39;, &#39;distance-grid-cell distance-grid-header distance-vscd-column&#39;)
       );
 
-      const orderedDistances = orderedDistanceValues();
+      const orderedDistances = [...DISTANCE_VALUES];
       const orderedSums = orderedDistanceSumValues();
       orderedDistances.forEach((value, rowIndex) =&gt; {
-        const displayLabel = `${value} · SD${digitalRoot(value)}`;
         const rowButton = createDistancePanelCell(
           &#39;button&#39;,
-          displayLabel,
+          String(value),
           &#39;distance-panel-button distance-row-all distance-global-column&#39;
         );
         rowButton.type = &#39;button&#39;;
         rowButton.dataset.distanceSelectRow = String(value);
         rowButton.setAttribute(&#39;aria-pressed&#39;, &#39;false&#39;);
-        rowButton.setAttribute(&#39;aria-label&#39;, `Activar o desactivar la distancia natural ${value}, SD${digitalRoot(value)}, en las cinco parejas`);
-        rowButton.title = `Distancia ${value} · SD${digitalRoot(value)}. Pulsa tres veces seguidas para activar todos los valores SD${digitalRoot(value)} en las cinco parejas; una cuarta pulsación los desactiva.`;
+        rowButton.setAttribute(&#39;aria-label&#39;, `Activar o desactivar la distancia natural ${value} en las cinco parejas`);
+        rowButton.title = `Distancia ${value}: activar o desactivar en las cinco parejas.`;
         distancePanel.appendChild(rowButton);
-        if (rowIndex &lt; DTD_DIGITAL_VALUES.length) {
-          const sd = DTD_DIGITAL_VALUES[rowIndex];
-          const values = distanceValuesForDigitalValue(sd);
-          const sdButton = createDistancePanelCell(
-            &#39;button&#39;,
-            `SD${sd}`,
-            &#39;distance-panel-button distance-global-sd-button&#39;
-          );
-          sdButton.type = &#39;button&#39;;
-          sdButton.dataset.distanceInlineDigitalGroup = String(sd);
-          sdButton.setAttribute(&#39;aria-pressed&#39;, &#39;false&#39;);
-          sdButton.setAttribute(&#39;aria-label&#39;, `Filtrar conjuntamente las cinco parejas por SD${sd}`);
-          sdButton.title = `SD${sd}: distancias ${values.join(&#39;, &#39;)}`;
-          distancePanel.appendChild(sdButton);
-        } else {
-          distancePanel.appendChild(
-            createDistancePanelCell(&#39;span&#39;, &#39;&#39;, &#39;distance-global-sd-placeholder&#39;)
-          );
-        }
         DISTANCE_COLUMN_LABELS.forEach((label, column) =&gt; {
           const button = createDistancePanelCell(
             &#39;button&#39;,
@@ -9261,25 +9062,6 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       });
     }
 
-    function buildDistanceDigitalGroupOptions() {
-      distanceDigitalGroupOptions.replaceChildren();
-      for (let sd = 1; sd &lt;= 9; sd += 1) {
-        const values = distanceValuesForDigitalValue(sd);
-        const button = document.createElement(&#39;button&#39;);
-        button.className = &#39;distance-digital-group-button&#39;;
-        button.type = &#39;button&#39;;
-        button.dataset.distanceDigitalGroup = String(sd);
-        button.setAttribute(&#39;aria-pressed&#39;, &#39;false&#39;);
-        button.setAttribute(
-          &#39;aria-label&#39;,
-          `Activar o desactivar SD${sd}: distancias ${values.join(&#39;, &#39;)}`
-        );
-        button.title = `SD${sd}: ${values.join(&#39;, &#39;)}`;
-        button.textContent = `SD${sd}`;
-        distanceDigitalGroupOptions.appendChild(button);
-      }
-    }
-
     function buildDistanceSumOptions() {
       distanceSumOptions.replaceChildren();
       orderedDistanceSumValues().forEach((sum) =&gt; {
@@ -9307,6 +9089,36 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
           distanceSumDigitalSelections.size === 0 || distanceSumDigitalSelections.has(digitalRoot(sum))
         )
       );
+    }
+
+    function reachableDistanceSumsFromSelections() {
+      let reachable = new Set([0]);
+      for (const selection of effectiveDistanceSelections()) {
+        const next = new Set();
+        for (const partial of reachable) {
+          for (const distance of selection) {
+            const sum = partial + distance;
+            if (sum &lt;= 48) next.add(sum);
+          }
+        }
+        reachable = next;
+        if (reachable.size === 0) break;
+      }
+      return new Set([...reachable].filter((sum) =&gt; DISTANCE_SUM_VALUES.includes(sum)));
+    }
+
+    function describeDistanceSumConflict(reachableSums, allowedSums) {
+      const reachableVscd = [...new Set([...reachableSums].map(digitalRoot))].sort((a, b) =&gt; a - b);
+      const selectedVscd = distanceSumDigitalSelections.size
+        ? [...distanceSumDigitalSelections].sort((a, b) =&gt; a - b)
+        : DTD_DIGITAL_VALUES;
+      const exactLabel = distanceSumSelections.size
+        ? ` y las sumas exactas ${[...distanceSumSelections].sort((a, b) =&gt; a - b).join(&#39;, &#39;)}`
+        : &#39;&#39;;
+      const message = `Las distancias activas en D1–2 a D5–6 solo permiten ${reachableVscd.length
+        ? reachableVscd.map((value) =&gt; `VSCD${value}`).join(&#39;, &#39;)
+        : &#39;ningún VSCD&#39;}; no pueden coincidir con ${selectedVscd.map((value) =&gt; `VSCD${value}`).join(&#39;, &#39;)}${exactLabel}. Ajusta alguna distancia o cambia VSCD.`;
+      return { message, compatibleSums: [...reachableSums].filter((sum) =&gt; allowedSums.has(sum)) };
     }
 
     function distanceCrossModeLabel(mode = distanceGeneratedCrossMode) {
@@ -9340,19 +9152,6 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         chip.append(name, document.createTextNode(`${distanceSelections[column].size} de 44`));
         distanceSelectionSummary.appendChild(chip);
       });
-      const digitalChip = document.createElement(&#39;span&#39;);
-      digitalChip.className = &#39;digital-selection-chip&#39;;
-      const digitalName = document.createElement(&#39;strong&#39;);
-      digitalName.textContent = &#39;SD distancia&#39;;
-      digitalChip.append(
-        digitalName,
-        document.createTextNode(
-          distanceDigitalSelections.size
-            ? [...distanceDigitalSelections].sort((first, second) =&gt; first - second).map((value) =&gt; `SD${value}`).join(&#39; · &#39;)
-            : &#39;todos · sin filtro&#39;
-        )
-      );
-      distanceSelectionSummary.appendChild(digitalChip);
       const vscdChip = document.createElement(&#39;span&#39;);
       vscdChip.className = &#39;digital-selection-chip&#39;;
       const vscdName = document.createElement(&#39;strong&#39;);
@@ -9419,10 +9218,6 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       distancePanel.querySelectorAll(&#39;button, select&#39;).forEach((control) =&gt; {
         control.disabled = distanceBusy;
       });
-      distanceDigitalGroupOptions.querySelectorAll(&#39;button&#39;).forEach((control) =&gt; {
-        control.disabled = distanceBusy;
-      });
-      distanceDigitalRandomCount.disabled = distanceBusy;
       distanceSumOptions.querySelectorAll(&#39;button&#39;).forEach((control) =&gt; {
         control.disabled = distanceBusy;
       });
@@ -9430,18 +9225,6 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
     }
 
     function renderDistancePanel() {
-      const orderToggle = distancePanel.querySelector(&#39;[data-distance-order-toggle]&#39;);
-      if (orderToggle) {
-        const digitalOrder = distancePanelOrder === &#39;digital&#39;;
-        orderToggle.textContent = digitalOrder ? &#39;Orden natural&#39; : &#39;Orden SD&#39;;
-        orderToggle.setAttribute(&#39;aria-pressed&#39;, String(digitalOrder));
-        orderToggle.setAttribute(
-          &#39;aria-label&#39;,
-          digitalOrder
-            ? &#39;Restaurar el orden natural de las distancias&#39;
-            : &#39;Ordenar las distancias naturales por su valor digital&#39;
-        );
-      }
       distancePanel.querySelectorAll(&#39;[data-distance-value]&#39;).forEach((button) =&gt; {
         const column = Number(button.dataset.distanceColumn);
         const value = Number(button.dataset.distanceValue);
@@ -9472,18 +9255,6 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
           String(distanceSumDigitalSelections.size === 9)
         );
       }
-      distancePanel.querySelectorAll(&#39;[data-distance-inline-digital-group]&#39;).forEach((button) =&gt; {
-        const sd = Number(button.dataset.distanceInlineDigitalGroup);
-        button.setAttribute(&#39;aria-pressed&#39;, String(distanceDigitalSelections.has(sd)));
-      });
-      const inlineSdAllButton = distancePanel.querySelector(&#39;[data-distance-inline-digital-all]&#39;);
-      if (inlineSdAllButton) {
-        inlineSdAllButton.setAttribute(&#39;aria-pressed&#39;, String(distanceDigitalSelections.size === 9));
-      }
-      distanceDigitalGroupOptions.querySelectorAll(&#39;[data-distance-digital-group]&#39;).forEach((button) =&gt; {
-        const sd = Number(button.dataset.distanceDigitalGroup);
-        button.setAttribute(&#39;aria-pressed&#39;, String(distanceDigitalSelections.has(sd)));
-      });
       distanceSumOptions.querySelectorAll(&#39;[data-distance-sum]&#39;).forEach((button) =&gt; {
         button.setAttribute(
           &#39;aria-pressed&#39;,
@@ -9537,7 +9308,6 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         { length: 5 },
         () =&gt; new Set(active ? DISTANCE_VALUES : [])
       );
-      distanceDigitalSelections = new Set(active ? [1, 2, 3, 4, 5, 6, 7, 8, 9] : []);
       invalidateDistanceDevelopment(
         active
           ? &#39;Se han activado las distancias 1–44 en las cinco parejas. Revisa el límite antes de calcular.&#39;
@@ -9564,16 +9334,6 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         }
         return new Set(shuffled.slice(0, requested));
       });
-      const requestedDigital = Math.min(
-        9,
-        Math.max(0, Math.trunc(Number(distanceDigitalRandomCount.value)) || 0)
-      );
-      const shuffledDigital = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-      for (let index = shuffledDigital.length - 1; index &gt; 0; index -= 1) {
-        const other = Math.floor(Math.random() * (index + 1));
-        [shuffledDigital[index], shuffledDigital[other]] = [shuffledDigital[other], shuffledDigital[index]];
-      }
-      distanceDigitalSelections = new Set(shuffledDigital.slice(0, requestedDigital));
       const vscdRandomCount = Math.min(
         9,
         Math.max(
@@ -9590,9 +9350,9 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       }
       distanceSumDigitalSelections = new Set(shuffledVscd.slice(0, vscdRandomCount));
       invalidateDistanceDevelopment(
-        requestedDigital || vscdRandomCount
-          ? `Selección aleatoria realizada con ${requestedDigital} valores SD de distancia y ${vscdRandomCount} valores VSCD.`
-          : &#39;Selección aleatoria de distancias realizada sin filtros SD ni VSCD adicionales.&#39;
+        vscdRandomCount
+          ? `Selección aleatoria realizada con ${vscdRandomCount} valores VSCD.`
+          : &#39;Selección aleatoria de distancias realizada sin filtro VSCD adicional.&#39;
       );
     }
 
@@ -9846,7 +9606,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
     async function generateDistanceDevelopment() {
       if (distanceBusy) return;
       if (effectiveDistanceSelections().some((selection) =&gt; selection.length === 0)) {
-        setDistanceMessage(&#39;Activa al menos una distancia compatible con el filtro SD en cada pareja D1–2 a D5–6.&#39;, &#39;error&#39;);
+        setDistanceMessage(&#39;Activa al menos una distancia en cada pareja D1–2 a D5–6.&#39;, &#39;error&#39;);
         return;
       }
       if (effectiveDistanceSums().size === 0) {
@@ -9855,6 +9615,16 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       }
       const crossMode = distanceCrossModeSelect.value;
       if (!validateDistanceCrossMode(crossMode)) return;
+      const allowedSums = effectiveDistanceSums();
+      const distanceSumConflict = describeDistanceSumConflict(
+        reachableDistanceSumsFromSelections(),
+        allowedSums
+      );
+      if (distanceSumConflict.compatibleSums.length === 0) {
+        setDistanceMessage(distanceSumConflict.message, &#39;error&#39;);
+        if (crossMode === &#39;both&#39;) setDtdMessage(distanceSumConflict.message, &#39;error&#39;);
+        return;
+      }
       if (distanceSourceInputSelect.value !== &#39;universe&#39;) {
         await filterLoadedCombinationsByDistance(crossMode);
         return;
@@ -11769,8 +11539,7 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
           terminationEquivalenceSelections: [...terminationEquivalenceSelections],
           digitalGeneratedCombinations, digitalGeneratedPatternCount, digitalGeneratedSignatureMode,
           distanceSelections: serialiseSetList(distanceSelections),
-          distanceDigitalSelections: [...distanceDigitalSelections],
-          distancePanelOrder, distanceSumSelections: [...distanceSumSelections],
+          distanceSumSelections: [...distanceSumSelections],
           distanceSumDigitalSelections: [...distanceSumDigitalSelections],
           dtdNaturalSumSelections: [...dtdNaturalSumSelections],
           dtdPanelOrder,
@@ -11840,8 +11609,6 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       digitalGeneratedSignatureMode = state.digitalGeneratedSignatureMode ?? &#39;digital&#39;;
       distanceSelections = (state.distanceSelections ?? []).map((entry) =&gt; new Set(entry.map(Number)));
       while (distanceSelections.length &lt; 5) distanceSelections.push(new Set());
-      distanceDigitalSelections = new Set((state.distanceDigitalSelections ?? []).map(Number));
-      distancePanelOrder = state.distancePanelOrder === &#39;digital&#39; ? &#39;digital&#39; : &#39;natural&#39;;
       distanceSumSelections = new Set((state.distanceSumSelections ?? []).map(Number));
       distanceSumDigitalSelections = new Set((state.distanceSumDigitalSelections ?? []).map(Number));
       const restoredDtdSums = Array.isArray(state.dtdNaturalSumSelections)
@@ -17374,32 +17141,6 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
         return;
       }
 
-      const inlineSdAllButton = event.target.closest(&#39;[data-distance-inline-digital-all]&#39;);
-      if (inlineSdAllButton) {
-        distanceDigitalSelections = new Set(
-          distanceDigitalSelections.size === 9 ? [] : DTD_DIGITAL_VALUES
-        );
-        invalidateDistanceDevelopment(
-          distanceDigitalSelections.size === 9
-            ? &#39;Se han activado SD1–SD9 como filtro conjunto de las cinco parejas.&#39;
-            : &#39;Se ha desactivado el filtro SD conjunto; se admitirán todos los valores digitales compatibles.&#39;
-        );
-        return;
-      }
-
-      const inlineSdButton = event.target.closest(&#39;[data-distance-inline-digital-group]&#39;);
-      if (inlineSdButton) {
-        const sd = Number(inlineSdButton.dataset.distanceInlineDigitalGroup);
-        if (distanceDigitalSelections.has(sd)) distanceDigitalSelections.delete(sd);
-        else distanceDigitalSelections.add(sd);
-        invalidateDistanceDevelopment(
-          distanceDigitalSelections.size
-            ? `Filtro SD conjunto actualizado: ${[...distanceDigitalSelections].sort((first, second) =&gt; first - second).map((value) =&gt; `SD${value}`).join(&#39;, &#39;)}.`
-            : &#39;No hay filtro SD conjunto: se admitirán todos los valores digitales compatibles.&#39;
-        );
-        return;
-      }
-
       const selectColumnButton = event.target.closest(&#39;[data-distance-select-column]&#39;);
       if (selectColumnButton) {
         const column = Number(selectColumnButton.dataset.distanceSelectColumn);
@@ -17411,20 +17152,6 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
           allSelected
             ? `Se han desactivado todas las distancias de ${DISTANCE_COLUMN_LABELS[column]}.`
             : `Se han activado todas las distancias de ${DISTANCE_COLUMN_LABELS[column]}.`
-        );
-        return;
-      }
-
-      const orderToggle = event.target.closest(&#39;[data-distance-order-toggle]&#39;);
-      if (orderToggle) {
-        distancePanelOrder = distancePanelOrder === &#39;digital&#39; ? &#39;natural&#39; : &#39;digital&#39;;
-        distanceSdClickState = { sd: null, count: 0, lastAt: 0 };
-        buildDistancePanel();
-        buildDistanceSumOptions();
-        invalidateDistanceDevelopment(
-          distancePanelOrder === &#39;digital&#39;
-            ? &#39;Distancias y sumas ordenadas por SD y VSCD. Las selecciones se han conservado.&#39;
-            : &#39;Se ha restaurado el orden natural de distancias y sumas.&#39;
         );
         return;
       }
@@ -17452,28 +17179,6 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       const selectRowButton = event.target.closest(&#39;[data-distance-select-row]&#39;);
       if (selectRowButton) {
         const value = Number(selectRowButton.dataset.distanceSelectRow);
-        const sd = digitalRoot(value);
-        const now = Date.now();
-        const sameSequence =
-          distancePanelOrder === &#39;digital&#39; &amp;&amp;
-          distanceSdClickState.sd === sd &amp;&amp;
-          now - distanceSdClickState.lastAt &lt;= DISTANCE_SD_CLICK_WINDOW;
-        distanceSdClickState = {
-          sd,
-          count: sameSequence ? distanceSdClickState.count + 1 : 1,
-          lastAt: now
-        };
-        if (distancePanelOrder === &#39;digital&#39; &amp;&amp; distanceSdClickState.count &gt;= 3) {
-          const { values, allSelected } = toggleDistanceDigitalGroup(sd);
-          const clickCount = distanceSdClickState.count;
-          if (clickCount &gt;= 4) distanceSdClickState = { sd: null, count: 0, lastAt: 0 };
-          invalidateDistanceDevelopment(
-            allSelected
-              ? `Se han desactivado ${values.length} distancias con SD${sd} en las cinco parejas.`
-              : `Se han activado ${values.length} distancias con SD${sd} en las cinco parejas. Puedes ajustar cada pareja individualmente.`
-          );
-          return;
-        }
         const selectedInEveryPair = distanceSelections.every((selection) =&gt;
           selection.has(value)
         );
@@ -17497,19 +17202,6 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
       else distanceSelections[column].add(value);
       invalidateDistanceDevelopment(
         `${DISTANCE_COLUMN_LABELS[column]} actualizado: ${distanceSelections[column].size} de 44 distancias activas.`
-      );
-    });
-    distanceDigitalGroupOptions.addEventListener(&#39;click&#39;, (event) =&gt; {
-      if (distanceBusy) return;
-      const button = event.target.closest(&#39;[data-distance-digital-group]&#39;);
-      if (!button) return;
-      const sd = Number(button.dataset.distanceDigitalGroup);
-      if (distanceDigitalSelections.has(sd)) distanceDigitalSelections.delete(sd);
-      else distanceDigitalSelections.add(sd);
-      invalidateDistanceDevelopment(
-        distanceDigitalSelections.size
-          ? `Filtro SD actualizado: ${[...distanceDigitalSelections].sort((first, second) =&gt; first - second).map((value) =&gt; `SD${value}`).join(&#39;, &#39;)}.`
-          : &#39;No hay filtro SD de distancia: se admitirán todos los valores digitales compatibles.&#39;
       );
     });
     distanceSumOptions.addEventListener(&#39;click&#39;, (event) =&gt; {
@@ -17814,7 +17506,6 @@ html&gt;body{padding:0}#lottery-simulator-649 .lottery-signature{display:none!im
     buildDigitalPanel();
     clearDigitalGeneratedResult();
     buildDistancePanel();
-    buildDistanceDigitalGroupOptions();
     buildDistanceSumOptions();
     renderDistancePanel();
     clearDistanceGeneratedResult();
