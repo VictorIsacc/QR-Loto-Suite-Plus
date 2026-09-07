@@ -1,10 +1,10 @@
 {
-  "id": "./",
+  "id": "/QR-Loto-Suite-Plus/",
   "name": "QR Loto Suite Plus",
   "short_name": "QR Loto Plus",
   "description": "QR Loto Suite Plus con PTCQ y LotoLens integrados para generación, análisis histórico, filtrado y transferencia de desarrollos.",
-  "start_url": "./",
-  "scope": "./",
+  "start_url": "/QR-Loto-Suite-Plus/",
+  "scope": "/QR-Loto-Suite-Plus/",
   "display": "standalone",
   "background_color": "#061127",
   "theme_color": "#061127",
